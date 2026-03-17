@@ -14,6 +14,10 @@ pub struct Config {
     pub rate_limit_starter: u32,
     /// Rate limit: requests per minute for pro plan
     pub rate_limit_pro: u32,
+    /// Stripe webhook signing secret
+    pub stripe_webhook_secret: String,
+    /// Stripe secret key for API calls
+    pub stripe_secret_key: String,
 }
 
 impl Config {
@@ -44,6 +48,8 @@ impl Config {
                 .ok()
                 .and_then(|v| v.parse().ok())
                 .unwrap_or(1000),
+            stripe_webhook_secret: env::var("STRIPE_WEBHOOK_SECRET").unwrap_or_default(),
+            stripe_secret_key: env::var("STRIPE_SECRET_KEY").unwrap_or_default(),
         }
     }
 }
