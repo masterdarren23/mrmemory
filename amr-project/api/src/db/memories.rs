@@ -1,0 +1,162 @@
+use chrono::{DateTime, Utc};
+use sqlx::PgPool;
+use uuid::Uuid;
+
+use crate::error::AppError;
+use crate::models::*;
+
+/// Row from the memories table.
+#[derive(Debug, sqlx::FromRow)]
+pub struct MemoryRow {
+    pub id: Uuid,
+    pub external_id: String,
+    pub tenant_id: Uuid,
+    pub agent_id: String,
+    pub namespace: String,
+    pub content: String,
+    pub tags: Vec<String>,
+    pub metadata: serde_json::Value,
+    pub expires_at: Option<DateTime<Utc>>,
+    pub created_at: DateTime<Utc>,
+    pub updated_at: DateTime<Utc>,
+}
+
+impl MemoryRow {
+    pub fn to_response(&self) -> MemoryResponse {
+        MemoryResponse {
+            id: self.external_id.clone(),
+            content: self.content.clone(),
+            tags: self.tags.clone(),
+            namespace: self.namespace.clone(),
+            agent_id: self.agent_id.clone(),
+            metadata: self.metadata.clone(),
+            expires_at: self.expires_at,
+            created_at: self.created_at,
+            updated_at: self.updated_at,
+        }
+    }
+}
+
+/// Insert a new memory. Returns the created row.
+pub async fn insert_memory(
+    db: &PgPool,
+    tenant_id: Uuid,
+    req: &CreateMemoryRequest,
+) -> Result<MemoryRow, AppError> {
+    let id = Uuid::new_v4();
+    let external_id = format!("mem_{}", id.simple().to_string().get(..12).unwrap_or("000000000000"));
+    let agent_id = req.agent_id.clone().unwrap_or_else(|| "default".into());
+    let now = Utc::now();
+    let expires_at = req.ttl_seconds.map(|s| now + chrono::Duration::seconds(s));
+
+    let row = sqlx::query_as!(
+        MemoryRow,
+        r#"
+        INSERT INTO memories
+            (id, external_id, tenant_id, agent_id, namespace, content, tags, metadata, expires_at, created_at, updated_at)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $10)
+        RETURNING id, external_id, tenant_id, agent_id, namespace, content, tags, metadata, expires_at, created_at, updated_at
+        "#,
+        id,
+        external_id,
+        tenant_id,
+        agent_id,
+        &req.namespace,
+        &req.content,
+        &req.tags,
+        &req.metadata,
+        expires_at,
+        now
+    )
+    .fetch_one(db)
+    .await?;
+
+    Ok(row)
+}
+
+/// List memories with filters, pagination, time ordering.
+pub async fn list_memories(
+    db: &PgPool,
+    tenant_id: Uuid,
+    namespace: Option<&str>,
+    agent_id: Option<&str>,
+    limit: i64,
+    offset: i64,
+) -> Result<(Vec<MemoryRow>, i64), AppError> {
+    // Count total
+    let total: i64 = sqlx::query_scalar!(
+        r#"
+        SELECT COUNT(*) as "count!"
+        FROM memories
+        WHERE tenant_id = $1
+          AND ($2::TEXT IS NULL OR namespace = $2)
+          AND ($3::TEXT IS NULL OR agent_id = $3)
+        "#,
+        tenant_id,
+        namespace,
+        agent_id
+    )
+    .fetch_one(db)
+    .await?;
+
+    let rows = sqlx::query_as!(
+        MemoryRow,
+        r#"
+        SELECT id, external_id, tenant_id, agent_id, namespace, content, tags, metadata, expires_at, created_at, updated_at
+        FROM memories
+        WHERE tenant_id = $1
+          AND ($2::TEXT IS NULL OR namespace = $2)
+          AND ($3::TEXT IS NULL OR agent_id = $3)
+        ORDER BY created_at DESC
+        LIMIT $4 OFFSET $5
+        "#,
+        tenant_id,
+        namespace,
+        agent_id,
+        limit,
+        offset
+    )
+    .fetch_all(db)
+    .await?;
+
+    Ok((rows, total))
+}
+
+/// Get a single memory by external_id, scoped to tenant.
+pub async fn get_memory_by_external_id(
+    db: &PgPool,
+    tenant_id: Uuid,
+    external_id: &str,
+) -> Result<Option<MemoryRow>, AppError> {
+    let row = sqlx::query_as!(
+        MemoryRow,
+        r#"
+        SELECT id, external_id, tenant_id, agent_id, namespace, content, tags, metadata, expires_at, created_at, updated_at
+        FROM memories
+        WHERE tenant_id = $1 AND external_id = $2
+        "#,
+        tenant_id,
+        external_id
+    )
+    .fetch_optional(db)
+    .await?;
+
+    Ok(row)
+}
+
+/// Delete a memory by external_id. Returns true if deleted.
+pub async fn delete_memory(
+    db: &PgPool,
+    tenant_id: Uuid,
+    external_id: &str,
+) -> Result<bool, AppError> {
+    let result = sqlx::query!(
+        "DELETE FROM memories WHERE tenant_id = $1 AND external_id = $2",
+        tenant_id,
+        external_id
+    )
+    .execute(db)
+    .await?;
+
+    Ok(result.rows_affected() > 0)
+}

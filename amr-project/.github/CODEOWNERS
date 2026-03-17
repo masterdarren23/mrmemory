@@ -1,0 +1,8 @@
+# AMR Code Owners
+/api/               @amr-team/backend
+/sdk-python/        @amr-team/sdk
+/sdk-typescript/    @amr-team/sdk
+/landing-page/      @amr-team/frontend
+/docs/              @amr-team/docs
+/.github/           @amr-team/devops
+/docker-compose.yml @amr-team/devops

@@ -1,0 +1,77 @@
+// AMR Project - OpenClaw Config Snippet
+// Add these entries to your openclaw.json
+
+{
+  // Add to agents.list array:
+  "agents": {
+    "list": [
+      // main (Mr. Dogood) already exists - skip
+
+      {
+        "id": "backend",
+        "name": "Backend",
+        "model": "anthropic/claude-sonnet-4-20250514",
+        "workspace": "amr-project/agent-backend",
+        "description": "Backend API engineer — Rust, storage, vectors, auth"
+      },
+      {
+        "id": "sdk",
+        "name": "SDK",
+        "model": "anthropic/claude-sonnet-4-20250514",
+        "workspace": "amr-project/agent-sdk",
+        "description": "SDK/Integration engineer — Python, TS, Rust client libs"
+      },
+      {
+        "id": "frontend",
+        "name": "Frontend",
+        "model": "anthropic/claude-sonnet-4-20250514",
+        "workspace": "amr-project/agent-frontend",
+        "description": "Frontend/DX — landing page, docs, dashboard, onboarding"
+      },
+      {
+        "id": "marketing",
+        "name": "Marketing",
+        "model": "anthropic/claude-sonnet-4-20250514",
+        "workspace": "amr-project/agent-marketing",
+        "description": "Growth — content, social, launch strategy"
+      },
+      {
+        "id": "devops",
+        "name": "DevOps",
+        "model": "anthropic/claude-sonnet-4-20250514",
+        "workspace": "amr-project/agent-devops",
+        "description": "DevOps/QA — CI/CD, deployment, monitoring, security"
+      }
+    ],
+
+    // Agent-to-agent communication bindings
+    // All agents can message main (Mr. Dogood) for coordination
+    // Main can message all agents
+    "bindings": {
+      "main": {
+        "canMessage": ["backend", "sdk", "frontend", "marketing", "devops"],
+        "canBeMessagedBy": ["backend", "sdk", "frontend", "marketing", "devops"]
+      },
+      "backend": {
+        "canMessage": ["main", "sdk", "devops"],
+        "canBeMessagedBy": ["main", "sdk", "devops"]
+      },
+      "sdk": {
+        "canMessage": ["main", "backend", "frontend"],
+        "canBeMessagedBy": ["main", "backend", "frontend"]
+      },
+      "frontend": {
+        "canMessage": ["main", "sdk", "marketing"],
+        "canBeMessagedBy": ["main", "sdk", "marketing"]
+      },
+      "marketing": {
+        "canMessage": ["main", "frontend"],
+        "canBeMessagedBy": ["main", "frontend"]
+      },
+      "devops": {
+        "canMessage": ["main", "backend"],
+        "canBeMessagedBy": ["main", "backend"]
+      }
+    }
+  }
+}

@@ -1,0 +1,6 @@
+-- Rollback initial schema
+DROP TABLE IF EXISTS usage_daily CASCADE;
+DROP TABLE IF EXISTS memory_shares CASCADE;
+DROP TABLE IF EXISTS memories CASCADE;
+DROP TABLE IF EXISTS api_keys CASCADE;
+DROP TABLE IF EXISTS tenants CASCADE;

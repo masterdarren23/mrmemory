@@ -1,0 +1,44 @@
+{
+  "name": "memorymr",
+  "version": "0.1.0",
+  "description": "Agent Memory Relay — persistent long-term memory for AI agents",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "tsc --noEmit"
+  },
+  "keywords": [
+    "ai",
+    "agents",
+    "memory",
+    "llm",
+    "semantic-search"
+  ],
+  "license": "MIT",
+  "homepage": "https://mrmemory.dev",
+  "repository": "https://github.com/amr-dev/amr-typescript",
+  "devDependencies": {
+    "@types/node": "^25.5.0",
+    "msw": "^2.7",
+    "typescript": "^5.7",
+    "vitest": "^3.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

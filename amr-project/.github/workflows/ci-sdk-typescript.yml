@@ -1,0 +1,27 @@
+name: CI — SDK TypeScript
+
+on:
+  pull_request:
+    paths: ["sdk-typescript/**"]
+  push:
+    branches: [main, staging]
+    paths: ["sdk-typescript/**"]
+
+jobs:
+  test:
+    name: Lint & Test
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: sdk-typescript
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: sdk-typescript/package-lock.json
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm test
