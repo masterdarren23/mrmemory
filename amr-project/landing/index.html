@@ -252,12 +252,18 @@ footer .container{display:flex;justify-content:space-between;align-items:center;
       </div>
 <pre><span class="kw">from</span> mrmemory <span class="kw">import</span> AMR
 
-amr = AMR(<span class="str">"amr_sk_..."</span>)
-amr.<span class="fn">remember</span>(<span class="str">"User prefers dark mode and vim keybindings"</span>)
+client = AMR(<span class="str">"amr_sk_..."</span>, agent_id=<span class="str">"trading-bot"</span>, namespace=<span class="str">"weather-trading"</span>)
 
-<span class="cmt"># Later, in any session...</span>
-memories = amr.<span class="fn">recall</span>(<span class="str">"What are the user's preferences?"</span>)
-<span class="cmt"># → "User prefers dark mode and vim keybindings" (score: 0.94)</span></pre>
+<span class="cmt"># Store a memory</span>
+client.<span class="fn">remember</span>(
+    <span class="str">"Customer wants a weather prediction model"</span>,
+    tags=[<span class="str">"weather"</span>, <span class="str">"prediction"</span>, <span class="str">"intent"</span>]
+)
+
+<span class="cmt"># Recall with semantic search</span>
+results = client.<span class="fn">recall</span>(<span class="str">"What does this customer want?"</span>)
+<span class="kw">for</span> memory <span class="kw">in</span> results:
+    print(memory.content, memory.similarity)</pre>
     </div>
   </div>
 </section>
