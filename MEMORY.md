@@ -58,6 +58,11 @@
 - SDK: Python + TypeScript SDKs complete with tests
 - Marketing: All content ready, needs manual posting (no social API access)
 - Infra: Dockerfile, docker-compose, CI/CD workflow created
+- **SDKs PUBLISHED**: `pip install mrmemory` (PyPI) + `npm install memorymr` (npm)
+- GitHub: https://github.com/masterdarren23/mrmemory (auto-deploys to Vercel)
+- Landing page: mrmemory.dev (Vercel, root dir: amr-project/landing, docs at /docs)
+- Stripe payment link: https://buy.stripe.com/9B6eVf0Jw0GefiP36l8g000 ($5/mo only)
+- Post-payment flow built: webhook → auto-provision tenant + API key → welcome page
 - **BACKEND LIVE** at https://amr-memory-api.fly.dev (Fly.io, sjc region)
 - Fly app: amr-memory-api, Fly PG: amr-db
 - PostgreSQL 17 (local + Fly), OpenAI embeddings wired

@@ -17,19 +17,16 @@ pub async fn create_api_key(
     let hash = hash_api_key(&raw_key);
     let prefix = key_prefix(&raw_key);
 
-    sqlx::query!(
-        r#"
-        INSERT INTO api_keys (id, external_id, tenant_id, name, key_hash, key_prefix, scopes)
-        VALUES ($1, $2, $3, $4, $5, $6, $7)
-        "#,
-        id,
-        external_id,
-        tenant_id,
-        name,
-        &hash,
-        prefix,
-        scopes
+    sqlx::query(
+        "INSERT INTO api_keys (id, external_id, tenant_id, name, key_hash, key_prefix, scopes) VALUES ($1, $2, $3, $4, $5, $6, $7)"
     )
+    .bind(id)
+    .bind(&external_id)
+    .bind(tenant_id)
+    .bind(name)
+    .bind(&hash)
+    .bind(&prefix)
+    .bind(scopes)
     .execute(db)
     .await?;
 

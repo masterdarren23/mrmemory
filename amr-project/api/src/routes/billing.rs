@@ -14,7 +14,6 @@ type HmacSha256 = Hmac<Sha256>;
 
 // ── Stripe Webhook ──────────────────────────────────────────
 
-/// POST /v1/billing/webhook — receive Stripe events.
 pub async fn stripe_webhook(
     State(state): State<AppState>,
     headers: HeaderMap,
@@ -25,10 +24,8 @@ pub async fn stripe_webhook(
         .and_then(|v| v.to_str().ok())
         .ok_or_else(|| AppError::BadRequest("missing stripe-signature".into()))?;
 
-    // Verify signature
     verify_stripe_signature(&body, sig_header, &state.config.stripe_webhook_secret)?;
 
-    // Parse event
     let event: serde_json::Value =
         serde_json::from_slice(&body).map_err(|e| AppError::BadRequest(e.to_string()))?;
 
@@ -58,43 +55,40 @@ async fn handle_checkout_completed(
     let external_id = format!("tenant_{}", &Uuid::new_v4().to_string()[..12]);
 
     // Check if tenant already exists (idempotency)
-    let existing: Option<Uuid> = sqlx::query_scalar!(
-        r#"SELECT id FROM tenants WHERE email = $1"#,
-        email
+    let existing: Option<(Uuid,)> = sqlx::query_as(
+        "SELECT id FROM tenants WHERE email = $1"
     )
+    .bind(email)
     .fetch_optional(&state.db)
     .await?;
 
     if existing.is_some() {
         tracing::info!("Tenant already exists for {}, skipping", email);
-        // Update stripe fields if missing
-        sqlx::query!(
-            r#"UPDATE tenants SET stripe_customer_id = COALESCE(stripe_customer_id, $1),
-               stripe_session_id = COALESCE(stripe_session_id, $2) WHERE email = $3"#,
-            stripe_customer_id,
-            stripe_session_id,
-            email
+        sqlx::query(
+            "UPDATE tenants SET stripe_customer_id = COALESCE(stripe_customer_id, $1), stripe_session_id = COALESCE(stripe_session_id, $2) WHERE email = $3"
         )
+        .bind(stripe_customer_id)
+        .bind(stripe_session_id)
+        .bind(email)
         .execute(&state.db)
         .await?;
         return Ok(());
     }
 
     // Create tenant
-    let tenant_id = sqlx::query_scalar!(
-        r#"INSERT INTO tenants (external_id, name, email, plan, stripe_customer_id, stripe_session_id)
-           VALUES ($1, $2, $3, 'starter', $4, $5)
-           RETURNING id"#,
-        external_id,
-        name,
-        email,
-        stripe_customer_id,
-        stripe_session_id,
+    let row: (Uuid,) = sqlx::query_as(
+        "INSERT INTO tenants (external_id, name, email, plan, stripe_customer_id, stripe_session_id) VALUES ($1, $2, $3, 'starter', $4, $5) RETURNING id"
     )
+    .bind(&external_id)
+    .bind(name)
+    .bind(email)
+    .bind(stripe_customer_id)
+    .bind(stripe_session_id)
     .fetch_one(&state.db)
     .await?;
 
-    // Create default API key
+    let tenant_id = row.0;
+
     let scopes = vec![
         "memories:read".into(),
         "memories:write".into(),
@@ -109,7 +103,6 @@ async fn handle_checkout_completed(
 }
 
 fn verify_stripe_signature(payload: &[u8], sig_header: &str, secret: &str) -> Result<(), AppError> {
-    // Parse header: t=timestamp,v1=signature
     let mut timestamp = None;
     let mut signature = None;
 
@@ -125,7 +118,6 @@ fn verify_stripe_signature(payload: &[u8], sig_header: &str, secret: &str) -> Re
     let timestamp = timestamp.ok_or_else(|| AppError::BadRequest("missing timestamp".into()))?;
     let signature = signature.ok_or_else(|| AppError::BadRequest("missing signature".into()))?;
 
-    // Compute expected signature
     let signed_payload = format!("{}.{}", timestamp, String::from_utf8_lossy(payload));
     let mut mac =
         HmacSha256::new_from_slice(secret.as_bytes()).map_err(|_| AppError::BadRequest("bad secret".into()))?;
@@ -139,7 +131,6 @@ fn verify_stripe_signature(payload: &[u8], sig_header: &str, secret: &str) -> Re
     Ok(())
 }
 
-/// Constant-time comparison
 fn constant_time_eq(a: &[u8], b: &[u8]) -> bool {
     if a.len() != b.len() {
         return false;
@@ -154,7 +145,6 @@ pub struct WelcomeQuery {
     pub session_id: Option<String>,
 }
 
-/// GET /v1/welcome — post-payment welcome page
 pub async fn welcome_page(
     State(state): State<AppState>,
     Query(params): Query<WelcomeQuery>,
@@ -164,13 +154,11 @@ pub async fn welcome_page(
         _ => return Html(generic_welcome()),
     };
 
-    // Try to look up tenant + API key via Stripe session ID
     let result = lookup_by_session(&state, session_id).await;
 
     match result {
         Ok(Some(info)) => Html(personalized_welcome(&info)),
         _ => {
-            // If not found yet (webhook might be delayed), try fetching from Stripe API
             match fetch_session_and_provision(&state, session_id).await {
                 Ok(Some(info)) => Html(personalized_welcome(&info)),
                 _ => Html(generic_welcome()),
@@ -185,24 +173,18 @@ struct WelcomeInfo {
 }
 
 async fn lookup_by_session(state: &AppState, session_id: &str) -> Result<Option<WelcomeInfo>, AppError> {
-    // Find tenant by stripe_session_id
-    let tenant = sqlx::query!(
-        r#"SELECT id, email FROM tenants WHERE stripe_session_id = $1"#,
-        session_id
+    let tenant: Option<(Uuid, String)> = sqlx::query_as(
+        "SELECT id, email FROM tenants WHERE stripe_session_id = $1"
     )
+    .bind(session_id)
     .fetch_optional(&state.db)
     .await?;
 
-    let tenant = match tenant {
+    let (tenant_id, email) = match tenant {
         Some(t) => t,
         None => return Ok(None),
     };
 
-    // Get the most recent API key (unhashed — we can't recover it)
-    // We need to store the raw key temporarily or fetch from a different approach.
-    // Actually, we can't recover the raw key from the hash.
-    // Solution: store the raw key in a welcome_keys table or just show "check email".
-    // For now, let's create a fresh key if they visit the welcome page.
     let scopes = vec![
         "memories:read".into(),
         "memories:write".into(),
@@ -210,12 +192,9 @@ async fn lookup_by_session(state: &AppState, session_id: &str) -> Result<Option<
         "memories:delete".into(),
         "usage:read".into(),
     ];
-    let (_key_id, raw_key) = create_api_key(&state.db, tenant.id, "welcome-page", &scopes).await?;
+    let (_key_id, raw_key) = create_api_key(&state.db, tenant_id, "welcome-page", &scopes).await?;
 
-    Ok(Some(WelcomeInfo {
-        email: tenant.email,
-        api_key: raw_key,
-    }))
+    Ok(Some(WelcomeInfo { email, api_key: raw_key }))
 }
 
 async fn fetch_session_and_provision(state: &AppState, session_id: &str) -> Result<Option<WelcomeInfo>, AppError> {
@@ -223,13 +202,9 @@ async fn fetch_session_and_provision(state: &AppState, session_id: &str) -> Resu
         return Ok(None);
     }
 
-    // Fetch session from Stripe API
     let client = reqwest::Client::new();
     let resp = client
-        .get(&format!(
-            "https://api.stripe.com/v1/checkout/sessions/{}",
-            session_id
-        ))
+        .get(&format!("https://api.stripe.com/v1/checkout/sessions/{}", session_id))
         .bearer_auth(&state.config.stripe_secret_key)
         .send()
         .await
@@ -253,41 +228,37 @@ async fn fetch_session_and_provision(state: &AppState, session_id: &str) -> Resu
 
     let stripe_customer_id = session["customer"].as_str().unwrap_or("");
 
-    // Check if tenant exists
-    let existing = sqlx::query!(
-        r#"SELECT id, email FROM tenants WHERE email = $1"#,
-        email
+    let existing: Option<(Uuid, String)> = sqlx::query_as(
+        "SELECT id, email FROM tenants WHERE email = $1"
     )
+    .bind(email)
     .fetch_optional(&state.db)
     .await?;
 
-    let tenant_id = if let Some(t) = existing {
-        // Update stripe fields
-        sqlx::query!(
-            r#"UPDATE tenants SET stripe_session_id = $1, stripe_customer_id = COALESCE(stripe_customer_id, $2) WHERE id = $3"#,
-            session_id,
-            stripe_customer_id,
-            t.id
+    let tenant_id = if let Some((id, _)) = existing {
+        sqlx::query(
+            "UPDATE tenants SET stripe_session_id = $1, stripe_customer_id = COALESCE(stripe_customer_id, $2) WHERE id = $3"
         )
+        .bind(session_id)
+        .bind(stripe_customer_id)
+        .bind(id)
         .execute(&state.db)
         .await?;
-        t.id
+        id
     } else {
-        // Create tenant
         let external_id = format!("tenant_{}", &Uuid::new_v4().to_string()[..12]);
         let name = email.split('@').next().unwrap_or("user");
-        sqlx::query_scalar!(
-            r#"INSERT INTO tenants (external_id, name, email, plan, stripe_customer_id, stripe_session_id)
-               VALUES ($1, $2, $3, 'starter', $4, $5)
-               RETURNING id"#,
-            external_id,
-            name,
-            email,
-            stripe_customer_id,
-            session_id,
+        let row: (Uuid,) = sqlx::query_as(
+            "INSERT INTO tenants (external_id, name, email, plan, stripe_customer_id, stripe_session_id) VALUES ($1, $2, $3, 'starter', $4, $5) RETURNING id"
         )
+        .bind(&external_id)
+        .bind(name)
+        .bind(email)
+        .bind(stripe_customer_id)
+        .bind(session_id)
         .fetch_one(&state.db)
-        .await?
+        .await?;
+        row.0
     };
 
     let scopes = vec![
@@ -343,21 +314,18 @@ fn personalized_welcome(info: &WelcomeInfo) -> String {
   <p class="warning">⚠️ Save this key now — you won't be able to see it again.</p>
 
   <h2>Quick Start</h2>
-  <pre><code># Store a memory
-curl -X POST https://amr-memory-api.fly.dev/v1/memories \
-  -H "Authorization: Bearer {api_key}" \
-  -H "Content-Type: application/json" \
-  -d '{{"content": "User prefers dark mode", "agent_id": "my-agent"}}'
+  <pre><code>pip install mrmemory
 
-# Search memories
-curl "https://amr-memory-api.fly.dev/v1/memories?q=dark+mode" \
-  -H "Authorization: Bearer {api_key}"</code></pre>
+from mrmemory import AMR
+amr = AMR("{api_key}")
+amr.remember("User prefers dark mode")
+memories = amr.recall("What does the user like?")</code></pre>
 
   <h2>Next Steps</h2>
   <ul style="margin-left: 20px; line-height: 2;">
-    <li>Read the <a href="https://amr-memory-api.fly.dev/docs">API docs</a></li>
-    <li>Join our <a href="#">Discord community</a></li>
-    <li>Integrate with your AI agent in minutes</li>
+    <li>Read the <a href="https://mrmemory.dev/docs">API docs</a></li>
+    <li>Python: <code>pip install mrmemory</code></li>
+    <li>TypeScript: <code>npm install memorymr</code></li>
   </ul>
 </div>
 </body>
@@ -385,9 +353,9 @@ fn generic_welcome() -> String {
 </head>
 <body>
 <div class="card">
-  <h1>🎉 Thank you for your purchase!</h1>
-  <p>Your AMR account is being set up. You'll receive an email with your API key and getting-started instructions shortly.</p>
-  <p style="margin-top: 24px;">Questions? Reach out at <a href="mailto:support@agentmemoryrelay.com">support@agentmemoryrelay.com</a></p>
+  <h1>🎉 Thank you!</h1>
+  <p>Your AMR account is being set up. Please wait a moment and refresh this page.</p>
+  <p style="margin-top: 24px;">If your API key doesn't appear, email <a href="mailto:support@mrmemory.dev">support@mrmemory.dev</a></p>
 </div>
 </body>
 </html>"##

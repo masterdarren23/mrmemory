@@ -94,58 +94,71 @@ footer{border-top:1px solid var(--border);padding:32px 0;text-align:center;font-
 <p>Base URL: <code>https://amr-memory-api.fly.dev</code></p>
 
 <div class="endpoint">
-  <span class="method post">POST</span><span class="path">/v1/remember</span>
-  <p style="margin-top:12px">Store a new memory.</p>
-  <pre><code>curl -X POST https://amr-memory-api.fly.dev/v1/remember \
+  <span class="method post">POST</span><span class="path">/v1/memories</span>
+  <p style="margin-top:12px">Store a new memory. Content is automatically embedded and indexed for semantic search.</p>
+  <pre><code>curl -X POST https://amr-memory-api.fly.dev/v1/memories \
   -H "Authorization: Bearer amr_sk_..." \
   -H "Content-Type: application/json" \
-  -d '{"content": "User prefers dark mode", "tags": ["preferences"]}'</code></pre>
+  -d '{"content": "User prefers dark mode", "tags": ["preferences"], "namespace": "settings"}'</code></pre>
 </div>
 
 <div class="endpoint">
-  <span class="method get">GET</span><span class="path">/v1/recall?q=query</span>
-  <p style="margin-top:12px">Semantic search across stored memories.</p>
-  <pre><code>curl "https://amr-memory-api.fly.dev/v1/recall?q=user+preferences" \
+  <span class="method get">GET</span><span class="path">/v1/memories/recall?query=...</span>
+  <p style="margin-top:12px">Semantic search across stored memories. Returns results ranked by cosine similarity.</p>
+  <pre><code>curl "https://amr-memory-api.fly.dev/v1/memories/recall?query=user+preferences&limit=5&threshold=0.7" \
   -H "Authorization: Bearer amr_sk_..."</code></pre>
 </div>
 
 <div class="endpoint">
-  <span class="method delete">DELETE</span><span class="path">/v1/forget/:id</span>
+  <span class="method delete">DELETE</span><span class="path">/v1/memories/:id</span>
   <p style="margin-top:12px">Delete a specific memory by ID.</p>
-  <pre><code>curl -X DELETE https://amr-memory-api.fly.dev/v1/forget/mem_abc123 \
+  <pre><code>curl -X DELETE https://amr-memory-api.fly.dev/v1/memories/mem_abc123 \
   -H "Authorization: Bearer amr_sk_..."</code></pre>
 </div>
 
 <div class="endpoint">
   <span class="method get">GET</span><span class="path">/v1/memories</span>
   <p style="margin-top:12px">List all stored memories (paginated).</p>
-  <pre><code>curl "https://amr-memory-api.fly.dev/v1/memories" \
+  <pre><code>curl "https://amr-memory-api.fly.dev/v1/memories?namespace=settings&limit=20&offset=0" \
   -H "Authorization: Bearer amr_sk_..."</code></pre>
+</div>
+
+<div class="endpoint">
+  <span class="method get">WS</span><span class="path">/v1/ws?token=amr_sk_...</span>
+  <p style="margin-top:12px">Real-time WebSocket for live memory events between agents. Subscribe to namespaces/agents and receive instant notifications.</p>
+  <pre><code>// Connect
+ws = new WebSocket("wss://amr-memory-api.fly.dev/v1/ws?token=amr_sk_...")
+
+// Subscribe to events
+ws.send(JSON.stringify({"type": "subscribe", "namespace": "weather-trading"}))
+
+// Receive real-time events
+// {"type": "memory.created", "memory": {...}, "namespace": "...", "agent_id": "..."}</code></pre>
 </div>
 
 <!-- Python SDK -->
 <h2 id="python-sdk">Python SDK</h2>
-<pre><code>from amr import AMR
+<pre><code>from mrmemory import AMR
 
-amr = AMR("amr_sk_...")
+client = AMR("amr_sk_...", agent_id="my-bot", namespace="user-prefs")
 
 # Store a memory
-amr.remember("User prefers dark mode and vim keybindings")
+client.remember("User prefers dark mode and vim keybindings", tags=["preferences"])
 
 # Semantic recall
-memories = amr.recall("What are the user's preferences?")
+memories = client.recall("What are the user's preferences?")
 for m in memories:
-    print(m.content, m.score)
+    print(m.content, m.similarity)
 
 # Forget a memory
-amr.forget(memories[0].id)</code></pre>
+client.forget(memories[0].id)</code></pre>
 
 <h3>Async</h3>
-<pre><code>from amr import AsyncAMR
+<pre><code>from mrmemory import AsyncAMR
 
-async with AsyncAMR("amr_sk_...") as amr:
-    await amr.remember("User prefers dark mode")
-    memories = await amr.recall("preferences")</code></pre>
+async with AsyncAMR("amr_sk_...", agent_id="my-bot") as client:
+    await client.remember("User prefers dark mode")
+    memories = await client.recall("preferences")</code></pre>
 
 <!-- TypeScript SDK -->
 <h2 id="typescript-sdk">TypeScript SDK</h2>

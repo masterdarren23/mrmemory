@@ -1,0 +1,2 @@
+-- This migration was previously applied but the file was lost.
+-- Empty stub to satisfy sqlx migration tracking.

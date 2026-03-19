@@ -49,25 +49,19 @@ pub async fn insert_memory(
     let now = Utc::now();
     let expires_at = req.ttl_seconds.map(|s| now + chrono::Duration::seconds(s));
 
-    let row = sqlx::query_as!(
-        MemoryRow,
-        r#"
-        INSERT INTO memories
-            (id, external_id, tenant_id, agent_id, namespace, content, tags, metadata, expires_at, created_at, updated_at)
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $10)
-        RETURNING id, external_id, tenant_id, agent_id, namespace, content, tags, metadata, expires_at, created_at, updated_at
-        "#,
-        id,
-        external_id,
-        tenant_id,
-        agent_id,
-        &req.namespace,
-        &req.content,
-        &req.tags,
-        &req.metadata,
-        expires_at,
-        now
+    let row: MemoryRow = sqlx::query_as(
+        "INSERT INTO memories (id, external_id, tenant_id, agent_id, namespace, content, tags, metadata, expires_at, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $10) RETURNING id, external_id, tenant_id, agent_id, namespace, content, tags, metadata, expires_at, created_at, updated_at"
     )
+    .bind(id)
+    .bind(&external_id)
+    .bind(tenant_id)
+    .bind(&agent_id)
+    .bind(&req.namespace)
+    .bind(&req.content)
+    .bind(&req.tags)
+    .bind(&req.metadata)
+    .bind(expires_at)
+    .bind(now)
     .fetch_one(db)
     .await?;
 
@@ -83,43 +77,27 @@ pub async fn list_memories(
     limit: i64,
     offset: i64,
 ) -> Result<(Vec<MemoryRow>, i64), AppError> {
-    // Count total
-    let total: i64 = sqlx::query_scalar!(
-        r#"
-        SELECT COUNT(*) as "count!"
-        FROM memories
-        WHERE tenant_id = $1
-          AND ($2::TEXT IS NULL OR namespace = $2)
-          AND ($3::TEXT IS NULL OR agent_id = $3)
-        "#,
-        tenant_id,
-        namespace,
-        agent_id
+    let total: (i64,) = sqlx::query_as(
+        "SELECT COUNT(*) FROM memories WHERE tenant_id = $1 AND ($2::TEXT IS NULL OR namespace = $2) AND ($3::TEXT IS NULL OR agent_id = $3)"
     )
+    .bind(tenant_id)
+    .bind(namespace)
+    .bind(agent_id)
     .fetch_one(db)
     .await?;
 
-    let rows = sqlx::query_as!(
-        MemoryRow,
-        r#"
-        SELECT id, external_id, tenant_id, agent_id, namespace, content, tags, metadata, expires_at, created_at, updated_at
-        FROM memories
-        WHERE tenant_id = $1
-          AND ($2::TEXT IS NULL OR namespace = $2)
-          AND ($3::TEXT IS NULL OR agent_id = $3)
-        ORDER BY created_at DESC
-        LIMIT $4 OFFSET $5
-        "#,
-        tenant_id,
-        namespace,
-        agent_id,
-        limit,
-        offset
+    let rows: Vec<MemoryRow> = sqlx::query_as(
+        "SELECT id, external_id, tenant_id, agent_id, namespace, content, tags, metadata, expires_at, created_at, updated_at FROM memories WHERE tenant_id = $1 AND ($2::TEXT IS NULL OR namespace = $2) AND ($3::TEXT IS NULL OR agent_id = $3) ORDER BY created_at DESC LIMIT $4 OFFSET $5"
     )
+    .bind(tenant_id)
+    .bind(namespace)
+    .bind(agent_id)
+    .bind(limit)
+    .bind(offset)
     .fetch_all(db)
     .await?;
 
-    Ok((rows, total))
+    Ok((rows, total.0))
 }
 
 /// Get a single memory by external_id, scoped to tenant.
@@ -128,16 +106,11 @@ pub async fn get_memory_by_external_id(
     tenant_id: Uuid,
     external_id: &str,
 ) -> Result<Option<MemoryRow>, AppError> {
-    let row = sqlx::query_as!(
-        MemoryRow,
-        r#"
-        SELECT id, external_id, tenant_id, agent_id, namespace, content, tags, metadata, expires_at, created_at, updated_at
-        FROM memories
-        WHERE tenant_id = $1 AND external_id = $2
-        "#,
-        tenant_id,
-        external_id
+    let row: Option<MemoryRow> = sqlx::query_as(
+        "SELECT id, external_id, tenant_id, agent_id, namespace, content, tags, metadata, expires_at, created_at, updated_at FROM memories WHERE tenant_id = $1 AND external_id = $2"
     )
+    .bind(tenant_id)
+    .bind(external_id)
     .fetch_optional(db)
     .await?;
 
@@ -150,11 +123,11 @@ pub async fn delete_memory(
     tenant_id: Uuid,
     external_id: &str,
 ) -> Result<bool, AppError> {
-    let result = sqlx::query!(
-        "DELETE FROM memories WHERE tenant_id = $1 AND external_id = $2",
-        tenant_id,
-        external_id
+    let result = sqlx::query(
+        "DELETE FROM memories WHERE tenant_id = $1 AND external_id = $2"
     )
+    .bind(tenant_id)
+    .bind(external_id)
     .execute(db)
     .await?;
 

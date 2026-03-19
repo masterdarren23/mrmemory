@@ -9,6 +9,7 @@ use crate::db::memories as db;
 use crate::error::AppError;
 use crate::models::*;
 use crate::state::AppState;
+use crate::ws::MemoryEvent;
 
 /// POST /v1/memories — store a memory.
 async fn create_memory(
@@ -35,7 +36,48 @@ async fn create_memory(
     }
 
     let row = db::insert_memory(&state.db, tenant.tenant_id, &body).await?;
-    Ok((StatusCode::CREATED, Json(row.to_response())))
+
+    // Generate embedding and upsert to Qdrant (best-effort, don't fail the request).
+    if !state.config.openai_api_key.is_empty() {
+        let embed_state = state.clone();
+        let content = row.content.clone();
+        let external_id = row.external_id.clone();
+        let tenant_id_str = row.tenant_id.to_string();
+        let namespace = row.namespace.clone();
+        let agent_id = row.agent_id.clone();
+        tokio::spawn(async move {
+            match embed_state.get_embedding(&content).await {
+                Ok(vector) => {
+                    let point_id = uuid::Uuid::new_v4().to_string();
+                    let payload = serde_json::json!({
+                        "tenant_id": tenant_id_str,
+                        "external_id": external_id,
+                        "namespace": namespace,
+                        "agent_id": agent_id,
+                    });
+                    if let Err(e) = embed_state.qdrant_upsert(&point_id, vector, payload).await {
+                        tracing::warn!("Qdrant upsert failed for {}: {}", external_id, e);
+                    }
+                }
+                Err(e) => {
+                    tracing::warn!("Embedding generation failed for {}: {}", external_id, e);
+                }
+            }
+        });
+    }
+
+    // Broadcast memory.created event to WebSocket subscribers.
+    let response = row.to_response();
+    state.ws.broadcast(MemoryEvent {
+        event_type: "memory.created".into(),
+        memory: serde_json::to_value(&response).ok(),
+        memory_id: Some(response.id.clone()),
+        namespace: Some(response.namespace.clone()),
+        agent_id: Some(response.agent_id.clone()),
+        tenant_id: tenant.tenant_id,
+    });
+
+    Ok((StatusCode::CREATED, Json(response)))
 }
 
 /// GET /v1/memories/recall — semantic search (stub: returns all with fake score).
@@ -49,33 +91,54 @@ async fn recall_memories(
     }
 
     let start = Instant::now();
+    let limit = params.limit.min(100);
 
-    // TODO: Replace with Qdrant vector search.
-    // For now, fall back to listing recent memories as stub results.
-    let limit = params.limit.min(100) as i64;
-    let (rows, _total) = db::list_memories(
-        &state.db,
-        tenant.tenant_id,
-        params.namespace.as_deref(),
-        params.agent_id.as_deref(),
-        limit,
-        0,
-    )
-    .await?;
+    // Build Qdrant filter for tenant + optional namespace/agent_id.
+    let mut must = vec![serde_json::json!({
+        "key": "tenant_id",
+        "match": { "value": tenant.tenant_id.to_string() }
+    })];
+    if let Some(ref ns) = params.namespace {
+        must.push(serde_json::json!({
+            "key": "namespace",
+            "match": { "value": ns }
+        }));
+    }
+    if let Some(ref aid) = params.agent_id {
+        must.push(serde_json::json!({
+            "key": "agent_id",
+            "match": { "value": aid }
+        }));
+    }
+    let filter = serde_json::json!({ "must": must });
 
-    let memories: Vec<RecallResult> = rows
-        .iter()
-        .map(|r| RecallResult {
-            id: r.external_id.clone(),
-            content: r.content.clone(),
-            tags: r.tags.clone(),
-            namespace: r.namespace.clone(),
-            agent_id: r.agent_id.clone(),
-            metadata: r.metadata.clone(),
-            similarity: 0.85, // stub score until Qdrant is wired
-            created_at: r.created_at,
-        })
-        .collect();
+    // Get embedding and search Qdrant.
+    let vector = state
+        .get_embedding(&params.query)
+        .await
+        .map_err(|e| AppError::Internal(e))?;
+
+    let hits = state
+        .qdrant_search(vector, limit, params.threshold, Some(filter))
+        .await
+        .map_err(|e| AppError::Internal(e))?;
+
+    // Hydrate results from Postgres.
+    let mut memories: Vec<RecallResult> = Vec::with_capacity(hits.len());
+    for (external_id, score) in &hits {
+        if let Some(row) = db::get_memory_by_external_id(&state.db, tenant.tenant_id, external_id).await? {
+            memories.push(RecallResult {
+                id: row.external_id.clone(),
+                content: row.content.clone(),
+                tags: row.tags.clone(),
+                namespace: row.namespace.clone(),
+                agent_id: row.agent_id.clone(),
+                metadata: row.metadata.clone(),
+                similarity: *score,
+                created_at: row.created_at,
+            });
+        }
+    }
 
     let count = memories.len();
     let elapsed = start.elapsed().as_millis() as u64;
@@ -120,8 +183,21 @@ async fn delete_memory(
     State(state): State<AppState>,
     Path(id): Path<String>,
 ) -> Result<StatusCode, AppError> {
+    // Look up memory before deleting so we can broadcast with namespace/agent_id.
+    let existing = db::get_memory_by_external_id(&state.db, tenant.tenant_id, &id).await?;
+
     let deleted = db::delete_memory(&state.db, tenant.tenant_id, &id).await?;
     if deleted {
+        if let Some(mem) = existing {
+            state.ws.broadcast(MemoryEvent {
+                event_type: "memory.deleted".into(),
+                memory: None,
+                memory_id: Some(mem.external_id),
+                namespace: Some(mem.namespace),
+                agent_id: Some(mem.agent_id),
+                tenant_id: tenant.tenant_id,
+            });
+        }
         Ok(StatusCode::NO_CONTENT)
     } else {
         Err(AppError::NotFound)
