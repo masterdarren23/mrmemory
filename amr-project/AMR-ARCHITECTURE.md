@@ -127,14 +127,14 @@ memory_shares (id, tenant_id, agent_id, target_agent_id, namespace, permission, 
 
 ### Qdrant (Vectors)
 Hosted on Fly.io (app: `amr-qdrant`). Single `memories` collection.
-- Vector dimension: 1536 (OpenAI text-embedding-ada-002)
+- Vector dimension: 1536 (OpenAI text-embedding-3-small)
 - Distance: Cosine
 - Payload: `{tenant_id, external_id, namespace, agent_id}`
 - Filtered by `tenant_id` on every search for tenant isolation
 
 ### Embedding Pipeline
 1. Memory content arrives via `POST /v1/memories`
-2. Text → embedding via OpenAI text-embedding-ada-002 (async, best-effort)
+2. Text → embedding via OpenAI text-embedding-3-small (async, best-effort)
 3. Vector + payload upserted to Qdrant
 4. Metadata stored in PostgreSQL
 5. On recall: query → embedding → Qdrant cosine search → Postgres hydration
@@ -203,7 +203,7 @@ Install: `npm install memorymr`
 Client (SDK) → Fly.io (amr-memory-api, Rust/Axum, sjc region)
                     ├→ PostgreSQL (Fly.io amr-db) — metadata + auth
                     ├→ Qdrant (Fly.io amr-qdrant) — vector search
-                    └→ OpenAI API — embeddings (text-embedding-ada-002)
+                    └→ OpenAI API — embeddings (text-embedding-3-small)
 ```
 
 Landing page: [mrmemory.dev](https://mrmemory.dev) (Vercel)
@@ -213,3 +213,4 @@ GitHub: [github.com/masterdarren23/mrmemory](https://github.com/masterdarren23/m
 ### Health & Monitoring
 - `GET /health` — liveness check (always responds if server is up)
 - Fly.io built-in monitoring and log aggregation
+

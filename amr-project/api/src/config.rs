@@ -32,7 +32,7 @@ impl Config {
             redis_url: env::var("REDIS_URL").unwrap_or_else(|_| "redis://localhost:6379".into()),
             openai_api_key: env::var("OPENAI_API_KEY").unwrap_or_default(),
             embedding_model: env::var("EMBEDDING_MODEL")
-                .unwrap_or_else(|_| "text-embedding-ada-002".into()),
+                .unwrap_or_else(|_| "text-embedding-3-small".into()),
             pg_max_connections: env::var("PG_MAX_CONNECTIONS")
                 .ok()
                 .and_then(|v| v.parse().ok())
@@ -50,3 +50,4 @@ impl Config {
         }
     }
 }
+

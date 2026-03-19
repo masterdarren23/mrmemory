@@ -82,3 +82,4 @@
 - **p99 latency:** < 50ms recall, < 20ms remember
 - **SDK downloads:** 1,000+ combined
 - **Time to first API call:** < 2 minutes from signup
+
