@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MrMemory — Agent Memory Relay</title>
+<title>MrMemory - Agent Memory Relay</title>
 <meta name="description" content="Install in one line. Remember forever. Long-term memory for AI agents. Works with any framework. Starts at $5/mo.">
-<meta property="og:title" content="MrMemory — Agent Memory Relay">
+<meta property="og:title" content="MrMemory - Agent Memory Relay">
 <meta property="og:description" content="Your AI agent forgets everything. We fixed that. One API to remember, recall, and share memories. $5/mo.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://mrmemory.dev">
@@ -13,7 +13,7 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="MrMemory — Agent Memory Relay">
+<meta name="twitter:title" content="MrMemory - Agent Memory Relay">
 <meta name="twitter:description" content="Your AI agent forgets everything. We fixed that. Install in one line. Remember forever. $5/mo.">
 <meta name="twitter:image" content="https://mrmemory.dev/og-image.png">
 <style>
@@ -178,7 +178,7 @@ footer .container{display:flex;justify-content:space-between;align-items:center;
   <div class="container">
     <div class="badge">Now in Early Access</div>
     <h1>Your AI agent forgets everything.<br><em>We fixed that.</em></h1>
-    <p>Install in one line. Remember forever. AMR is the memory layer for AI agents — works with any framework. Starts at $5/mo.</p>
+    <p>Install in one line. Remember forever. AMR is the memory layer for AI agents - works with any framework. Starts at $5/mo.</p>
     <div class="code-block" style="max-width:340px;margin:0 auto 24px;text-align:left"><div class="code-header"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span style="margin-left:8px">terminal</span></div><pre style="margin:0">$ pip install amr</pre></div>
     <div id="waitlist" style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
       <a href="https://buy.stripe.com/9B6eVf0Jw0GefiP36l8g000" class="btn" style="padding:14px 32px;font-size:1.05rem">Start Free → $5/mo</a>
@@ -193,17 +193,17 @@ footer .container{display:flex;justify-content:space-between;align-items:center;
   <div class="container">
     <div class="section-label">The Problem</div>
     <h2>Your agents forget everything</h2>
-    <p>Every conversation starts from zero. Every preference forgotten. Every context — gone. You're building the most sophisticated AI system and it can't remember what you told it 5 minutes ago.</p>
+    <p>Every conversation starts from zero. Every preference forgotten. Every context - gone. You're building the most sophisticated AI system and it can't remember what you told it 5 minutes ago.</p>
     <div class="problem-visual">
       <div class="problem-card">
         <div class="icon">💸</div>
         <h3>Stuff the Prompt</h3>
-        <p>Shove everything in the system prompt — token costs go brr</p>
+        <p>Shove everything in the system prompt - token costs go brr</p>
       </div>
       <div class="problem-card">
         <div class="icon">🕐</div>
         <h3>Build Your Own</h3>
-        <p>Roll a vector DB pipeline — weeks of work, not your product</p>
+        <p>Roll a vector DB pipeline - weeks of work, not your product</p>
       </div>
       <div class="problem-card">
         <div class="icon">🤷</div>
@@ -228,7 +228,7 @@ footer .container{display:flex;justify-content:space-between;align-items:center;
       <div class="feature-card">
         <div class="icon">🔍</div>
         <h3>Recall</h3>
-        <p>Semantic search that returns what's actually relevant — not keyword matches. Sub-50ms p99 latency. Your agent asks a question, it gets the right memory.</p>
+        <p>Semantic search that returns what's actually relevant — not keyword matches. Real cosine similarity scores. Your agent asks a question, it gets the right memory.ncy. Your agent asks a question, it gets the right memory.</p>
       </div>
       <div class="feature-card">
         <div class="icon">🤝</div>
@@ -282,8 +282,8 @@ results = client.<span class="fn">recall</span>(<span class="str">"What does thi
           <li>10,000 memories stored</li>
           <li>50,000 API calls/month</li>
           <li>5 agents</li>
-          <li>Auto-embedding — you send text, we handle vectors</li>
-          <li>Sub-50ms semantic recall</li>
+          <li>Auto-embedding - you send text, we handle vectors</li>
+          <li>Semantic vector search (OpenAI embeddings + Qdrant)</li>
           <li>Tenant-isolated, encrypted at rest</li>
           <li>Community support</li>
         </ul>
@@ -348,7 +348,7 @@ results = client.<span class="fn">recall</span>(<span class="str">"What does thi
 <!-- Trust -->
 <section class="trust" style="padding:48px 0;border-bottom:1px solid var(--border)">
   <div class="container" style="display:flex;justify-content:center;flex-wrap:wrap;gap:40px;text-align:center">
-    <div><span style="font-size:1.5rem;font-weight:700;display:block">⚡ &lt; 50ms</span><span style="font-size:.8rem;color:var(--text3)">recall latency (p99)</span></div>
+    <div><span style="font-size:1.5rem;font-weight:700;display:block">⚡ Real-time</span><span style="font-size:.8rem;color:var(--text3)">WebSocket memory sharing</span></div>
     <div><span style="font-size:1.5rem;font-weight:700;display:block">🔒 Isolated</span><span style="font-size:.8rem;color:var(--text3)">tenant-isolated, encrypted at rest</span></div>
     <div><span style="font-size:1.5rem;font-weight:700;display:block">🛠️ Agnostic</span><span style="font-size:.8rem;color:var(--text3)">works with every framework</span></div>
     <div><span style="font-size:1.5rem;font-weight:700;display:block">🦀 Rust</span><span style="font-size:.8rem;color:var(--text3)">fast, reliable, no GC pauses</span></div>
@@ -402,7 +402,7 @@ function showToast(msg) {
   setTimeout(() => t.classList.remove('show'), 3000);
 }
 
-// (waitlist form removed — now links directly to Stripe checkout)
+// (waitlist form removed - now links directly to Stripe checkout)
 </script>
 
 </body>

@@ -21,11 +21,11 @@ memories = amr.recall("What are the user's preferences?")
 
 AMR is a hosted memory layer for AI agents. It handles:
 
-- **Semantic storage** — auto-embedding, indexing, retrieval
-- **Sub-50ms recall** — Qdrant-powered vector search
-- **Multi-agent sharing** — cross-agent memory with permissions
-- **Tenant isolation** — per-tenant collections, encrypted at rest
-- **TTL & cleanup** — automatic memory expiration
+- **Semantic storage** — auto-embedding via OpenAI, indexed in Qdrant
+- **Semantic recall** — real cosine similarity search, not keyword matching
+- **Multi-agent sharing** — real-time WebSocket events with ACL permissions
+- **Tenant isolation** — every query scoped by tenant_id, no cross-tenant access
+- **Dead simple** — `pip install mrmemory` and three lines of code
 
 You call `remember()` and `recall()`. We handle everything else.
 
@@ -44,9 +44,9 @@ You call `remember()` and `recall()`. We handle everything else.
 ```
 
 - **API**: Rust (Axum) — fast, safe, no GC pauses
-- **Vector DB**: Qdrant — per-tenant collections
-- **Metadata**: PostgreSQL — tenants, API keys, usage tracking
-- **Cache**: Redis — rate limiting, sessions
+- **Vector DB**: Qdrant — cosine similarity search (1536-dim OpenAI embeddings)
+- **Metadata**: PostgreSQL — tenants, API keys, memories
+- **Real-time**: WebSocket push for multi-agent memory sharing
 
 ## SDKs
 
