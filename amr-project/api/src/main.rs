@@ -13,8 +13,9 @@ use crate::routes::{
 };
 use crate::state::AppState;
 
+use axum::http::{header, Method};
 use axum::routing::{get, post};
-use tower_http::cors::CorsLayer;
+use tower_http::cors::{AllowOrigin, CorsLayer};
 use tower_http::trace::TraceLayer;
 use tracing_subscriber::EnvFilter;
 
@@ -55,7 +56,18 @@ async fn main() {
         .route("/v1/welcome", get(welcome_page))
         .with_state(state)
         .layer(TraceLayer::new_for_http())
-        .layer(CorsLayer::permissive());
+        .layer(
+            CorsLayer::new()
+                .allow_origin(AllowOrigin::list([
+                    "https://mrmemory.dev".parse().unwrap(),
+                    "https://www.mrmemory.dev".parse().unwrap(),
+                    "http://localhost:3000".parse().unwrap(),
+                    "http://localhost:8080".parse().unwrap(),
+                ]))
+                .allow_methods([Method::GET, Method::POST, Method::DELETE, Method::OPTIONS])
+                .allow_headers([header::AUTHORIZATION, header::CONTENT_TYPE])
+                .max_age(std::time::Duration::from_secs(3600)),
+        );
 
     eprintln!("AMR: routes configured, binding to {}...", addr);
     tracing::info!("AMR server listening on {}", addr);
