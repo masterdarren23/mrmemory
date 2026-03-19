@@ -18,6 +18,10 @@ pub struct Config {
     pub stripe_webhook_secret: String,
     /// Stripe secret key for API calls
     pub stripe_secret_key: String,
+    /// Max memories per namespace for starter plan
+    pub max_memories_starter: i64,
+    /// Max memories per namespace for pro plan
+    pub max_memories_pro: i64,
 }
 
 impl Config {
@@ -47,7 +51,14 @@ impl Config {
                 .unwrap_or(1000),
             stripe_webhook_secret: env::var("STRIPE_WEBHOOK_SECRET").unwrap_or_default(),
             stripe_secret_key: env::var("STRIPE_SECRET_KEY").unwrap_or_default(),
+            max_memories_starter: env::var("MAX_MEMORIES_STARTER")
+                .ok()
+                .and_then(|v| v.parse().ok())
+                .unwrap_or(10_000),
+            max_memories_pro: env::var("MAX_MEMORIES_PRO")
+                .ok()
+                .and_then(|v| v.parse().ok())
+                .unwrap_or(100_000),
         }
     }
 }
-

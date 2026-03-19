@@ -42,6 +42,20 @@ async fn create_memory(
         ));
     }
 
+    // Enforce max memories per namespace based on plan.
+    let max_memories = match tenant.plan.as_str() {
+        "pro" => state.config.max_memories_pro,
+        _ => state.config.max_memories_starter,
+    };
+    let current_count =
+        db::count_memories_in_namespace(&state.db, tenant.tenant_id, &body.namespace).await?;
+    if current_count >= max_memories {
+        return Err(AppError::BadRequest(format!(
+            "namespace '{}' has reached the {} memory limit ({})",
+            body.namespace, tenant.plan, max_memories
+        )));
+    }
+
     let row = db::insert_memory(&state.db, tenant.tenant_id, &body).await?;
 
     // Generate embedding and upsert to Qdrant (best-effort, don't fail the request).
@@ -213,9 +227,21 @@ async fn delete_memory(
     }
 }
 
+/// POST /v1/memories/prune — manually trigger expired memory pruning.
+async fn prune_memories(
+    _tenant: TenantContext,
+    State(state): State<AppState>,
+) -> Result<Json<serde_json::Value>, AppError> {
+    let pruned = db::prune_expired_memories(&state.db).await?;
+    let count = pruned.len();
+    tracing::info!("Manual prune: removed {} expired memories", count);
+    Ok(Json(serde_json::json!({ "pruned": count })))
+}
+
 pub fn memory_routes() -> Router<AppState> {
     Router::new()
         .route("/v1/memories", post(create_memory).get(list_memories))
         .route("/v1/memories/recall", get(recall_memories))
+        .route("/v1/memories/prune", post(prune_memories))
         .route("/v1/memories/{id}", delete(delete_memory))
 }

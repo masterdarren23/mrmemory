@@ -48,6 +48,27 @@ async fn main() {
         }
     };
 
+    // Spawn background TTL pruning task.
+    {
+        let prune_db = state.db.clone();
+        tokio::spawn(async move {
+            let mut interval = tokio::time::interval(std::time::Duration::from_secs(60));
+            loop {
+                interval.tick().await;
+                match crate::db::memories::prune_expired_memories(&prune_db).await {
+                    Ok(pruned) if !pruned.is_empty() => {
+                        tracing::info!("TTL pruner: removed {} expired memories", pruned.len());
+                    }
+                    Ok(_) => {}
+                    Err(e) => {
+                        tracing::warn!("TTL pruner error: {}", e);
+                    }
+                }
+            }
+        });
+        tracing::info!("Background TTL pruning task started (60s interval)");
+    }
+
     let app = memory_routes()
         .merge(health_routes())
         .route("/v1/ws", get(ws_handler))

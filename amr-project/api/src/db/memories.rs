@@ -120,6 +120,33 @@ pub async fn get_memory_by_external_id(
     Ok(row)
 }
 
+/// Count memories for a tenant+namespace.
+pub async fn count_memories_in_namespace(
+    db: &PgPool,
+    tenant_id: Uuid,
+    namespace: &str,
+) -> Result<i64, AppError> {
+    let (count,): (i64,) =
+        sqlx::query_as("SELECT COUNT(*) FROM memories WHERE tenant_id = $1 AND namespace = $2")
+            .bind(tenant_id)
+            .bind(namespace)
+            .fetch_one(db)
+            .await?;
+
+    Ok(count)
+}
+
+/// Delete expired memories. Returns the external_ids of pruned rows.
+pub async fn prune_expired_memories(db: &PgPool) -> Result<Vec<String>, AppError> {
+    let rows: Vec<(String,)> = sqlx::query_as(
+        "DELETE FROM memories WHERE expires_at IS NOT NULL AND expires_at < NOW() RETURNING external_id",
+    )
+    .fetch_all(db)
+    .await?;
+
+    Ok(rows.into_iter().map(|(eid,)| eid).collect())
+}
+
 /// Delete a memory by external_id. Returns true if deleted.
 pub async fn delete_memory(
     db: &PgPool,
