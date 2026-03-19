@@ -8,7 +8,9 @@ mod state;
 pub mod ws;
 
 use crate::config::Config;
-use crate::routes::{create_key, health_routes, memory_routes, stripe_webhook, welcome_page, ws_handler};
+use crate::routes::{
+    create_key, health_routes, memory_routes, stripe_webhook, welcome_page, ws_handler,
+};
 use crate::state::AppState;
 
 use axum::routing::{get, post};
@@ -28,7 +30,10 @@ async fn main() {
 
     eprintln!("AMR: tracing initialized, loading config...");
     let config = Config::from_env();
-    eprintln!("AMR: config loaded, connecting to DB at {}...", &config.database_url[..20]);
+    eprintln!(
+        "AMR: config loaded, connecting to DB at {}...",
+        &config.database_url[..20]
+    );
     let addr = config.listen_addr;
 
     let state = match AppState::new(config).await {

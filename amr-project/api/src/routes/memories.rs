@@ -21,18 +21,25 @@ async fn create_memory(
         return Err(AppError::BadRequest("content must not be empty".into()));
     }
     if body.content.len() > 8192 {
-        return Err(AppError::BadRequest("content exceeds 8192 char limit".into()));
+        return Err(AppError::BadRequest(
+            "content exceeds 8192 char limit".into(),
+        ));
     }
     if body.tags.len() > 20 {
         return Err(AppError::BadRequest("max 20 tags allowed".into()));
     }
     for tag in &body.tags {
         if tag.len() > 64 {
-            return Err(AppError::BadRequest(format!("tag '{}' exceeds 64 char limit", tag)));
+            return Err(AppError::BadRequest(format!(
+                "tag '{}' exceeds 64 char limit",
+                tag
+            )));
         }
     }
     if body.namespace.len() > 128 {
-        return Err(AppError::BadRequest("namespace exceeds 128 char limit".into()));
+        return Err(AppError::BadRequest(
+            "namespace exceeds 128 char limit".into(),
+        ));
     }
 
     let row = db::insert_memory(&state.db, tenant.tenant_id, &body).await?;
@@ -126,7 +133,9 @@ async fn recall_memories(
     // Hydrate results from Postgres.
     let mut memories: Vec<RecallResult> = Vec::with_capacity(hits.len());
     for (external_id, score) in &hits {
-        if let Some(row) = db::get_memory_by_external_id(&state.db, tenant.tenant_id, external_id).await? {
+        if let Some(row) =
+            db::get_memory_by_external_id(&state.db, tenant.tenant_id, external_id).await?
+        {
             memories.push(RecallResult {
                 id: row.external_id.clone(),
                 content: row.content.clone(),

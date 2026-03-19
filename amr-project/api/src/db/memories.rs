@@ -44,7 +44,10 @@ pub async fn insert_memory(
     req: &CreateMemoryRequest,
 ) -> Result<MemoryRow, AppError> {
     let id = Uuid::new_v4();
-    let external_id = format!("mem_{}", id.simple().to_string().get(..12).unwrap_or("000000000000"));
+    let external_id = format!(
+        "mem_{}",
+        id.simple().to_string().get(..12).unwrap_or("000000000000")
+    );
     let agent_id = req.agent_id.clone().unwrap_or_else(|| "default".into());
     let now = Utc::now();
     let expires_at = req.ttl_seconds.map(|s| now + chrono::Duration::seconds(s));
@@ -123,13 +126,11 @@ pub async fn delete_memory(
     tenant_id: Uuid,
     external_id: &str,
 ) -> Result<bool, AppError> {
-    let result = sqlx::query(
-        "DELETE FROM memories WHERE tenant_id = $1 AND external_id = $2"
-    )
-    .bind(tenant_id)
-    .bind(external_id)
-    .execute(db)
-    .await?;
+    let result = sqlx::query("DELETE FROM memories WHERE tenant_id = $1 AND external_id = $2")
+        .bind(tenant_id)
+        .bind(external_id)
+        .execute(db)
+        .await?;
 
     Ok(result.rows_affected() > 0)
 }

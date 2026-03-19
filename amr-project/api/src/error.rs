@@ -47,9 +47,17 @@ impl AppError {
     fn status_and_message(&self) -> (StatusCode, &'static str, String) {
         match self {
             AppError::BadRequest(msg) => (StatusCode::BAD_REQUEST, "bad_request", msg.clone()),
-            AppError::Unauthorized => (StatusCode::UNAUTHORIZED, "unauthorized", "unauthorized".into()),
+            AppError::Unauthorized => (
+                StatusCode::UNAUTHORIZED,
+                "unauthorized",
+                "unauthorized".into(),
+            ),
             AppError::Forbidden(msg) => (StatusCode::FORBIDDEN, "forbidden", msg.clone()),
-            AppError::NotFound => (StatusCode::NOT_FOUND, "not_found", "resource not found".into()),
+            AppError::NotFound => (
+                StatusCode::NOT_FOUND,
+                "not_found",
+                "resource not found".into(),
+            ),
             AppError::RateLimited { retry_after } => (
                 StatusCode::TOO_MANY_REQUESTS,
                 "rate_limited",
@@ -57,11 +65,19 @@ impl AppError {
             ),
             AppError::Database(e) => {
                 tracing::error!("database error: {}", e);
-                (StatusCode::INTERNAL_SERVER_ERROR, "internal_error", "internal error".into())
+                (
+                    StatusCode::INTERNAL_SERVER_ERROR,
+                    "internal_error",
+                    "internal error".into(),
+                )
             }
             AppError::Internal(e) => {
                 tracing::error!("internal error: {}", e);
-                (StatusCode::INTERNAL_SERVER_ERROR, "internal_error", "internal error".into())
+                (
+                    StatusCode::INTERNAL_SERVER_ERROR,
+                    "internal_error",
+                    "internal error".into(),
+                )
             }
         }
     }

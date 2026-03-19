@@ -81,7 +81,9 @@ impl WsManager {
     /// Remove subscriptions matching namespace for a connection.
     pub async fn unsubscribe(&self, conn_id: Uuid, namespace: Option<&str>) {
         if let Some(client) = self.clients.write().await.get_mut(&conn_id) {
-            client.subscriptions.retain(|s| s.namespace.as_deref() != namespace);
+            client
+                .subscriptions
+                .retain(|s| s.namespace.as_deref() != namespace);
         }
     }
 
@@ -129,7 +131,11 @@ pub enum ClientMessage {
 #[serde(tag = "type", rename_all = "snake_case")]
 pub enum ServerMessage {
     #[serde(rename = "presence.update")]
-    PresenceUpdate { agents: Vec<String> },
+    PresenceUpdate {
+        agents: Vec<String>,
+    },
     Pong {},
-    Error { message: String },
+    Error {
+        message: String,
+    },
 }

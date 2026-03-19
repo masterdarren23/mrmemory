@@ -55,12 +55,10 @@ async fn handle_checkout_completed(
     let external_id = format!("tenant_{}", &Uuid::new_v4().to_string()[..12]);
 
     // Check if tenant already exists (idempotency)
-    let existing: Option<(Uuid,)> = sqlx::query_as(
-        "SELECT id FROM tenants WHERE email = $1"
-    )
-    .bind(email)
-    .fetch_optional(&state.db)
-    .await?;
+    let existing: Option<(Uuid,)> = sqlx::query_as("SELECT id FROM tenants WHERE email = $1")
+        .bind(email)
+        .fetch_optional(&state.db)
+        .await?;
 
     if existing.is_some() {
         tracing::info!("Tenant already exists for {}, skipping", email);
@@ -119,8 +117,8 @@ fn verify_stripe_signature(payload: &[u8], sig_header: &str, secret: &str) -> Re
     let signature = signature.ok_or_else(|| AppError::BadRequest("missing signature".into()))?;
 
     let signed_payload = format!("{}.{}", timestamp, String::from_utf8_lossy(payload));
-    let mut mac =
-        HmacSha256::new_from_slice(secret.as_bytes()).map_err(|_| AppError::BadRequest("bad secret".into()))?;
+    let mut mac = HmacSha256::new_from_slice(secret.as_bytes())
+        .map_err(|_| AppError::BadRequest("bad secret".into()))?;
     mac.update(signed_payload.as_bytes());
     let expected = hex::encode(mac.finalize().into_bytes());
 
@@ -135,7 +133,10 @@ fn constant_time_eq(a: &[u8], b: &[u8]) -> bool {
     if a.len() != b.len() {
         return false;
     }
-    a.iter().zip(b.iter()).fold(0u8, |acc, (x, y)| acc | (x ^ y)) == 0
+    a.iter()
+        .zip(b.iter())
+        .fold(0u8, |acc, (x, y)| acc | (x ^ y))
+        == 0
 }
 
 // ── Welcome Page ────────────────────────────────────────────
@@ -158,12 +159,10 @@ pub async fn welcome_page(
 
     match result {
         Ok(Some(info)) => Html(personalized_welcome(&info)),
-        _ => {
-            match fetch_session_and_provision(&state, session_id).await {
-                Ok(Some(info)) => Html(personalized_welcome(&info)),
-                _ => Html(generic_welcome()),
-            }
-        }
+        _ => match fetch_session_and_provision(&state, session_id).await {
+            Ok(Some(info)) => Html(personalized_welcome(&info)),
+            _ => Html(generic_welcome()),
+        },
     }
 }
 
@@ -172,13 +171,15 @@ struct WelcomeInfo {
     api_key: String,
 }
 
-async fn lookup_by_session(state: &AppState, session_id: &str) -> Result<Option<WelcomeInfo>, AppError> {
-    let tenant: Option<(Uuid, String)> = sqlx::query_as(
-        "SELECT id, email FROM tenants WHERE stripe_session_id = $1"
-    )
-    .bind(session_id)
-    .fetch_optional(&state.db)
-    .await?;
+async fn lookup_by_session(
+    state: &AppState,
+    session_id: &str,
+) -> Result<Option<WelcomeInfo>, AppError> {
+    let tenant: Option<(Uuid, String)> =
+        sqlx::query_as("SELECT id, email FROM tenants WHERE stripe_session_id = $1")
+            .bind(session_id)
+            .fetch_optional(&state.db)
+            .await?;
 
     let (tenant_id, email) = match tenant {
         Some(t) => t,
@@ -194,17 +195,26 @@ async fn lookup_by_session(state: &AppState, session_id: &str) -> Result<Option<
     ];
     let (_key_id, raw_key) = create_api_key(&state.db, tenant_id, "welcome-page", &scopes).await?;
 
-    Ok(Some(WelcomeInfo { email, api_key: raw_key }))
+    Ok(Some(WelcomeInfo {
+        email,
+        api_key: raw_key,
+    }))
 }
 
-async fn fetch_session_and_provision(state: &AppState, session_id: &str) -> Result<Option<WelcomeInfo>, AppError> {
+async fn fetch_session_and_provision(
+    state: &AppState,
+    session_id: &str,
+) -> Result<Option<WelcomeInfo>, AppError> {
     if state.config.stripe_secret_key.is_empty() {
         return Ok(None);
     }
 
     let client = reqwest::Client::new();
     let resp = client
-        .get(&format!("https://api.stripe.com/v1/checkout/sessions/{}", session_id))
+        .get(&format!(
+            "https://api.stripe.com/v1/checkout/sessions/{}",
+            session_id
+        ))
         .bearer_auth(&state.config.stripe_secret_key)
         .send()
         .await
@@ -215,7 +225,10 @@ async fn fetch_session_and_provision(state: &AppState, session_id: &str) -> Resu
         return Ok(None);
     }
 
-    let session: serde_json::Value = resp.json().await.map_err(|e| AppError::Internal(e.into()))?;
+    let session: serde_json::Value = resp
+        .json()
+        .await
+        .map_err(|e| AppError::Internal(e.into()))?;
 
     let email = session["customer_details"]["email"]
         .as_str()
@@ -228,12 +241,11 @@ async fn fetch_session_and_provision(state: &AppState, session_id: &str) -> Resu
 
     let stripe_customer_id = session["customer"].as_str().unwrap_or("");
 
-    let existing: Option<(Uuid, String)> = sqlx::query_as(
-        "SELECT id, email FROM tenants WHERE email = $1"
-    )
-    .bind(email)
-    .fetch_optional(&state.db)
-    .await?;
+    let existing: Option<(Uuid, String)> =
+        sqlx::query_as("SELECT id, email FROM tenants WHERE email = $1")
+            .bind(email)
+            .fetch_optional(&state.db)
+            .await?;
 
     let tenant_id = if let Some((id, _)) = existing {
         sqlx::query(

@@ -171,7 +171,13 @@ async fn handle_socket(socket: WebSocket, state: AppState, tenant_id: Uuid) {
                             }
                         }
                         ws_mgr_read
-                            .subscribe(conn_id, Subscription { namespace, agent_id })
+                            .subscribe(
+                                conn_id,
+                                Subscription {
+                                    namespace,
+                                    agent_id,
+                                },
+                            )
                             .await;
                     }
                     Ok(ClientMessage::Unsubscribe { namespace }) => {

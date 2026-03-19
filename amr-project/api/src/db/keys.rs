@@ -12,7 +12,10 @@ pub async fn create_api_key(
     scopes: &[String],
 ) -> Result<(String, String), AppError> {
     let id = Uuid::new_v4();
-    let external_id = format!("key_{}", id.simple().to_string().get(..12).unwrap_or("000000000000"));
+    let external_id = format!(
+        "key_{}",
+        id.simple().to_string().get(..12).unwrap_or("000000000000")
+    );
     let raw_key = generate_api_key();
     let hash = hash_api_key(&raw_key);
     let prefix = key_prefix(&raw_key);

@@ -27,12 +27,9 @@ impl Config {
                 .unwrap_or_else(|_| "0.0.0.0:8080".into())
                 .parse()
                 .expect("invalid LISTEN_ADDR"),
-            database_url: env::var("DATABASE_URL")
-                .expect("DATABASE_URL is required"),
-            qdrant_url: env::var("QDRANT_URL")
-                .unwrap_or_else(|_| "http://localhost:6334".into()),
-            redis_url: env::var("REDIS_URL")
-                .unwrap_or_else(|_| "redis://localhost:6379".into()),
+            database_url: env::var("DATABASE_URL").expect("DATABASE_URL is required"),
+            qdrant_url: env::var("QDRANT_URL").unwrap_or_else(|_| "http://localhost:6334".into()),
+            redis_url: env::var("REDIS_URL").unwrap_or_else(|_| "redis://localhost:6379".into()),
             openai_api_key: env::var("OPENAI_API_KEY").unwrap_or_default(),
             embedding_model: env::var("EMBEDDING_MODEL")
                 .unwrap_or_else(|_| "text-embedding-ada-002".into()),

@@ -41,11 +41,7 @@ impl AppState {
                         "distance": "Cosine"
                     }
                 });
-                let create_resp = http
-                    .put(&col_url)
-                    .json(&body)
-                    .send()
-                    .await;
+                let create_resp = http.put(&col_url).json(&body).send().await;
                 match create_resp {
                     Ok(r) if r.status().is_success() => {
                         tracing::info!("Qdrant 'memories' collection created");
@@ -61,7 +57,10 @@ impl AppState {
                 tracing::info!("Qdrant 'memories' collection already exists");
             }
         } else {
-            tracing::warn!("Could not reach Qdrant at {}, vector search may fail", qdrant_url);
+            tracing::warn!(
+                "Could not reach Qdrant at {}, vector search may fail",
+                qdrant_url
+            );
         }
 
         Ok(Self {
@@ -105,7 +104,12 @@ impl AppState {
     }
 
     /// Upsert a vector into Qdrant.
-    pub async fn qdrant_upsert(&self, point_id: &str, vector: Vec<f32>, payload: serde_json::Value) -> anyhow::Result<()> {
+    pub async fn qdrant_upsert(
+        &self,
+        point_id: &str,
+        vector: Vec<f32>,
+        payload: serde_json::Value,
+    ) -> anyhow::Result<()> {
         let body = serde_json::json!({
             "points": [{
                 "id": point_id,
@@ -116,7 +120,10 @@ impl AppState {
 
         let resp = self
             .http
-            .put(&format!("{}/collections/memories/points", self.config.qdrant_url))
+            .put(&format!(
+                "{}/collections/memories/points",
+                self.config.qdrant_url
+            ))
             .json(&body)
             .send()
             .await?;
@@ -151,7 +158,10 @@ impl AppState {
 
         let resp = self
             .http
-            .post(&format!("{}/collections/memories/points/search", self.config.qdrant_url))
+            .post(&format!(
+                "{}/collections/memories/points/search",
+                self.config.qdrant_url
+            ))
             .json(&body)
             .send()
             .await?;

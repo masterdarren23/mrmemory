@@ -1,2 +1,2 @@
-pub mod memories;
 pub mod keys;
+pub mod memories;
