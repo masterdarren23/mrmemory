@@ -34,7 +34,7 @@ Documentation = "https://mrmemory.dev/docs"
 Repository = "https://github.com/masterdarren23/mrmemory"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/amr"]
+packages = ["src/amr", "src/mrmemory"]
 
 [tool.ruff]
 target-version = "py310"
