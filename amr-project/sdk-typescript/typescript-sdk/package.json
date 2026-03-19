@@ -31,7 +31,7 @@
   ],
   "license": "MIT",
   "homepage": "https://mrmemory.dev",
-  "repository": "https://github.com/amr-dev/amr-typescript",
+  "repository": "https://github.com/masterdarren23/mrmemory",
   "devDependencies": {
     "@types/node": "^25.5.0",
     "msw": "^2.7",

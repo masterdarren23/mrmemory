@@ -76,7 +76,7 @@ Starts at **$5/mo** — 10K memories, 50K API calls. [Sign up →](https://amr-m
 
 - **Docs:** https://mrmemory.dev/docs.html
 - **Dashboard:** https://mrmemory.dev
-- **GitHub:** https://github.com/amr-dev/amr-python
+- **GitHub:** https://github.com/masterdarren23/mrmemory
 
 ## License
 
