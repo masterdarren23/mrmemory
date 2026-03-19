@@ -3,11 +3,11 @@
 **Long-term memory for AI agents. Install in one line. Remember forever.**
 
 ```bash
-pip install amr
+pip install mrmemory
 ```
 
 ```python
-from amr import AMR
+from mrmemory import AMR
 
 amr = AMR("amr_sk_...")
 amr.remember("User prefers dark mode and vim keybindings")
@@ -52,8 +52,8 @@ You call `remember()` and `recall()`. We handle everything else.
 
 | Language | Package | Status |
 |----------|---------|--------|
-| Python | `pip install amr` | ✅ Ready |
-| TypeScript | `npm install @amr/client` | ✅ Ready |
+| Python | `pip install mrmemory` | ✅ Ready |
+| TypeScript | `npm install memorymr` | ✅ Ready |
 | Rust | `cargo add amr` | 🔜 Planned |
 
 ### Framework Integrations
@@ -123,3 +123,4 @@ MIT
 ---
 
 **Website**: [mrmemory.dev](https://mrmemory.dev)
+

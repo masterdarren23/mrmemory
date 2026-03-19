@@ -2,11 +2,11 @@
 
 [![npm](https://img.shields.io/npm/v/memorymr)](https://www.npmjs.com/package/memorymr)
 [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
-[![Docs](https://img.shields.io/badge/docs-mrmemory.dev-8b7aff)](https://mrmemory.dev/docs.html)
+[![Docs](https://img.shields.io/badge/docs-mrmemory.dev-8b7aff)](https://mrmemory.dev/docs)
 
 Persistent long-term memory for AI agents. One line to install, three lines to integrate.
 
-**[Docs](https://mrmemory.dev/docs.html)** · **[API Reference](https://mrmemory.dev/docs.html#endpoints)** · **[Website](https://mrmemory.dev)**
+**[Docs](https://mrmemory.dev/docs)** · **[API Reference](https://mrmemory.dev/docs#endpoints)** · **[Website](https://mrmemory.dev)**
 
 ## Install
 

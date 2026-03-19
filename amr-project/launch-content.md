@@ -50,7 +50,7 @@ https://mrmemory.dev
 How it works:
 
 ```python
-from amr import AMR
+from mrmemory import AMR
 amr = AMR("amr_sk_...")
 
 amr.remember("User prefers dark mode")
@@ -106,7 +106,7 @@ So I built AMR (Agent Memory Relay). It's a hosted API that gives your agents pe
 ```python
 pip install mrmemory
 
-from amr import AMR
+from mrmemory import AMR
 amr = AMR("amr_sk_...")
 amr.remember("User prefers dark mode and local models")
 memories = amr.recall("What does the user prefer?")
@@ -143,7 +143,7 @@ AMR (Agent Memory Relay) is a hosted memory API that handles all of that:
 ```python
 pip install mrmemory
 
-from amr import AMR
+from mrmemory import AMR
 amr = AMR("amr_sk_...")
 
 # In your LangChain agent's tool or callback:
@@ -166,3 +166,4 @@ You can use it as a LangChain Tool, in callbacks, or as a standalone memory stor
 
 Docs: https://mrmemory.dev/docs.html
 API: https://amr-memory-api.fly.dev
+

@@ -6,8 +6,8 @@ You are the **SDK/Integration Engineer** for Agent Memory Relay (AMR). You own e
 
 ## What You Own
 
-- **Python SDK** — `pip install amr` — primary SDK, most users
-- **TypeScript SDK** — `npm install @amr/client` — for JS/TS agents
+- **Python SDK** — `pip install mrmemory` — primary SDK, most users
+- **TypeScript SDK** — `npm install memorymr` — for JS/TS agents
 - **Rust SDK** — `amr` crate — for performance-critical agents
 - **Integration plugins** — OpenClaw, LangChain, CrewAI, AutoGen connectors
 - **SDK documentation** — README, quickstart, API reference for each library

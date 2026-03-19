@@ -1,17 +1,17 @@
-# amr — Agent Memory Relay
+# MrMemory — Agent Memory Relay
 
-[![PyPI](https://img.shields.io/pypi/v/amr)](https://pypi.org/project/amr/)
+[![PyPI](https://img.shields.io/pypi/v/mrmemory)](https://pypi.org/project/mrmemory/)
 [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
-[![Docs](https://img.shields.io/badge/docs-mrmemory.dev-8b7aff)](https://mrmemory.dev/docs.html)
+[![Docs](https://img.shields.io/badge/docs-mrmemory.dev-8b7aff)](https://mrmemory.dev/docs)
 
 Persistent long-term memory for AI agents. One line to install, three lines to integrate.
 
-**[Docs](https://mrmemory.dev/docs.html)** · **[API Reference](https://mrmemory.dev/docs.html#endpoints)** · **[Website](https://mrmemory.dev)**
+**[Docs](https://mrmemory.dev/docs)** · **[API Reference](https://mrmemory.dev/docs#endpoints)** · **[Website](https://mrmemory.dev)**
 
 ## Install
 
 ```bash
-pip install amr
+pip install mrmemory
 ```
 
 ## Quickstart
