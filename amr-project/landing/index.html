@@ -179,7 +179,7 @@ footer .container{display:flex;justify-content:space-between;align-items:center;
     <div class="badge">Now in Early Access</div>
     <h1>Your AI agent forgets everything.<br><em>We fixed that.</em></h1>
     <p>Install in one line. Remember forever. AMR is the memory layer for AI agents - works with any framework. Starts at $5/mo.</p>
-    <div class="code-block" style="max-width:340px;margin:0 auto 24px;text-align:left"><div class="code-header"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span style="margin-left:8px">terminal</span></div><pre style="margin:0">$ pip install amr</pre></div>
+    <div class="code-block" style="max-width:340px;margin:0 auto 24px;text-align:left"><div class="code-header"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span style="margin-left:8px">terminal</span></div><pre style="margin:0">$ pip install mrmemory</pre></div>
     <div id="waitlist" style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
       <a href="https://buy.stripe.com/9B6eVf0Jw0GefiP36l8g000" class="btn" style="padding:14px 32px;font-size:1.05rem">Start Free → $5/mo</a>
       <a href="/docs" class="btn outline" style="padding:14px 32px;font-size:1.05rem;background:transparent;border:1px solid var(--border);color:var(--text2)">View Docs</a>
@@ -228,12 +228,27 @@ footer .container{display:flex;justify-content:space-between;align-items:center;
       <div class="feature-card">
         <div class="icon">🔍</div>
         <h3>Recall</h3>
-        <p>Semantic search that returns what's actually relevant — not keyword matches. Real cosine similarity scores. Your agent asks a question, it gets the right memory.ncy. Your agent asks a question, it gets the right memory.</p>
+        <p>Semantic search that returns what's actually relevant — not keyword matches. Real cosine similarity scores. Your agent asks a question, it gets the right memory.</p>
       </div>
       <div class="feature-card">
         <div class="icon">🤝</div>
         <h3>Share</h3>
         <p>Multi-agent memory sharing with explicit permissions. Agent A stores a memory, Agent B gets it in real-time via WebSocket. Your agents finally have a shared brain.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">✨</div>
+        <h3>Auto-Remember</h3>
+        <p>Send raw conversations, get intelligent memory extraction. LLM-powered deduplication, entity extraction, and auto-tagging. Just call <code>amr.auto_remember()</code>.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">🗜️</div>
+        <h3>Compress</h3>
+        <p>Memory growing too large? Compress groups semantically similar memories into denser representations. Keeps costs down and recall sharp. <code>amr.compress()</code></p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">🔗</div>
+        <h3>LangChain Native</h3>
+        <p>Drop-in <code>MrMemoryCheckpointer</code> and <code>MrMemoryStore</code> for LangGraph. <code>pip install mrmemory[langchain]</code> and you're integrated.</p>
       </div>
     </div>
   </div>

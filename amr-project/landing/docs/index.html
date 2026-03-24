@@ -79,7 +79,10 @@ footer{border-top:1px solid var(--border);padding:32px 0;text-align:center;font-
 <h2 id="quickstart">Quickstart</h2>
 <p>Install the SDK for your language:</p>
 <h3>Python</h3>
-<pre><code>pip install mrmemory</code></pre>
+<pre><code>pip install mrmemory
+
+# With LangChain/LangGraph support:
+pip install mrmemory[langchain]</code></pre>
 <h3>TypeScript / Node</h3>
 <pre><code>npm install memorymr</code></pre>
 
@@ -144,6 +147,39 @@ ws.send(JSON.stringify({"type": "subscribe", "namespace": "weather-trading"}))
 // {"type": "memory.created", "memory": {...}, "namespace": "...", "agent_id": "..."}</code></pre>
 </div>
 
+<div class="endpoint">
+  <span class="method post">POST</span><span class="path">/v1/memories/auto</span>
+  <p style="margin-top:12px">LLM-powered auto-remember. Send conversation messages and the server extracts facts, deduplicates, and stores them automatically. Supports async (fire-and-forget) and sync modes. BYOK supported.</p>
+  <pre><code>curl -X POST https://amr-memory-api.fly.dev/v1/memories/auto \
+  -H "Authorization: Bearer amr_sk_..." \
+  -H "Content-Type: application/json" \
+  -d '{
+    "messages": [
+      {"role": "user", "content": "I love hiking and my favorite language is Rust"},
+      {"role": "assistant", "content": "Great choices! Rust is fantastic."}
+    ],
+    "namespace": "default",
+    "sync": true
+  }'</code></pre>
+  <p style="margin-top:8px;color:#a1a1aa;font-size:.9rem">Set <code>"sync": false</code> (default) for fire-and-forget — returns a <code>job_id</code> immediately. Pass <code>"llm_api_key"</code> for BYOK.</p>
+</div>
+
+<div class="endpoint">
+  <span class="method post">POST</span><span class="path">/v1/memories/compress</span>
+  <p style="margin-top:12px">Compress related memories in a namespace. Groups semantically similar memories and merges each group into a single, denser memory using LLM summarization.</p>
+  <pre><code>curl -X POST https://amr-memory-api.fly.dev/v1/memories/compress \
+  -H "Authorization: Bearer amr_sk_..." \
+  -H "Content-Type: application/json" \
+  -d '{
+    "namespace": "default",
+    "threshold": 10,
+    "similarity_threshold": 0.75,
+    "sync": true,
+    "dry_run": false
+  }'</code></pre>
+  <p style="margin-top:8px;color:#a1a1aa;font-size:.9rem">Set <code>"dry_run": true</code> to preview what would be compressed. <code>threshold</code> sets minimum memory count before compression triggers.</p>
+</div>
+
 <!-- Python SDK -->
 <h2 id="python-sdk">Python SDK</h2>
 <pre><code>from mrmemory import AMR
@@ -160,6 +196,31 @@ for m in memories:
 
 # Forget a memory
 client.forget(memories[0].id)</code></pre>
+
+<h3>Auto-Remember</h3>
+<pre><code># Extract memories from conversations automatically
+result = client.auto_remember([
+    {"role": "user", "content": "I love hiking and my favorite language is Rust"},
+    {"role": "assistant", "content": "Great choices!"},
+], sync=True)
+# → {"extracted": 2, "created": 2, "duplicates_skipped": 0, ...}</code></pre>
+
+<h3>Compression</h3>
+<pre><code># Compress related memories into denser representations
+result = client.compress(namespace="default", sync=True, dry_run=True)  # preview
+result = client.compress(namespace="default", sync=True)  # actually compress
+# → {"before_count": 50, "after_count": 28, "groups_compressed": 12, ...}</code></pre>
+
+<h3>LangChain / LangGraph Integration</h3>
+<pre><code>pip install mrmemory[langchain]</code></pre>
+<pre><code>from mrmemory.langchain import MrMemoryCheckpointer, MrMemoryStore
+from langgraph.graph import StateGraph
+
+checkpointer = MrMemoryCheckpointer(api_key="amr_sk_...")
+store = MrMemoryStore(api_key="amr_sk_...")
+
+# Drop-in replacement for any LangGraph checkpointer
+graph = StateGraph(...).compile(checkpointer=checkpointer, store=store)</code></pre>
 
 <h3>Async</h3>
 <pre><code>from mrmemory import AsyncAMR

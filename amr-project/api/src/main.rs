@@ -2,6 +2,7 @@ mod auth;
 mod config;
 mod db;
 mod error;
+pub mod llm;
 mod models;
 mod routes;
 mod state;
@@ -9,7 +10,8 @@ pub mod ws;
 
 use crate::config::Config;
 use crate::routes::{
-    create_key, health_routes, memory_routes, stripe_webhook, welcome_page, ws_handler,
+    auto_remember, compress_memories, create_key, health_routes, memory_routes, stripe_webhook,
+    welcome_page, ws_handler,
 };
 use crate::state::AppState;
 
@@ -71,6 +73,8 @@ async fn main() {
 
     let app = memory_routes()
         .merge(health_routes())
+        .route("/v1/memories/auto", post(auto_remember))
+        .route("/v1/memories/compress", post(compress_memories))
         .route("/v1/ws", get(ws_handler))
         .route("/v1/auth/keys", post(create_key))
         .route("/v1/billing/webhook", post(stripe_webhook))

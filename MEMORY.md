@@ -52,6 +52,12 @@
   - openclaw-config-snippet.json5, AMR-ARCHITECTURE.md, PROJECT-PLAN.md
   - SETUP-INSTRUCTIONS.md, agent-{name}/ with SOUL.md/AGENTS.md/USER.md each
 - **STATUS: All agents live, building in parallel**
+- **4 Feature Roadmap** (from critic analysis):
+  1. LLM auto_remember — ✅ DONE, deployed (`POST /v1/memories/auto`, async/sync, dedup, BYOK)
+  2. Graph retrieval — ❌ deferred (Postgres entity tables approach)
+  3. LangChain checkpointer — ✅ code built, needs SDK republish
+  4. Compression engine — ❌ not started
+  - Priority: #3 → #1 → #4 → #2
 - Landing page live at mrmemory.dev (Vercel + Formspree waitlist)
 - "Install in one line" rebrand deployed
 - Backend: Rust/Axum scaffold (16 files, auth, CRUD, migrations)

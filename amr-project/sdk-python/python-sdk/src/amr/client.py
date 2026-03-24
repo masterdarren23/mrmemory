@@ -200,3 +200,83 @@ class AMR:
 
         data = self._transport.request("GET", "/memories", params=params)
         return [Memory.from_dict(m) for m in data.get("memories", data if isinstance(data, list) else [])]
+
+    def auto_remember(
+        self,
+        messages: list[dict[str, str]],
+        *,
+        namespace: str | None = None,
+        agent_id: str | None = None,
+        llm_api_key: str | None = None,
+        sync: bool = False,
+    ) -> dict[str, Any]:
+        """Extract and store memories from conversation messages using LLM.
+
+        The server-side LLM extracts facts, preferences, and entities from the
+        conversation, deduplicates against existing memories, and stores new ones.
+
+        Args:
+            messages: List of conversation messages, each with ``role`` and ``content``.
+            namespace: Override the client default namespace.
+            agent_id: Override the client default agent ID.
+            llm_api_key: BYOK — provide your own OpenAI API key for extraction.
+            sync: If True, block until extraction completes. Default is async (fire-and-forget).
+
+        Returns:
+            Dict with ``job_id`` and ``status`` (async) or extracted ``memories`` (sync).
+        """
+        body: dict[str, Any] = {"messages": messages}
+        if namespace or self._config.namespace:
+            body["namespace"] = namespace or self._config.namespace
+        if agent_id or self._config.agent_id:
+            body["agent_id"] = agent_id or self._config.agent_id
+        if llm_api_key:
+            body["llm_api_key"] = llm_api_key
+        if sync:
+            body["sync"] = True
+
+        return self._transport.request("POST", "/memories/auto", json=body)
+
+    def compress(
+        self,
+        *,
+        namespace: str | None = None,
+        agent_id: str | None = None,
+        llm_api_key: str | None = None,
+        threshold: int = 10,
+        similarity_threshold: float = 0.75,
+        sync: bool = False,
+        dry_run: bool = False,
+    ) -> dict[str, Any]:
+        """Compress related memories in a namespace using LLM summarization.
+
+        Groups semantically similar memories and merges each group into a single,
+        denser memory. Originals are replaced with the compressed version.
+
+        Args:
+            namespace: Namespace to compress (default: client default).
+            agent_id: Override the client default agent ID.
+            llm_api_key: BYOK — provide your own OpenAI API key.
+            threshold: Minimum memory count before compression triggers (default 10).
+            similarity_threshold: Cosine similarity threshold for grouping (default 0.75).
+            sync: If True, block until compression completes.
+            dry_run: If True, return what would be compressed without doing it.
+
+        Returns:
+            Dict with compression results (groups, counts, etc.).
+        """
+        body: dict[str, Any] = {}
+        if namespace or self._config.namespace:
+            body["namespace"] = namespace or self._config.namespace
+        if agent_id or self._config.agent_id:
+            body["agent_id"] = agent_id or self._config.agent_id
+        if llm_api_key:
+            body["llm_api_key"] = llm_api_key
+        body["threshold"] = threshold
+        body["similarity_threshold"] = similarity_threshold
+        if sync:
+            body["sync"] = True
+        if dry_run:
+            body["dry_run"] = True
+
+        return self._transport.request("POST", "/memories/compress", json=body)
