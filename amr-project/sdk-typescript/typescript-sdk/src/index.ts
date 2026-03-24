@@ -7,6 +7,9 @@ export type {
   ShareOptions,
   ForgetAllOptions,
   ListOptions,
+  AutoRememberOptions,
+  ChatMessage,
+  CompressOptions,
   AMRConfig,
 } from './types.js'
 export {

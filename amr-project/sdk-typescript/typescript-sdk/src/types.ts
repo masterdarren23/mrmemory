@@ -61,6 +61,42 @@ export interface ListOptions {
   offset?: number
 }
 
+/** Options for autoRemember(). */
+export interface AutoRememberOptions {
+  namespace?: string
+  agentId?: string
+  /** BYOK: your own OpenAI key for extraction. */
+  llmApiKey?: string
+  /** LLM model to use (default: gpt-4o-mini). */
+  llmModel?: string
+  /** Block until extraction completes (default: false). */
+  sync?: boolean
+}
+
+/** A message in a conversation. */
+export interface ChatMessage {
+  role: string
+  content: string
+}
+
+/** Options for compress(). */
+export interface CompressOptions {
+  namespace?: string
+  agentId?: string
+  /** BYOK: your own OpenAI key. */
+  llmApiKey?: string
+  /** LLM model to use (default: gpt-4o-mini). */
+  llmModel?: string
+  /** Minimum memory count before compression triggers (default: 10). */
+  threshold?: number
+  /** Cosine similarity threshold for grouping (default: 0.75). */
+  similarityThreshold?: number
+  /** Block until compression completes (default: false). */
+  sync?: boolean
+  /** Preview what would be compressed without doing it. */
+  dryRun?: boolean
+}
+
 /** Client configuration. */
 export interface AMRConfig {
   apiKey: string

@@ -1,5 +1,8 @@
 import type {
   AMRConfig,
+  AutoRememberOptions,
+  ChatMessage,
+  CompressOptions,
   ForgetAllOptions,
   ListOptions,
   Memory,
@@ -133,5 +136,42 @@ export class AMR {
     const data = await this.transport.request('GET', '/memories', { params }) as Record<string, unknown>
     const list = (data.memories ?? data) as Record<string, unknown>[]
     return list.map(parseMemory)
+  }
+
+  /**
+   * Extract and store memories from conversation messages using LLM.
+   * Supports async (fire-and-forget) and sync modes. BYOK supported.
+   */
+  async autoRemember(messages: ChatMessage[], options?: AutoRememberOptions): Promise<Record<string, unknown>> {
+    const body: Record<string, unknown> = { messages }
+    const ns = options?.namespace ?? this.defaultNamespace
+    if (ns) body.namespace = ns
+    const aid = options?.agentId ?? this.defaultAgentId
+    if (aid) body.agent_id = aid
+    if (options?.llmApiKey) body.llm_api_key = options.llmApiKey
+    if (options?.llmModel) body.llm_model = options.llmModel
+    if (options?.sync) body.sync = true
+
+    return await this.transport.request('POST', '/memories/auto', { json: body }) as Record<string, unknown>
+  }
+
+  /**
+   * Compress related memories in a namespace using LLM summarization.
+   * Groups semantically similar memories and merges each group into one.
+   */
+  async compress(options?: CompressOptions): Promise<Record<string, unknown>> {
+    const body: Record<string, unknown> = {}
+    const ns = options?.namespace ?? this.defaultNamespace
+    if (ns) body.namespace = ns
+    const aid = options?.agentId ?? this.defaultAgentId
+    if (aid) body.agent_id = aid
+    if (options?.llmApiKey) body.llm_api_key = options.llmApiKey
+    if (options?.llmModel) body.llm_model = options.llmModel
+    if (options?.threshold != null) body.threshold = options.threshold
+    if (options?.similarityThreshold != null) body.similarity_threshold = options.similarityThreshold
+    if (options?.sync) body.sync = true
+    if (options?.dryRun) body.dry_run = true
+
+    return await this.transport.request('POST', '/memories/compress', { json: body }) as Record<string, unknown>
   }
 }
