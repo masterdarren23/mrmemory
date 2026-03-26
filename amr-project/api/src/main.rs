@@ -10,8 +10,8 @@ pub mod ws;
 
 use crate::config::Config;
 use crate::routes::{
-    auto_remember, compress_memories, create_key, health_routes, memory_routes, stripe_webhook,
-    welcome_page, ws_handler,
+    auto_remember, compress_memories, create_key, health_routes, memory_routes, stats_routes,
+    stripe_webhook, welcome_page, ws_handler,
 };
 use crate::state::AppState;
 
@@ -73,6 +73,7 @@ async fn main() {
 
     let app = memory_routes()
         .merge(health_routes())
+        .merge(stats_routes())
         .route("/v1/memories/auto", post(auto_remember))
         .route("/v1/memories/compress", post(compress_memories))
         .route("/v1/ws", get(ws_handler))
@@ -89,7 +90,7 @@ async fn main() {
                     "http://localhost:3000".parse().unwrap(),
                     "http://localhost:8080".parse().unwrap(),
                 ]))
-                .allow_methods([Method::GET, Method::POST, Method::DELETE, Method::OPTIONS])
+                .allow_methods([Method::GET, Method::POST, Method::PATCH, Method::DELETE, Method::OPTIONS])
                 .allow_headers([header::AUTHORIZATION, header::CONTENT_TYPE])
                 .max_age(std::time::Duration::from_secs(3600)),
         );
