@@ -280,3 +280,104 @@ class AMR:
             body["dry_run"] = True
 
         return self._transport.request("POST", "/memories/compress", json=body)
+
+    def update(
+        self,
+        memory_id: str,
+        *,
+        content: str | None = None,
+        tags: list[str] | None = None,
+        metadata: dict[str, Any] | None = None,
+    ) -> Memory:
+        """Update an existing memory's content, tags, or metadata.
+
+        Re-embeds automatically if content changes.
+
+        Args:
+            memory_id: The memory ID to update.
+            content: New content (optional).
+            tags: New tags (optional).
+            metadata: New metadata (optional).
+
+        Returns:
+            The updated Memory object.
+        """
+        body: dict[str, Any] = {}
+        if content is not None:
+            body["content"] = content
+        if tags is not None:
+            body["tags"] = tags
+        if metadata is not None:
+            body["metadata"] = metadata
+
+        data = self._transport.request("PATCH", f"/memories/{memory_id}", json=body)
+        return Memory.from_dict(data)
+
+    def delete_outdated(
+        self,
+        *,
+        older_than_seconds: int | None = None,
+        tags: list[str] | None = None,
+        namespace: str | None = None,
+        agent_id: str | None = None,
+        dry_run: bool = False,
+    ) -> dict[str, Any]:
+        """Bulk delete outdated memories by age, tags, namespace, or agent.
+
+        Args:
+            older_than_seconds: Delete memories older than this many seconds.
+            tags: Only delete memories with ALL of these tags.
+            namespace: Scope to namespace.
+            agent_id: Scope to agent.
+            dry_run: If True, return count without deleting.
+
+        Returns:
+            Dict with ``deleted`` count and ``dry_run`` flag.
+        """
+        body: dict[str, Any] = {}
+        if older_than_seconds is not None:
+            body["older_than_seconds"] = older_than_seconds
+        if tags:
+            body["tags"] = tags
+        if namespace or self._config.namespace:
+            body["namespace"] = namespace or self._config.namespace
+        if agent_id or self._config.agent_id:
+            body["agent_id"] = agent_id or self._config.agent_id
+        if dry_run:
+            body["dry_run"] = True
+
+        return self._transport.request("DELETE", "/memories/outdated", json=body)
+
+    def merge(
+        self,
+        memory_ids: list[str],
+        *,
+        content: str | None = None,
+        tags: list[str] | None = None,
+        namespace: str | None = None,
+        agent_id: str | None = None,
+    ) -> Memory:
+        """Merge multiple memories into one. Uses LLM summarization if no content provided.
+
+        Args:
+            memory_ids: List of memory IDs to merge (min 2, max 50).
+            content: Override merged content. If omitted, LLM summarizes.
+            tags: Tags for merged memory (default: union of source tags).
+            namespace: Namespace for merged memory.
+            agent_id: Agent ID for merged memory.
+
+        Returns:
+            The newly created merged Memory object.
+        """
+        body: dict[str, Any] = {"memory_ids": memory_ids}
+        if content:
+            body["content"] = content
+        if tags:
+            body["tags"] = tags
+        if namespace or self._config.namespace:
+            body["namespace"] = namespace or self._config.namespace
+        if agent_id or self._config.agent_id:
+            body["agent_id"] = agent_id or self._config.agent_id
+
+        data = self._transport.request("POST", "/memories/merge", json=body)
+        return Memory.from_dict(data)

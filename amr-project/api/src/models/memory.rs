@@ -116,6 +116,50 @@ pub struct ListMemoriesResponse {
     pub offset: usize,
 }
 
+/// PATCH /v1/memories/:id request body.
+#[derive(Debug, Deserialize)]
+pub struct UpdateMemoryRequest {
+    pub content: Option<String>,
+    pub tags: Option<Vec<String>>,
+    pub metadata: Option<serde_json::Value>,
+}
+
+/// DELETE /v1/memories/outdated request body.
+#[derive(Debug, Deserialize)]
+pub struct DeleteOutdatedRequest {
+    /// Delete memories older than this many seconds.
+    pub older_than_seconds: Option<i64>,
+    /// Only delete memories with ALL of these tags.
+    pub tags: Option<Vec<String>>,
+    /// Scope to namespace.
+    pub namespace: Option<String>,
+    /// Scope to agent.
+    pub agent_id: Option<String>,
+    /// Dry run — return count without deleting.
+    #[serde(default)]
+    pub dry_run: bool,
+}
+
+/// DELETE /v1/memories/outdated response.
+#[derive(Debug, Serialize)]
+pub struct DeleteOutdatedResponse {
+    pub deleted: usize,
+    pub dry_run: bool,
+}
+
+/// POST /v1/memories/merge request body.
+#[derive(Debug, Deserialize)]
+pub struct MergeMemoriesRequest {
+    /// Memory IDs to merge.
+    pub memory_ids: Vec<String>,
+    /// Optional override content. If omitted, LLM summarizes.
+    pub content: Option<String>,
+    /// Tags for the merged memory (default: union of source tags).
+    pub tags: Option<Vec<String>>,
+    pub namespace: Option<String>,
+    pub agent_id: Option<String>,
+}
+
 impl Memory {
     pub fn to_response(&self) -> MemoryResponse {
         MemoryResponse {

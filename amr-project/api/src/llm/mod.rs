@@ -105,3 +105,33 @@ pub async fn extract_memories(
 
     Ok(memories)
 }
+
+/// Generic single-prompt LLM call. Returns the assistant's text response.
+pub async fn call_llm(api_key: &str, model: &str, prompt: &str) -> anyhow::Result<String> {
+    let http = reqwest::Client::new();
+    let body = serde_json::json!({
+        "model": model,
+        "messages": [{"role": "user", "content": prompt}],
+        "temperature": 0.3,
+    });
+
+    let resp = http
+        .post("https://api.openai.com/v1/chat/completions")
+        .bearer_auth(api_key)
+        .json(&body)
+        .send()
+        .await?;
+
+    if !resp.status().is_success() {
+        let status = resp.status();
+        let text = resp.text().await.unwrap_or_default();
+        anyhow::bail!("OpenAI API error {}: {}", status, text);
+    }
+
+    let json: serde_json::Value = resp.json().await?;
+    let content = json["choices"][0]["message"]["content"]
+        .as_str()
+        .ok_or_else(|| anyhow::anyhow!("no content in LLM response"))?;
+
+    Ok(content.to_string())
+}

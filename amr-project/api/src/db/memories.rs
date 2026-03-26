@@ -147,6 +147,82 @@ pub async fn prune_expired_memories(db: &PgPool) -> Result<Vec<String>, AppError
     Ok(rows.into_iter().map(|(eid,)| eid).collect())
 }
 
+/// Update a memory's content, tags, and/or metadata. Returns updated row.
+pub async fn update_memory(
+    db: &PgPool,
+    tenant_id: Uuid,
+    external_id: &str,
+    content: Option<&str>,
+    tags: Option<&[String]>,
+    metadata: Option<&serde_json::Value>,
+) -> Result<Option<MemoryRow>, AppError> {
+    let now = Utc::now();
+    let row: Option<MemoryRow> = sqlx::query_as(
+        "UPDATE memories SET \
+         content = COALESCE($3, content), \
+         tags = COALESCE($4, tags), \
+         metadata = COALESCE($5, metadata), \
+         updated_at = $6 \
+         WHERE tenant_id = $1 AND external_id = $2 \
+         RETURNING id, external_id, tenant_id, agent_id, namespace, content, tags, metadata, expires_at, created_at, updated_at"
+    )
+    .bind(tenant_id)
+    .bind(external_id)
+    .bind(content)
+    .bind(tags)
+    .bind(metadata)
+    .bind(now)
+    .fetch_optional(db)
+    .await?;
+
+    Ok(row)
+}
+
+/// Bulk delete outdated memories by age and/or tags. Returns count deleted.
+pub async fn delete_outdated(
+    db: &PgPool,
+    tenant_id: Uuid,
+    older_than: Option<DateTime<Utc>>,
+    tags: Option<&[String]>,
+    namespace: Option<&str>,
+    agent_id: Option<&str>,
+    dry_run: bool,
+) -> Result<usize, AppError> {
+    if dry_run {
+        let (count,): (i64,) = sqlx::query_as(
+            "SELECT COUNT(*) FROM memories WHERE tenant_id = $1 \
+             AND ($2::TIMESTAMPTZ IS NULL OR created_at < $2) \
+             AND ($3::TEXT[] IS NULL OR tags @> $3) \
+             AND ($4::TEXT IS NULL OR namespace = $4) \
+             AND ($5::TEXT IS NULL OR agent_id = $5)"
+        )
+        .bind(tenant_id)
+        .bind(older_than)
+        .bind(tags)
+        .bind(namespace)
+        .bind(agent_id)
+        .fetch_one(db)
+        .await?;
+        Ok(count as usize)
+    } else {
+        let result = sqlx::query(
+            "DELETE FROM memories WHERE tenant_id = $1 \
+             AND ($2::TIMESTAMPTZ IS NULL OR created_at < $2) \
+             AND ($3::TEXT[] IS NULL OR tags @> $3) \
+             AND ($4::TEXT IS NULL OR namespace = $4) \
+             AND ($5::TEXT IS NULL OR agent_id = $5)"
+        )
+        .bind(tenant_id)
+        .bind(older_than)
+        .bind(tags)
+        .bind(namespace)
+        .bind(agent_id)
+        .execute(db)
+        .await?;
+        Ok(result.rows_affected() as usize)
+    }
+}
+
 /// Delete a memory by external_id. Returns true if deleted.
 pub async fn delete_memory(
     db: &PgPool,

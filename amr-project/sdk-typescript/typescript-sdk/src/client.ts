@@ -3,12 +3,15 @@ import type {
   AutoRememberOptions,
   ChatMessage,
   CompressOptions,
+  DeleteOutdatedOptions,
   ForgetAllOptions,
+  MergeMemoriesOptions,
   ListOptions,
   Memory,
   RecallOptions,
   RememberOptions,
   ShareOptions,
+  UpdateMemoryOptions,
 } from './types.js'
 import { Transport } from './transport.js'
 import { parseMemory, parseTtl } from './utils.js'
@@ -173,5 +176,45 @@ export class AMR {
     if (options?.dryRun) body.dry_run = true
 
     return await this.transport.request('POST', '/memories/compress', { json: body }) as Record<string, unknown>
+  }
+
+  /** Update an existing memory's content, tags, or metadata. Re-embeds automatically if content changes. */
+  async update(memoryId: string, options: UpdateMemoryOptions): Promise<Memory> {
+    const body: Record<string, unknown> = {}
+    if (options.content != null) body.content = options.content
+    if (options.tags != null) body.tags = options.tags
+    if (options.metadata != null) body.metadata = options.metadata
+
+    const data = await this.transport.request('PATCH', `/memories/${memoryId}`, { json: body })
+    return parseMemory(data as Record<string, unknown>)
+  }
+
+  /** Bulk delete outdated memories by age, tags, namespace, or agent. */
+  async deleteOutdated(options: DeleteOutdatedOptions): Promise<{ deleted: number; dryRun: boolean }> {
+    const body: Record<string, unknown> = {}
+    if (options.olderThanSeconds != null) body.older_than_seconds = options.olderThanSeconds
+    if (options.tags) body.tags = options.tags
+    const ns = options.namespace ?? this.defaultNamespace
+    if (ns) body.namespace = ns
+    const aid = options.agentId ?? this.defaultAgentId
+    if (aid) body.agent_id = aid
+    if (options.dryRun) body.dry_run = true
+
+    const data = await this.transport.request('DELETE', '/memories/outdated', { json: body }) as Record<string, unknown>
+    return { deleted: data.deleted as number, dryRun: data.dry_run as boolean }
+  }
+
+  /** Merge multiple memories into one. Uses LLM summarization if no content override provided. */
+  async merge(memoryIds: string[], options?: MergeMemoriesOptions): Promise<Memory> {
+    const body: Record<string, unknown> = { memory_ids: memoryIds }
+    if (options?.content) body.content = options.content
+    if (options?.tags) body.tags = options.tags
+    const ns = options?.namespace ?? this.defaultNamespace
+    if (ns) body.namespace = ns
+    const aid = options?.agentId ?? this.defaultAgentId
+    if (aid) body.agent_id = aid
+
+    const data = await this.transport.request('POST', '/memories/merge', { json: body })
+    return parseMemory(data as Record<string, unknown>)
   }
 }

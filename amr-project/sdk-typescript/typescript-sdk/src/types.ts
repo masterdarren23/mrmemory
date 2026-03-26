@@ -97,6 +97,35 @@ export interface CompressOptions {
   dryRun?: boolean
 }
 
+/** Options for update(). */
+export interface UpdateMemoryOptions {
+  content?: string
+  tags?: string[]
+  metadata?: Record<string, unknown>
+}
+
+/** Options for deleteOutdated(). */
+export interface DeleteOutdatedOptions {
+  /** Delete memories older than this many seconds. */
+  olderThanSeconds?: number
+  /** Only delete memories with ALL of these tags. */
+  tags?: string[]
+  namespace?: string
+  agentId?: string
+  /** Preview count without deleting. */
+  dryRun?: boolean
+}
+
+/** Options for merge(). */
+export interface MergeMemoriesOptions {
+  /** Override content. If omitted, LLM summarizes. */
+  content?: string
+  /** Tags for merged memory (default: union of source tags). */
+  tags?: string[]
+  namespace?: string
+  agentId?: string
+}
+
 /** Client configuration. */
 export interface AMRConfig {
   apiKey: string
