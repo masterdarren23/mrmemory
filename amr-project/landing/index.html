@@ -246,6 +246,11 @@ footer .container{display:flex;justify-content:space-between;align-items:center;
         <p>Memory growing too large? Compress groups semantically similar memories into denser representations. Keeps costs down and recall sharp. <code>amr.compress()</code></p>
       </div>
       <div class="feature-card">
+        <div class="icon">✏️</div>
+        <h3>Self-Edit</h3>
+        <p>Agents update, merge, and prune their own memories. <code>update()</code>, <code>merge()</code>, <code>delete_outdated()</code> — full MemGPT-style memory control loop.</p>
+      </div>
+      <div class="feature-card">
         <div class="icon">🔗</div>
         <h3>LangChain Native</h3>
         <p>Drop-in <code>MrMemoryCheckpointer</code> and <code>MrMemoryStore</code> for LangGraph. <code>pip install mrmemory[langchain]</code> and you're integrated.</p>

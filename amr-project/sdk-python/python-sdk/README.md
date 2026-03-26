@@ -66,6 +66,31 @@ result = amr.compress(namespace="default", sync=True)
 print(f"Reduced {result['before_count']} → {result['after_count']} memories")
 ```
 
+## Self-Edit Tools
+
+Update, bulk-delete, and merge memories — giving agents full control over their own memory:
+
+```python
+# Update an existing memory (re-embeds automatically)
+amr.update("mem_abc123", content="Updated: user now prefers light mode", tags=["preference"])
+
+# Bulk delete old memories (dry run first)
+result = amr.delete_outdated(older_than_seconds=86400 * 30, dry_run=True)
+print(f"Would delete {result['deleted']} memories")
+
+# Actually delete
+amr.delete_outdated(older_than_seconds=86400 * 30, tags=["ephemeral"])
+
+# Merge related memories into one (LLM summarization)
+merged = amr.merge(["mem_abc123", "mem_def456", "mem_ghi789"])
+print(merged.content)  # Summarized by GPT-4o-mini
+
+# Or provide your own merged content
+merged = amr.merge(["mem_abc123", "mem_def456"], content="User prefers dark mode and vim keybindings")
+```
+
+Merged memories get `is_compressed: true` and `merged_from` tracking in the response.
+
 ## LangChain / LangGraph Integration
 
 Drop-in checkpointer and store for LangGraph:
@@ -114,6 +139,9 @@ All requests go to `https://amr-memory-api.fly.dev`.
 | GET | `/v1/memories` | List all memories |
 | POST | `/v1/memories/auto` | LLM auto-remember from conversations |
 | POST | `/v1/memories/compress` | Compress related memories |
+| PATCH | `/v1/memories/:id` | Update a memory |
+| DELETE | `/v1/memories/outdated` | Bulk delete by age/tags |
+| POST | `/v1/memories/merge` | Merge memories into one |
 | GET | `/v1/ws` | WebSocket real-time events |
 
 Auth: `Authorization: Bearer amr_sk_...`
