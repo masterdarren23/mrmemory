@@ -19,6 +19,8 @@ pub struct MemoryRow {
     pub expires_at: Option<DateTime<Utc>>,
     pub created_at: DateTime<Utc>,
     pub updated_at: DateTime<Utc>,
+    pub is_compressed: bool,
+    pub merged_from: Vec<String>,
 }
 
 impl MemoryRow {
@@ -33,6 +35,8 @@ impl MemoryRow {
             expires_at: self.expires_at,
             created_at: self.created_at,
             updated_at: self.updated_at,
+            is_compressed: self.is_compressed,
+            merged_from: self.merged_from.clone(),
         }
     }
 }
@@ -53,7 +57,7 @@ pub async fn insert_memory(
     let expires_at = req.ttl_seconds.map(|s| now + chrono::Duration::seconds(s));
 
     let row: MemoryRow = sqlx::query_as(
-        "INSERT INTO memories (id, external_id, tenant_id, agent_id, namespace, content, tags, metadata, expires_at, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $10) RETURNING id, external_id, tenant_id, agent_id, namespace, content, tags, metadata, expires_at, created_at, updated_at"
+        "INSERT INTO memories (id, external_id, tenant_id, agent_id, namespace, content, tags, metadata, expires_at, created_at, updated_at, is_compressed, merged_from) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $10, FALSE, '{}') RETURNING id, external_id, tenant_id, agent_id, namespace, content, tags, metadata, expires_at, created_at, updated_at, is_compressed, merged_from"
     )
     .bind(id)
     .bind(&external_id)
@@ -90,7 +94,7 @@ pub async fn list_memories(
     .await?;
 
     let rows: Vec<MemoryRow> = sqlx::query_as(
-        "SELECT id, external_id, tenant_id, agent_id, namespace, content, tags, metadata, expires_at, created_at, updated_at FROM memories WHERE tenant_id = $1 AND ($2::TEXT IS NULL OR namespace = $2) AND ($3::TEXT IS NULL OR agent_id = $3) ORDER BY created_at DESC LIMIT $4 OFFSET $5"
+        "SELECT id, external_id, tenant_id, agent_id, namespace, content, tags, metadata, expires_at, created_at, updated_at, is_compressed, merged_from FROM memories WHERE tenant_id = $1 AND ($2::TEXT IS NULL OR namespace = $2) AND ($3::TEXT IS NULL OR agent_id = $3) ORDER BY created_at DESC LIMIT $4 OFFSET $5"
     )
     .bind(tenant_id)
     .bind(namespace)
@@ -110,7 +114,7 @@ pub async fn get_memory_by_external_id(
     external_id: &str,
 ) -> Result<Option<MemoryRow>, AppError> {
     let row: Option<MemoryRow> = sqlx::query_as(
-        "SELECT id, external_id, tenant_id, agent_id, namespace, content, tags, metadata, expires_at, created_at, updated_at FROM memories WHERE tenant_id = $1 AND external_id = $2"
+        "SELECT id, external_id, tenant_id, agent_id, namespace, content, tags, metadata, expires_at, created_at, updated_at, is_compressed, merged_from FROM memories WHERE tenant_id = $1 AND external_id = $2"
     )
     .bind(tenant_id)
     .bind(external_id)
@@ -164,7 +168,7 @@ pub async fn update_memory(
          metadata = COALESCE($5, metadata), \
          updated_at = $6 \
          WHERE tenant_id = $1 AND external_id = $2 \
-         RETURNING id, external_id, tenant_id, agent_id, namespace, content, tags, metadata, expires_at, created_at, updated_at"
+         RETURNING id, external_id, tenant_id, agent_id, namespace, content, tags, metadata, expires_at, created_at, updated_at, is_compressed, merged_from"
     )
     .bind(tenant_id)
     .bind(external_id)

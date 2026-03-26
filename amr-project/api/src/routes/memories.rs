@@ -159,6 +159,7 @@ async fn recall_memories(
                 metadata: row.metadata.clone(),
                 similarity: *score,
                 created_at: row.created_at,
+                is_compressed: row.is_compressed,
             });
         }
     }
@@ -417,6 +418,17 @@ async fn merge_memories_handler(
         ttl_seconds: None,
     };
     let new_row = db::insert_memory(&state.db, tenant.tenant_id, &create_req).await?;
+
+    // Mark as compressed/merged.
+    sqlx::query(
+        "UPDATE memories SET is_compressed = TRUE, merged_from = $1 WHERE external_id = $2 AND tenant_id = $3"
+    )
+    .bind(&body.memory_ids)
+    .bind(&new_row.external_id)
+    .bind(tenant.tenant_id)
+    .execute(&state.db)
+    .await
+    .ok();
 
     // Embed the new memory.
     if !state.config.openai_api_key.is_empty() {

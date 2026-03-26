@@ -247,6 +247,169 @@ for (const m of memories) {
 // Forget a memory
 await amr.forget(memories[0].id)</code></pre>
 
+<!-- Self-Edit Tools -->
+<h2 id="self-edit">Self-Edit Tools</h2>
+<p>Let your agents manage their own memory — update, prune, and merge.</p>
+
+<h3>Update a Memory</h3>
+<pre><code>PATCH /v1/memories/{id}
+Content-Type: application/json
+Authorization: Bearer amr_sk_...
+
+{
+  "content": "Updated preference: user now prefers light mode",
+  "tags": ["preference", "ui"]
+}</code></pre>
+<p>Re-embeds automatically when content changes. Partial updates supported (send only fields you want to change).</p>
+
+<h3>Bulk Delete Outdated</h3>
+<pre><code>DELETE /v1/memories/outdated
+Content-Type: application/json
+
+{
+  "older_than_seconds": 2592000,
+  "tags": ["ephemeral"],
+  "namespace": "chat-session",
+  "dry_run": true
+}</code></pre>
+<p>Supports <code>dry_run: true</code> to preview what would be deleted without actually removing anything.</p>
+
+<h3>Merge Memories</h3>
+<pre><code>POST /v1/memories/merge
+Content-Type: application/json
+
+{
+  "memory_ids": ["mem_abc123", "mem_def456", "mem_ghi789"],
+  "namespace": "default"
+}</code></pre>
+<p>Merges 2-50 memories into one using LLM summarization. Source memories are deleted. The merged memory gets <code>is_compressed: true</code> and <code>merged_from</code> tracking. Pass <code>content</code> to override the LLM summary.</p>
+
+<h4>Python SDK</h4>
+<pre><code># Update
+client.update("mem_abc123", content="New content", tags=["updated"])
+
+# Bulk delete old memories
+result = client.delete_outdated(older_than_seconds=86400*30, dry_run=True)
+print(f"Would delete {result['deleted']} memories")
+
+# Merge
+merged = client.merge(["mem_abc123", "mem_def456"])
+print(merged.content)  # LLM-summarized</code></pre>
+
+<h4>TypeScript SDK</h4>
+<pre><code>// Update
+await amr.update('mem_abc123', { content: 'New content', tags: ['updated'] })
+
+// Bulk delete
+const result = await amr.deleteOutdated({ olderThanSeconds: 86400 * 30, dryRun: true })
+
+// Merge
+const merged = await amr.merge(['mem_abc123', 'mem_def456'])</code></pre>
+
+<!-- Self-Hosting -->
+<h2 id="self-hosting">Self-Hosting</h2>
+<p>Run MrMemory on your own infrastructure with Docker Compose. Full stack: Rust API + PostgreSQL + Qdrant vector DB.</p>
+
+<h3>Quick Start</h3>
+<pre><code># Clone the repo
+git clone https://github.com/masterdarren23/mrmemory.git
+cd mrmemory/amr-project
+
+# Configure
+cp .env.example .env
+# Edit .env — add your OPENAI_API_KEY
+
+# Launch
+docker compose up -d
+
+# API is now at http://localhost:8080
+curl http://localhost:8080/v1/health</code></pre>
+
+<h3>Architecture</h3>
+<pre><code>┌─────────────┐     ┌──────────────┐     ┌─────────────┐
+│  Your Agent  │────▶│  MrMemory    │────▶│  Qdrant     │
+│  (SDK/REST)  │     │  API (Rust)  │     │  (Vectors)  │
+└─────────────┘     └──────┬───────┘     └─────────────┘
+                           │
+                    ┌──────▼───────┐
+                    │  PostgreSQL  │
+                    │  (Metadata)  │
+                    └──────────────┘</code></pre>
+
+<h3>Environment Variables</h3>
+<table>
+  <tr><th>Variable</th><th>Required</th><th>Default</th><th>Description</th></tr>
+  <tr><td><code>OPENAI_API_KEY</code></td><td>Yes</td><td>—</td><td>For embeddings (text-embedding-3-small)</td></tr>
+  <tr><td><code>DATABASE_URL</code></td><td>Yes</td><td>—</td><td>PostgreSQL connection string</td></tr>
+  <tr><td><code>QDRANT_URL</code></td><td>No</td><td>http://localhost:6334</td><td>Qdrant REST endpoint</td></tr>
+  <tr><td><code>EMBEDDING_MODEL</code></td><td>No</td><td>text-embedding-3-small</td><td>OpenAI embedding model</td></tr>
+  <tr><td><code>LISTEN_ADDR</code></td><td>No</td><td>0.0.0.0:8080</td><td>API listen address</td></tr>
+</table>
+
+<!-- Rust SDK -->
+<h2 id="rust-sdk">Rust SDK</h2>
+<p>The MrMemory API is a Rust/Axum server. For Rust agents, use the REST API directly with <code>reqwest</code>:</p>
+<pre><code>use reqwest::Client;
+use serde_json::json;
+
+let client = Client::new();
+
+// Remember
+client.post("https://amr-memory-api.fly.dev/v1/memories")
+    .bearer_auth("amr_sk_...")
+    .json(&json!({
+        "content": "User prefers Rust over Python",
+        "tags": ["preference", "language"],
+        "namespace": "default"
+    }))
+    .send().await?;
+
+// Recall
+let res = client.get("https://amr-memory-api.fly.dev/v1/memories/recall")
+    .bearer_auth("amr_sk_...")
+    .query(&[("query", "programming preferences"), ("limit", "5")])
+    .send().await?
+    .json::&lt;serde_json::Value&gt;().await?;
+
+println!("{}", res);</code></pre>
+
+<!-- CrewAI -->
+<h2 id="crewai">CrewAI Integration</h2>
+<p>Add persistent memory to your CrewAI agents:</p>
+<pre><code>from crewai import Agent, Task, Crew
+from mrmemory import AMR
+
+memory = AMR("amr_sk_...", agent_id="researcher", namespace="research")
+
+# Store context before task
+memory.remember("Project deadline is March 30th", tags=["project", "deadline"])
+
+# Create agent with memory-aware instructions
+researcher = Agent(
+    role="Research Analyst",
+    goal="Research and report findings",
+    backstory="You have access to long-term memory via MrMemory.",
+    tools=[],
+)
+
+# Recall relevant context in your tool or callback
+def recall_context(query: str) -> str:
+    results = memory.recall(query, limit=5)
+    return "\n".join(m.content for m in results)
+
+# Use in task description
+context = recall_context("project deadlines")
+task = Task(
+    description=f"Given this context:\n{context}\n\nAnalyze the timeline.",
+    agent=researcher,
+)
+
+crew = Crew(agents=[researcher], tasks=[task])
+result = crew.kickoff()
+
+# Save results back to memory
+memory.remember(f"Research findings: {result}", tags=["findings"])</code></pre>
+
 <!-- Pricing -->
 <h2 id="pricing">Pricing</h2>
 <table>
@@ -260,7 +423,7 @@ await amr.forget(memories[0].id)</code></pre>
 </main>
 
 <footer>
-  <div class="container">AMR — Agent Memory Relay · <a href="index.html">Home</a> · © 2026</div>
+  <div class="container">MrMemory — Agent Memory Relay · <a href="/">Home</a> · © 2026</div>
 </footer>
 
 </body>

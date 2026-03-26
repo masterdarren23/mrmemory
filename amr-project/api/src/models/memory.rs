@@ -48,6 +48,10 @@ pub struct MemoryResponse {
     pub expires_at: Option<DateTime<Utc>>,
     pub created_at: DateTime<Utc>,
     pub updated_at: DateTime<Utc>,
+    #[serde(skip_serializing_if = "std::ops::Not::not")]
+    pub is_compressed: bool,
+    #[serde(skip_serializing_if = "Vec::is_empty")]
+    pub merged_from: Vec<String>,
 }
 
 /// GET /v1/memories/recall query params.
@@ -81,6 +85,8 @@ pub struct RecallResult {
     pub metadata: serde_json::Value,
     pub similarity: f32,
     pub created_at: DateTime<Utc>,
+    #[serde(skip_serializing_if = "std::ops::Not::not")]
+    pub is_compressed: bool,
 }
 
 /// GET /v1/memories/recall response.
@@ -172,6 +178,8 @@ impl Memory {
             expires_at: self.expires_at,
             created_at: self.created_at,
             updated_at: self.updated_at,
+            is_compressed: false,
+            merged_from: vec![],
         }
     }
 }
