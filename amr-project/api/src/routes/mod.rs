@@ -4,6 +4,7 @@ pub mod billing;
 pub mod compress;
 mod health;
 mod memories;
+mod namespaces;
 pub mod stats;
 pub mod ws;
 
@@ -13,5 +14,6 @@ pub use billing::{stripe_webhook, welcome_page};
 pub use compress::compress_memories;
 pub use health::health_routes;
 pub use memories::memory_routes;
+pub use namespaces::namespace_routes;
 pub use stats::stats_routes;
 pub use ws::ws_handler;

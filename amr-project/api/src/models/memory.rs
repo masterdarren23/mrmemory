@@ -30,10 +30,25 @@ pub struct CreateMemoryRequest {
     #[serde(default)]
     pub metadata: serde_json::Value,
     pub ttl_seconds: Option<i64>,
+    /// Opt-in write-through validation against existing memories.
+    pub validate: Option<bool>,
+    /// Who is creating this memory.
+    pub created_by: Option<String>,
+    /// Confidence score (0.0–1.0).
+    pub confidence: Option<f32>,
+    /// Write source identifier.
+    pub source: Option<String>,
 }
 
 fn default_namespace() -> String {
     "default".into()
+}
+
+/// Result of write-through validation.
+#[derive(Debug, Serialize, Deserialize)]
+pub struct ValidationResult {
+    pub pass: bool,
+    pub conflicts: Vec<String>,
 }
 
 /// Response for a single memory.
@@ -52,6 +67,14 @@ pub struct MemoryResponse {
     pub is_compressed: bool,
     #[serde(skip_serializing_if = "Vec::is_empty")]
     pub merged_from: Vec<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub created_by: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub last_modified_by: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub confidence: Option<f32>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub write_source: Option<String>,
 }
 
 /// GET /v1/memories/recall query params.
@@ -65,6 +88,10 @@ pub struct RecallQuery {
     pub limit: usize,
     #[serde(default = "default_threshold")]
     pub threshold: f32,
+    /// Filter by creator.
+    pub created_by: Option<String>,
+    /// Minimum confidence filter.
+    pub min_confidence: Option<f32>,
 }
 
 fn default_limit() -> usize {
@@ -87,6 +114,14 @@ pub struct RecallResult {
     pub created_at: DateTime<Utc>,
     #[serde(skip_serializing_if = "std::ops::Not::not")]
     pub is_compressed: bool,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub created_by: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub last_modified_by: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub confidence: Option<f32>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub write_source: Option<String>,
 }
 
 /// GET /v1/memories/recall response.
@@ -122,12 +157,16 @@ pub struct ListMemoriesResponse {
     pub offset: usize,
 }
 
-/// PATCH /v1/memories/:id request body.
+/// PATCH /v1/memories/{id} request body.
 #[derive(Debug, Deserialize)]
 pub struct UpdateMemoryRequest {
     pub content: Option<String>,
     pub tags: Option<Vec<String>>,
     pub metadata: Option<serde_json::Value>,
+    /// Who is modifying this memory.
+    pub modified_by: Option<String>,
+    /// Agent ID for namespace policy enforcement.
+    pub agent_id: Option<String>,
 }
 
 /// DELETE /v1/memories/outdated request body.
@@ -166,6 +205,19 @@ pub struct MergeMemoriesRequest {
     pub agent_id: Option<String>,
 }
 
+/// Namespace policy request body.
+#[derive(Debug, Deserialize)]
+pub struct SetNamespacePolicyRequest {
+    pub policy: String,
+}
+
+/// Namespace policy response.
+#[derive(Debug, Serialize)]
+pub struct NamespacePolicyResponse {
+    pub namespace: String,
+    pub policy: String,
+}
+
 impl Memory {
     pub fn to_response(&self) -> MemoryResponse {
         MemoryResponse {
@@ -180,6 +232,10 @@ impl Memory {
             updated_at: self.updated_at,
             is_compressed: false,
             merged_from: vec![],
+            created_by: None,
+            last_modified_by: None,
+            confidence: None,
+            write_source: None,
         }
     }
 }

@@ -135,3 +135,63 @@ pub async fn call_llm(api_key: &str, model: &str, prompt: &str) -> anyhow::Resul
 
     Ok(content.to_string())
 }
+
+/// Validate a new memory against existing memories for contradictions.
+/// Returns (pass, conflicts) where pass=true means no contradictions found.
+pub async fn validate_memory(
+    api_key: &str,
+    model: &str,
+    new_content: &str,
+    existing: &[String],
+) -> anyhow::Result<(bool, Vec<String>)> {
+    if existing.is_empty() {
+        return Ok((true, vec![]));
+    }
+
+    let existing_list = existing
+        .iter()
+        .enumerate()
+        .map(|(i, m)| format!("{}. {}", i + 1, m))
+        .collect::<Vec<_>>()
+        .join("\n");
+
+    let prompt = format!(
+        "Does the following new memory contradict any of these existing facts?\n\n\
+         New memory: \"{}\"\n\n\
+         Existing facts:\n{}\n\n\
+         Reply with JSON {{\"pass\": true/false, \"conflicts\": [\"explanation...\"]}}. \
+         If there are no contradictions, pass should be true and conflicts should be empty.",
+        new_content, existing_list
+    );
+
+    let response = call_llm(api_key, model, &prompt).await?;
+
+    // Try to parse JSON from the response (handle markdown code blocks)
+    let json_str = response
+        .trim()
+        .trim_start_matches("```json")
+        .trim_start_matches("```")
+        .trim_end_matches("```")
+        .trim();
+
+    match serde_json::from_str::<serde_json::Value>(json_str) {
+        Ok(val) => {
+            let pass = val.get("pass").and_then(|v| v.as_bool()).unwrap_or(true);
+            let conflicts = val
+                .get("conflicts")
+                .and_then(|v| v.as_array())
+                .map(|arr| {
+                    arr.iter()
+                        .filter_map(|v| v.as_str().map(|s| s.to_string()))
+                        .collect()
+                })
+                .unwrap_or_default();
+            Ok((pass, conflicts))
+        }
+        Err(_) => {
+            // If we can't parse, assume pass
+            tracing::warn!("Could not parse validation response as JSON: {}", response);
+            Ok((true, vec![]))
+        }
+    }
+}

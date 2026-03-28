@@ -18,6 +18,9 @@ pub enum AppError {
     #[error("not found")]
     NotFound,
 
+    #[error("conflict: validation failed")]
+    Conflict(Vec<String>),
+
     #[error("rate limited")]
     RateLimited { retry_after: u64 },
 
@@ -57,6 +60,11 @@ impl AppError {
                 StatusCode::NOT_FOUND,
                 "not_found",
                 "resource not found".into(),
+            ),
+            AppError::Conflict(ref conflicts) => (
+                StatusCode::CONFLICT,
+                "conflict",
+                format!("validation failed: {}", conflicts.join("; ")),
             ),
             AppError::RateLimited { retry_after } => (
                 StatusCode::TOO_MANY_REQUESTS,

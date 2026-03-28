@@ -10,8 +10,8 @@ pub mod ws;
 
 use crate::config::Config;
 use crate::routes::{
-    auto_remember, compress_memories, create_key, health_routes, memory_routes, stats_routes,
-    stripe_webhook, welcome_page, ws_handler,
+    auto_remember, compress_memories, create_key, health_routes, memory_routes, namespace_routes,
+    stats_routes, stripe_webhook, welcome_page, ws_handler,
 };
 use crate::state::AppState;
 
@@ -74,6 +74,7 @@ async fn main() {
     let app = memory_routes()
         .merge(health_routes())
         .merge(stats_routes())
+        .merge(namespace_routes())
         .route("/v1/memories/auto", post(auto_remember))
         .route("/v1/memories/compress", post(compress_memories))
         .route("/v1/ws", get(ws_handler))

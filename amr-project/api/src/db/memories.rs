@@ -21,7 +21,13 @@ pub struct MemoryRow {
     pub updated_at: DateTime<Utc>,
     pub is_compressed: bool,
     pub merged_from: Vec<String>,
+    pub created_by: String,
+    pub last_modified_by: Option<String>,
+    pub confidence: Option<f32>,
+    pub write_source: Option<String>,
 }
+
+const MEMORY_COLUMNS: &str = "id, external_id, tenant_id, agent_id, namespace, content, tags, metadata, expires_at, created_at, updated_at, is_compressed, merged_from, created_by, last_modified_by, confidence, write_source";
 
 impl MemoryRow {
     pub fn to_response(&self) -> MemoryResponse {
@@ -37,6 +43,10 @@ impl MemoryRow {
             updated_at: self.updated_at,
             is_compressed: self.is_compressed,
             merged_from: self.merged_from.clone(),
+            created_by: Some(self.created_by.clone()),
+            last_modified_by: self.last_modified_by.clone(),
+            confidence: self.confidence,
+            write_source: self.write_source.clone(),
         }
     }
 }
@@ -47,6 +57,18 @@ pub async fn insert_memory(
     tenant_id: Uuid,
     req: &CreateMemoryRequest,
 ) -> Result<MemoryRow, AppError> {
+    insert_memory_with_provenance(db, tenant_id, req, None, None, None).await
+}
+
+/// Insert a new memory with explicit provenance fields.
+pub async fn insert_memory_with_provenance(
+    db: &PgPool,
+    tenant_id: Uuid,
+    req: &CreateMemoryRequest,
+    created_by_override: Option<&str>,
+    confidence_override: Option<f32>,
+    write_source_override: Option<&str>,
+) -> Result<MemoryRow, AppError> {
     let id = Uuid::new_v4();
     let external_id = format!(
         "mem_{}",
@@ -56,8 +78,18 @@ pub async fn insert_memory(
     let now = Utc::now();
     let expires_at = req.ttl_seconds.map(|s| now + chrono::Duration::seconds(s));
 
+    let created_by = created_by_override
+        .map(|s| s.to_string())
+        .or_else(|| req.created_by.clone())
+        .unwrap_or_else(|| "unknown".into());
+    let confidence = confidence_override.or(req.confidence).unwrap_or(1.0);
+    let write_source = write_source_override
+        .map(|s| s.to_string())
+        .or_else(|| req.source.clone())
+        .unwrap_or_else(|| "api".into());
+
     let row: MemoryRow = sqlx::query_as(
-        "INSERT INTO memories (id, external_id, tenant_id, agent_id, namespace, content, tags, metadata, expires_at, created_at, updated_at, is_compressed, merged_from) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $10, FALSE, '{}') RETURNING id, external_id, tenant_id, agent_id, namespace, content, tags, metadata, expires_at, created_at, updated_at, is_compressed, merged_from"
+        &format!("INSERT INTO memories (id, external_id, tenant_id, agent_id, namespace, content, tags, metadata, expires_at, created_at, updated_at, is_compressed, merged_from, created_by, confidence, write_source) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $10, FALSE, '{{}}', $11, $12, $13) RETURNING {}", MEMORY_COLUMNS)
     )
     .bind(id)
     .bind(&external_id)
@@ -69,6 +101,9 @@ pub async fn insert_memory(
     .bind(&req.metadata)
     .bind(expires_at)
     .bind(now)
+    .bind(&created_by)
+    .bind(confidence)
+    .bind(&write_source)
     .fetch_one(db)
     .await?;
 
@@ -94,7 +129,7 @@ pub async fn list_memories(
     .await?;
 
     let rows: Vec<MemoryRow> = sqlx::query_as(
-        "SELECT id, external_id, tenant_id, agent_id, namespace, content, tags, metadata, expires_at, created_at, updated_at, is_compressed, merged_from FROM memories WHERE tenant_id = $1 AND ($2::TEXT IS NULL OR namespace = $2) AND ($3::TEXT IS NULL OR agent_id = $3) ORDER BY created_at DESC LIMIT $4 OFFSET $5"
+        &format!("SELECT {} FROM memories WHERE tenant_id = $1 AND ($2::TEXT IS NULL OR namespace = $2) AND ($3::TEXT IS NULL OR agent_id = $3) ORDER BY created_at DESC LIMIT $4 OFFSET $5", MEMORY_COLUMNS)
     )
     .bind(tenant_id)
     .bind(namespace)
@@ -114,7 +149,7 @@ pub async fn get_memory_by_external_id(
     external_id: &str,
 ) -> Result<Option<MemoryRow>, AppError> {
     let row: Option<MemoryRow> = sqlx::query_as(
-        "SELECT id, external_id, tenant_id, agent_id, namespace, content, tags, metadata, expires_at, created_at, updated_at, is_compressed, merged_from FROM memories WHERE tenant_id = $1 AND external_id = $2"
+        &format!("SELECT {} FROM memories WHERE tenant_id = $1 AND external_id = $2", MEMORY_COLUMNS)
     )
     .bind(tenant_id)
     .bind(external_id)
@@ -159,16 +194,18 @@ pub async fn update_memory(
     content: Option<&str>,
     tags: Option<&[String]>,
     metadata: Option<&serde_json::Value>,
+    last_modified_by: Option<&str>,
 ) -> Result<Option<MemoryRow>, AppError> {
     let now = Utc::now();
     let row: Option<MemoryRow> = sqlx::query_as(
-        "UPDATE memories SET \
+        &format!("UPDATE memories SET \
          content = COALESCE($3, content), \
          tags = COALESCE($4, tags), \
          metadata = COALESCE($5, metadata), \
-         updated_at = $6 \
+         updated_at = $6, \
+         last_modified_by = COALESCE($7, last_modified_by) \
          WHERE tenant_id = $1 AND external_id = $2 \
-         RETURNING id, external_id, tenant_id, agent_id, namespace, content, tags, metadata, expires_at, created_at, updated_at, is_compressed, merged_from"
+         RETURNING {}", MEMORY_COLUMNS)
     )
     .bind(tenant_id)
     .bind(external_id)
@@ -176,6 +213,7 @@ pub async fn update_memory(
     .bind(tags)
     .bind(metadata)
     .bind(now)
+    .bind(last_modified_by)
     .fetch_optional(db)
     .await?;
 
@@ -221,6 +259,56 @@ pub async fn delete_outdated(
         .bind(tags)
         .bind(namespace)
         .bind(agent_id)
+        .execute(db)
+        .await?;
+        Ok(result.rows_affected() as usize)
+    }
+}
+
+/// Bulk delete outdated memories scoped to a specific created_by (for append_only policy).
+pub async fn delete_outdated_scoped(
+    db: &PgPool,
+    tenant_id: Uuid,
+    older_than: Option<DateTime<Utc>>,
+    tags: Option<&[String]>,
+    namespace: Option<&str>,
+    agent_id: Option<&str>,
+    created_by_filter: &str,
+    dry_run: bool,
+) -> Result<usize, AppError> {
+    if dry_run {
+        let (count,): (i64,) = sqlx::query_as(
+            "SELECT COUNT(*) FROM memories WHERE tenant_id = $1 \
+             AND ($2::TIMESTAMPTZ IS NULL OR created_at < $2) \
+             AND ($3::TEXT[] IS NULL OR tags @> $3) \
+             AND ($4::TEXT IS NULL OR namespace = $4) \
+             AND ($5::TEXT IS NULL OR agent_id = $5) \
+             AND created_by = $6"
+        )
+        .bind(tenant_id)
+        .bind(older_than)
+        .bind(tags)
+        .bind(namespace)
+        .bind(agent_id)
+        .bind(created_by_filter)
+        .fetch_one(db)
+        .await?;
+        Ok(count as usize)
+    } else {
+        let result = sqlx::query(
+            "DELETE FROM memories WHERE tenant_id = $1 \
+             AND ($2::TIMESTAMPTZ IS NULL OR created_at < $2) \
+             AND ($3::TEXT[] IS NULL OR tags @> $3) \
+             AND ($4::TEXT IS NULL OR namespace = $4) \
+             AND ($5::TEXT IS NULL OR agent_id = $5) \
+             AND created_by = $6"
+        )
+        .bind(tenant_id)
+        .bind(older_than)
+        .bind(tags)
+        .bind(namespace)
+        .bind(agent_id)
+        .bind(created_by_filter)
         .execute(db)
         .await?;
         Ok(result.rows_affected() as usize)
