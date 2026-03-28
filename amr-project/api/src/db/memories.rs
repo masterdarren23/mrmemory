@@ -25,9 +25,10 @@ pub struct MemoryRow {
     pub last_modified_by: Option<String>,
     pub confidence: Option<f32>,
     pub write_source: Option<String>,
+    pub memory_type: String,
 }
 
-const MEMORY_COLUMNS: &str = "id, external_id, tenant_id, agent_id, namespace, content, tags, metadata, expires_at, created_at, updated_at, is_compressed, merged_from, created_by, last_modified_by, confidence, write_source";
+const MEMORY_COLUMNS: &str = "id, external_id, tenant_id, agent_id, namespace, content, tags, metadata, expires_at, created_at, updated_at, is_compressed, merged_from, created_by, last_modified_by, confidence, write_source, memory_type";
 
 impl MemoryRow {
     pub fn to_response(&self) -> MemoryResponse {
@@ -47,6 +48,7 @@ impl MemoryRow {
             last_modified_by: self.last_modified_by.clone(),
             confidence: self.confidence,
             write_source: self.write_source.clone(),
+            memory_type: self.memory_type.clone(),
         }
     }
 }
@@ -57,7 +59,7 @@ pub async fn insert_memory(
     tenant_id: Uuid,
     req: &CreateMemoryRequest,
 ) -> Result<MemoryRow, AppError> {
-    insert_memory_with_provenance(db, tenant_id, req, None, None, None).await
+    insert_memory_with_provenance(db, tenant_id, req, None, None, None, None).await
 }
 
 /// Insert a new memory with explicit provenance fields.
@@ -68,6 +70,7 @@ pub async fn insert_memory_with_provenance(
     created_by_override: Option<&str>,
     confidence_override: Option<f32>,
     write_source_override: Option<&str>,
+    memory_type_override: Option<&str>,
 ) -> Result<MemoryRow, AppError> {
     let id = Uuid::new_v4();
     let external_id = format!(
@@ -88,8 +91,13 @@ pub async fn insert_memory_with_provenance(
         .or_else(|| req.source.clone())
         .unwrap_or_else(|| "api".into());
 
+    let memory_type = memory_type_override
+        .map(|s| s.to_string())
+        .or_else(|| req.memory_type.clone())
+        .unwrap_or_else(|| "core".into());
+
     let row: MemoryRow = sqlx::query_as(
-        &format!("INSERT INTO memories (id, external_id, tenant_id, agent_id, namespace, content, tags, metadata, expires_at, created_at, updated_at, is_compressed, merged_from, created_by, confidence, write_source) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $10, FALSE, '{{}}', $11, $12, $13) RETURNING {}", MEMORY_COLUMNS)
+        &format!("INSERT INTO memories (id, external_id, tenant_id, agent_id, namespace, content, tags, metadata, expires_at, created_at, updated_at, is_compressed, merged_from, created_by, confidence, write_source, memory_type) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $10, FALSE, '{{}}', $11, $12, $13, $14) RETURNING {}", MEMORY_COLUMNS)
     )
     .bind(id)
     .bind(&external_id)
@@ -104,6 +112,7 @@ pub async fn insert_memory_with_provenance(
     .bind(&created_by)
     .bind(confidence)
     .bind(&write_source)
+    .bind(&memory_type)
     .fetch_one(db)
     .await?;
 
@@ -328,4 +337,75 @@ pub async fn delete_memory(
         .await?;
 
     Ok(result.rows_affected() > 0)
+}
+
+/// Delete provisional memories that have exceeded their tenant's TTL.
+pub async fn expire_provisional_memories(db: &PgPool) -> Result<Vec<String>, AppError> {
+    let rows: Vec<(String,)> = sqlx::query_as(
+        "DELETE FROM memories m USING tenants t \
+         WHERE m.tenant_id = t.id \
+         AND m.memory_type = 'provisional' \
+         AND m.created_at + (COALESCE(t.provisional_ttl_days, 7) * INTERVAL '1 day') < NOW() \
+         RETURNING m.external_id"
+    )
+    .fetch_all(db)
+    .await?;
+    Ok(rows.into_iter().map(|(eid,)| eid).collect())
+}
+
+/// Update a memory's memory_type. Returns the updated row.
+pub async fn update_memory_type(
+    db: &PgPool,
+    tenant_id: Uuid,
+    external_id: &str,
+    memory_type: &str,
+) -> Result<Option<MemoryRow>, AppError> {
+    let now = Utc::now();
+    let row: Option<MemoryRow> = sqlx::query_as(
+        &format!("UPDATE memories SET memory_type = $3, updated_at = $4 \
+         WHERE tenant_id = $1 AND external_id = $2 \
+         RETURNING {}", MEMORY_COLUMNS)
+    )
+    .bind(tenant_id)
+    .bind(external_id)
+    .bind(memory_type)
+    .bind(now)
+    .fetch_optional(db)
+    .await?;
+    Ok(row)
+}
+
+/// Update a memory's content and memory_type. Returns the updated row.
+pub async fn update_memory_content_and_type(
+    db: &PgPool,
+    tenant_id: Uuid,
+    external_id: &str,
+    content: &str,
+    memory_type: &str,
+) -> Result<Option<MemoryRow>, AppError> {
+    let now = Utc::now();
+    let row: Option<MemoryRow> = sqlx::query_as(
+        &format!("UPDATE memories SET content = $3, memory_type = $4, updated_at = $5 \
+         WHERE tenant_id = $1 AND external_id = $2 \
+         RETURNING {}", MEMORY_COLUMNS)
+    )
+    .bind(tenant_id)
+    .bind(external_id)
+    .bind(content)
+    .bind(memory_type)
+    .bind(now)
+    .fetch_optional(db)
+    .await?;
+    Ok(row)
+}
+
+/// Get tenant's judge_model setting.
+pub async fn get_tenant_judge_model(db: &PgPool, tenant_id: Uuid) -> Result<String, AppError> {
+    let row: (Option<String>,) = sqlx::query_as(
+        "SELECT judge_model FROM tenants WHERE id = $1"
+    )
+    .bind(tenant_id)
+    .fetch_one(db)
+    .await?;
+    Ok(row.0.unwrap_or_else(|| "gpt-4o-mini".into()))
 }

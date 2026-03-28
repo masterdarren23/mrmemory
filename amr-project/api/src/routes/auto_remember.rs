@@ -273,9 +273,10 @@ async fn process_auto_remember(
             created_by: None,
             confidence: None,
             source: None,
+            memory_type: None,
         };
 
-        match db::insert_memory_with_provenance(&state.db, tenant_id, &create_req, None, None, Some("auto_remember")).await {
+        match db::insert_memory_with_provenance(&state.db, tenant_id, &create_req, None, None, Some("auto_remember"), None).await {
             Ok(row) => {
                 memory_id = row.external_id.clone();
 

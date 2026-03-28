@@ -223,6 +223,22 @@ async fn recall_memories(
                     continue;
                 }
             }
+            // Apply memory_type filter.
+            if let Some(ref mt) = params.memory_type {
+                if row.memory_type != *mt {
+                    continue;
+                }
+            }
+            // Private memories are agent-scoped: only return if agent_id matches.
+            if row.memory_type == "private" {
+                if let Some(ref aid) = params.agent_id {
+                    if row.agent_id != *aid {
+                        continue;
+                    }
+                } else {
+                    continue; // no agent_id specified, skip private memories
+                }
+            }
 
             memories.push(RecallResult {
                 id: row.external_id.clone(),
@@ -238,6 +254,7 @@ async fn recall_memories(
                 last_modified_by: row.last_modified_by.clone(),
                 confidence: row.confidence,
                 write_source: row.write_source.clone(),
+                memory_type: row.memory_type.clone(),
             });
         }
     }
@@ -563,6 +580,7 @@ async fn merge_memories_handler(
         created_by: None,
         confidence: None,
         source: None,
+        memory_type: None,
     };
     let new_row = db::insert_memory_with_provenance(
         &state.db,
@@ -571,6 +589,7 @@ async fn merge_memories_handler(
         None,
         None,
         Some("merge"),
+        None,
     )
     .await?;
 

@@ -38,6 +38,8 @@ pub struct CreateMemoryRequest {
     pub confidence: Option<f32>,
     /// Write source identifier.
     pub source: Option<String>,
+    /// Memory type: core, private, provisional.
+    pub memory_type: Option<String>,
 }
 
 fn default_namespace() -> String {
@@ -75,6 +77,7 @@ pub struct MemoryResponse {
     pub confidence: Option<f32>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub write_source: Option<String>,
+    pub memory_type: String,
 }
 
 /// GET /v1/memories/recall query params.
@@ -92,6 +95,8 @@ pub struct RecallQuery {
     pub created_by: Option<String>,
     /// Minimum confidence filter.
     pub min_confidence: Option<f32>,
+    /// Filter by memory type: core/private/provisional.
+    pub memory_type: Option<String>,
 }
 
 fn default_limit() -> usize {
@@ -122,6 +127,7 @@ pub struct RecallResult {
     pub confidence: Option<f32>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub write_source: Option<String>,
+    pub memory_type: String,
 }
 
 /// GET /v1/memories/recall response.
@@ -236,6 +242,74 @@ impl Memory {
             last_modified_by: None,
             confidence: None,
             write_source: None,
+            memory_type: "core".into(),
         }
     }
+}
+
+// === Proposal models ===
+
+#[derive(Debug, Deserialize)]
+pub struct ProposeRequest {
+    pub content: String,
+    pub justification: String,
+    #[serde(default)]
+    pub evidence: Vec<String>,
+    pub confidence: Option<f32>,
+    pub namespace: Option<String>,
+    pub agent_id: Option<String>,
+    pub tags: Option<Vec<String>>,
+}
+
+#[derive(Debug, Deserialize)]
+pub struct PrivateMemoryRequest {
+    pub content: String,
+    #[serde(default)]
+    pub tags: Vec<String>,
+    #[serde(default = "default_namespace")]
+    pub namespace: String,
+    pub agent_id: Option<String>,
+    #[serde(default)]
+    pub metadata: serde_json::Value,
+    pub ttl_seconds: Option<i64>,
+    pub created_by: Option<String>,
+}
+
+#[derive(Debug, Deserialize)]
+pub struct DecideRequest {
+    pub decision: String,
+    pub reason: Option<String>,
+    pub merged_content: Option<String>,
+    pub decided_by: Option<String>,
+}
+
+#[derive(Debug, Deserialize)]
+pub struct ListProposalsQuery {
+    pub namespace: Option<String>,
+    pub status: Option<String>,
+    #[serde(default = "default_proposals_limit")]
+    pub limit: usize,
+    #[serde(default)]
+    pub offset: usize,
+}
+
+fn default_proposals_limit() -> usize {
+    20
+}
+
+#[derive(Debug, Serialize)]
+pub struct ProposalResponse {
+    pub id: String,
+    pub memory_id: String,
+    pub proposed_by: String,
+    pub justification: String,
+    pub evidence_ids: Vec<String>,
+    pub confidence: f32,
+    pub status: String,
+    pub judge_model: Option<String>,
+    pub judge_decision: Option<serde_json::Value>,
+    pub decided_at: Option<DateTime<Utc>>,
+    pub decided_by: Option<String>,
+    pub created_at: DateTime<Utc>,
+    pub expires_at: Option<DateTime<Utc>>,
 }

@@ -5,6 +5,7 @@ pub mod compress;
 mod health;
 mod memories;
 mod namespaces;
+pub mod proposals;
 pub mod stats;
 pub mod ws;
 
@@ -15,5 +16,6 @@ pub use compress::compress_memories;
 pub use health::health_routes;
 pub use memories::memory_routes;
 pub use namespaces::namespace_routes;
+pub use proposals::proposal_routes;
 pub use stats::stats_routes;
 pub use ws::ws_handler;

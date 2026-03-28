@@ -11,7 +11,7 @@ pub mod ws;
 use crate::config::Config;
 use crate::routes::{
     auto_remember, compress_memories, create_key, health_routes, memory_routes, namespace_routes,
-    stats_routes, stripe_webhook, welcome_page, ws_handler,
+    proposal_routes, stats_routes, stripe_webhook, welcome_page, ws_handler,
 };
 use crate::state::AppState;
 
@@ -71,10 +71,32 @@ async fn main() {
         tracing::info!("Background TTL pruning task started (60s interval)");
     }
 
+    // Spawn provisional memory expiry task.
+    {
+        let expire_db = state.db.clone();
+        tokio::spawn(async move {
+            let mut interval = tokio::time::interval(std::time::Duration::from_secs(3600));
+            loop {
+                interval.tick().await;
+                match crate::db::memories::expire_provisional_memories(&expire_db).await {
+                    Ok(expired) if !expired.is_empty() => {
+                        tracing::info!("Provisional expiry: auto-rejected {} memories", expired.len());
+                    }
+                    Ok(_) => {}
+                    Err(e) => {
+                        tracing::warn!("Provisional expiry error: {}", e);
+                    }
+                }
+            }
+        });
+        tracing::info!("Background provisional expiry task started (1h interval)");
+    }
+
     let app = memory_routes()
         .merge(health_routes())
         .merge(stats_routes())
         .merge(namespace_routes())
+        .merge(proposal_routes())
         .route("/v1/memories/auto", post(auto_remember))
         .route("/v1/memories/compress", post(compress_memories))
         .route("/v1/ws", get(ws_handler))

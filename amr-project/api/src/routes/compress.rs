@@ -323,9 +323,10 @@ async fn process_compression(
                 created_by: None,
                 confidence: None,
                 source: None,
+                memory_type: None,
             };
 
-            match db::insert_memory_with_provenance(&state.db, tenant_id, &create_req, None, None, Some("compress")).await {
+            match db::insert_memory_with_provenance(&state.db, tenant_id, &create_req, None, None, Some("compress"), None).await {
                 Ok(row) => {
                     compressed_id = Some(row.external_id.clone());
                     total_created += 1;
