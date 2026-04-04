@@ -235,6 +235,13 @@ footer .container{display:flex;justify-content:space-between;align-items:center;
       <a href="/docs" class="btn btn-ghost">Read the Docs</a>
     </div>
     <p class="hero-sub fade-up delay-3">Free for 7 days · Then $5/mo · Cancel anytime</p>
+    <div class="email-capture fade-up delay-3" style="margin-top:32px">
+      <form id="email-form" style="display:flex;gap:8px;max-width:420px;margin:0 auto">
+        <input type="email" id="email-input" placeholder="your@email.com" required style="flex:1;padding:11px 16px;border-radius:9px;border:1px solid var(--border);background:var(--bg2);color:var(--text);font-size:.9rem;outline:none;transition:border-color .2s">
+        <button type="submit" class="btn btn-ghost" style="padding:11px 20px;font-size:.88rem;white-space:nowrap">Get Updates</button>
+      </form>
+      <p id="email-status" style="font-size:.75rem;color:var(--text3);margin-top:8px">Join the dev list — new features, tutorials, no spam.</p>
+    </div>
   </div>
 </section>
 
@@ -441,6 +448,13 @@ results = client.<span class="fn">recall</span>(<span class="str">"What are the 
       <a href="/docs" class="btn btn-ghost">Read the Docs</a>
     </div>
     <p class="hero-sub">Free for 7 days · Then $5/mo · Cancel anytime</p>
+    <div style="margin-top:36px">
+      <form class="email-form-bottom" onsubmit="return handleEmail(event,this)" style="display:flex;gap:8px;max-width:420px;margin:0 auto">
+        <input type="email" placeholder="your@email.com" required style="flex:1;padding:11px 16px;border-radius:9px;border:1px solid var(--border);background:var(--bg2);color:var(--text);font-size:.9rem;outline:none">
+        <button type="submit" class="btn btn-ghost" style="padding:11px 20px;font-size:.88rem;white-space:nowrap">Get Updates</button>
+      </form>
+      <p style="font-size:.75rem;color:var(--text3);margin-top:8px">Developer updates, tutorials, zero spam.</p>
+    </div>
   </div>
 </section>
 
@@ -459,6 +473,37 @@ results = client.<span class="fn">recall</span>(<span class="str">"What are the 
 
 <script>
 document.querySelectorAll('.faq-q').forEach(q=>q.addEventListener('click',()=>q.parentElement.classList.toggle('open')));
+
+// Email capture
+document.getElementById('email-form').addEventListener('submit',function(e){return handleEmail(e,this)});
+function handleEmail(e,form){
+  e.preventDefault();
+  const email=form.querySelector('input[type=email]').value.trim();
+  if(!email)return false;
+  
+  // Store in localStorage as backup
+  const subs=JSON.parse(localStorage.getItem('mrmemory_subs')||'[]');
+  if(!subs.includes(email)){subs.push(email);localStorage.setItem('mrmemory_subs',JSON.stringify(subs))}
+  
+  // Send to Formspree (free, 50 submissions/mo)
+  fetch('https://formspree.io/f/xeojpdaz',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','Accept':'application/json'},
+    body:JSON.stringify({email:email,source:'mrmemory.dev',timestamp:new Date().toISOString()})
+  }).catch(()=>{});
+  
+  // Formspree handles storage + can email-notify you
+  
+  // UI feedback
+  form.querySelector('input').value='';
+  const status=form.closest('.email-capture,.final-cta')?.querySelector('p:last-of-type')||form.nextElementSibling;
+  if(status){status.textContent='✅ You\'re in! We\'ll keep you posted.';status.style.color='#34d399'}
+  
+  // Track in GA
+  if(typeof gtag==='function')gtag('event','email_signup',{event_category:'engagement'});
+  
+  return false;
+}
 
 // Scroll reveal
 const observer=new IntersectionObserver((entries)=>{

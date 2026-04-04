@@ -1,0 +1,18 @@
+# Secrets
+*.env
+.env
+marketing-engine/.env
+amr-project/sdk-python/.pypi-token.env
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Marketing engine local data
+marketing-engine/data/
+marketing-engine/outputs/
+marketing-engine/data/x_cookies.json
+
+# OS
+.DS_Store
+Thumbs.db
