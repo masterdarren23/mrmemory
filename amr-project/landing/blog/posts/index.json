@@ -1,0 +1,14 @@
+[
+  {
+    "slug": "adding-persistent-memory-to-langchain-agents-a-guide",
+    "title": "Adding Persistent Memory to LangChain Agents: A Guide",
+    "description": "Learn how to add persistent memory to your LangChain agents and improve their conversational capabilities.",
+    "date": "2026-04-04",
+    "readTime": "3 min read",
+    "tags": [
+      "LangChain",
+      "persistent memory",
+      "AI development"
+    ]
+  }
+]

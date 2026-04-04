@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TS0RXEVBH6"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-TS0RXEVBH6');
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog — MrMemory</title>
+<meta name="description" content="Developer guides, tutorials, and insights about AI agent memory, LangChain integration, and building smarter AI agents.">
+<meta property="og:title" content="MrMemory Blog — AI Agent Memory Guides">
+<meta property="og:description" content="Developer guides, tutorials, and insights about AI agent memory.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mrmemory.dev/blog">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0a0b;--bg2:#111113;--bg3:#18181b;--border:#27272a;
+  --text:#fafafa;--text2:#a1a1aa;--text3:#71717a;
+  --accent:#6d5cff;--accent2:#8b7aff;
+  --mono:'SF Mono','Cascadia Code','Fira Code','Consolas',monospace;
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI','Inter',Helvetica,Arial,sans-serif;
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--accent2);text-decoration:none}
+a:hover{text-decoration:underline}
+.container{max-width:800px;margin:0 auto;padding:0 24px}
+
+/* Nav */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,10,11,.8);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+nav .nav-inner{max-width:1080px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:56px}
+.logo{font-family:var(--mono);font-weight:700;font-size:1.1rem;letter-spacing:-.02em;color:var(--text)}
+.logo span{color:var(--accent)}
+.nav-links{display:flex;gap:20px;align-items:center}
+.nav-links a{font-size:.875rem;color:var(--text2);transition:color .2s}
+.nav-links a:hover{color:var(--text);text-decoration:none}
+.nav-cta{padding:6px 16px;border:1px solid var(--border);border-radius:6px;transition:border-color .2s}
+.nav-cta:hover{border-color:var(--text3)}
+
+/* Header */
+.blog-header{padding-top:120px;padding-bottom:48px;text-align:center;border-bottom:1px solid var(--border)}
+.blog-header h1{font-size:2.5rem;font-weight:700;letter-spacing:-.03em;margin-bottom:12px}
+.blog-header p{color:var(--text2);font-size:1.1rem}
+
+/* Post list */
+.posts{padding:48px 0}
+.post-card{border:1px solid var(--border);border-radius:12px;padding:32px;margin-bottom:24px;background:var(--bg2);transition:border-color .2s}
+.post-card:hover{border-color:var(--accent);text-decoration:none}
+.post-card h2{font-size:1.35rem;font-weight:600;letter-spacing:-.02em;margin-bottom:8px;color:var(--text)}
+.post-card .meta{font-size:.85rem;color:var(--text3);margin-bottom:12px;display:flex;gap:16px}
+.post-card .excerpt{color:var(--text2);font-size:.95rem;line-height:1.6}
+.post-card .tags{margin-top:12px;display:flex;gap:8px;flex-wrap:wrap}
+.post-card .tag{font-family:var(--mono);font-size:.75rem;color:var(--accent2);border:1px solid rgba(109,92,255,.3);border-radius:999px;padding:2px 10px}
+
+/* Empty state */
+.empty{text-align:center;padding:96px 0;color:var(--text3)}
+.empty h2{font-size:1.5rem;color:var(--text2);margin-bottom:8px}
+
+/* Footer */
+footer{border-top:1px solid var(--border);padding:32px 0;text-align:center;color:var(--text3);font-size:.85rem}
+</style>
+</head>
+<body>
+
+<nav>
+<div class="nav-inner">
+  <a href="/" class="logo">Mr<span>Memory</span></a>
+  <div class="nav-links">
+    <a href="/docs">Docs</a>
+    <a href="/blog">Blog</a>
+    <a href="https://github.com/masterdarren23/mrmemory">GitHub</a>
+    <a href="https://buy.stripe.com/00w4gB2REex4daHeP38g001" class="nav-cta">Start Free Trial</a>
+  </div>
+</div>
+</nav>
+
+<div class="container">
+  <div class="blog-header">
+    <h1>MrMemory Blog</h1>
+    <p>Guides, tutorials, and deep dives on AI agent memory</p>
+  </div>
+
+  <div class="posts" id="posts">
+    <!-- Posts are injected here by the build script -->
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    &copy; 2026 MrMemory &middot; <a href="/">Home</a> &middot; <a href="/docs">Docs</a> &middot; <a href="https://github.com/masterdarren23/mrmemory">GitHub</a>
+  </div>
+</footer>
+
+<script>
+// Load post index and render cards
+fetch('/blog/posts/index.json')
+  .then(r => r.json())
+  .then(posts => {
+    const container = document.getElementById('posts');
+    if (!posts.length) {
+      container.innerHTML = '<div class="empty"><h2>Coming soon</h2><p>First articles dropping shortly.</p></div>';
+      return;
+    }
+    container.innerHTML = posts.map(p => `
+      <a href="/blog/posts/${p.slug}.html" class="post-card" style="display:block">
+        <h2>${p.title}</h2>
+        <div class="meta">
+          <span>${p.date}</span>
+          <span>${p.readTime || '5 min read'}</span>
+        </div>
+        <div class="excerpt">${p.description}</div>
+        <div class="tags">${(p.tags || []).map(t => `<span class="tag">${t}</span>`).join('')}</div>
+      </a>
+    `).join('');
+  })
+  .catch(() => {
+    document.getElementById('posts').innerHTML = '<div class="empty"><h2>Coming soon</h2><p>First articles dropping shortly.</p></div>';
+  });
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
