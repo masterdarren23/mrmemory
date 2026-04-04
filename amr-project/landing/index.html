@@ -11,9 +11,9 @@ gtag('js', new Date());
 gtag('config', 'G-TS0RXEVBH6');
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MrMemory - Agent Memory Relay</title>
+<title>MrMemory — Memory for AI Agents</title>
 <meta name="description" content="Install in one line. Remember forever. Long-term memory for AI agents. Works with any framework. Starts at $5/mo.">
-<meta property="og:title" content="MrMemory - Agent Memory Relay">
+<meta property="og:title" content="MrMemory — Memory for AI Agents">
 <meta property="og:description" content="Your AI agent forgets everything. We fixed that. One API to remember, recall, and share memories. $5/mo.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://mrmemory.dev">
@@ -21,151 +21,187 @@ gtag('config', 'G-TS0RXEVBH6');
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="MrMemory - Agent Memory Relay">
+<meta name="twitter:title" content="MrMemory — Memory for AI Agents">
 <meta name="twitter:description" content="Your AI agent forgets everything. We fixed that. Install in one line. Remember forever. $5/mo.">
 <meta name="twitter:image" content="https://mrmemory.dev/og-image.png">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:     #0a0a0b;
-  --bg2:    #111113;
-  --bg3:    #18181b;
-  --border: #27272a;
-  --text:   #fafafa;
-  --text2:  #a1a1aa;
-  --text3:  #71717a;
-  --accent: #6d5cff;
-  --accent2:#8b7aff;
-  --green:  #22c55e;
-  --mono:   'SF Mono', 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
-  --sans:   -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', Helvetica, Arial, sans-serif;
+  --bg:#09090b;
+  --bg2:#0f0f12;
+  --bg3:#161619;
+  --border:#1e1e24;
+  --border2:#2a2a33;
+  --text:#f4f4f5;
+  --text2:#a1a1aa;
+  --text3:#63637a;
+  --accent:#7c6aff;
+  --accent2:#9d8fff;
+  --accent-glow:rgba(124,106,255,.08);
+  --accent-glow2:rgba(124,106,255,.15);
+  --green:#34d399;
+  --mono:'SF Mono','Cascadia Code','Fira Code','JetBrains Mono',monospace;
+  --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
 }
 html{scroll-behavior:smooth;font-size:16px}
-body{font-family:var(--sans);background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased}
-a{color:var(--accent2);text-decoration:none}
-a:hover{text-decoration:underline}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:var(--accent2);text-decoration:none;transition:color .2s}
+a:hover{color:var(--text)}
+::selection{background:var(--accent);color:white}
 
 /* Layout */
-.container{max-width:1080px;margin:0 auto;padding:0 24px}
-section{padding:96px 0}
+.container{max-width:1100px;margin:0 auto;padding:0 28px}
+section{padding:100px 0;position:relative}
+
+/* Animations */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@keyframes glow{0%,100%{opacity:.4}50%{opacity:.8}}
+.fade-up{animation:fadeUp .6s ease both}
+.delay-1{animation-delay:.1s}
+.delay-2{animation-delay:.2s}
+.delay-3{animation-delay:.3s}
 
 /* Nav */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,10,11,.8);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
-nav .container{display:flex;align-items:center;justify-content:space-between;height:56px}
-.logo{font-family:var(--mono);font-weight:700;font-size:1.1rem;letter-spacing:-.02em;color:var(--text)}
-.logo span{color:var(--accent)}
-nav a.nav-cta{font-size:.875rem;padding:6px 16px;border:1px solid var(--border);border-radius:6px;color:var(--text2);transition:border-color .2s,color .2s}
-nav a.nav-cta:hover{border-color:var(--text3);color:var(--text);text-decoration:none}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(9,9,11,.6);backdrop-filter:blur(20px) saturate(1.4);border-bottom:1px solid rgba(255,255,255,.04)}
+nav .container{display:flex;align-items:center;justify-content:space-between;height:60px}
+.logo{font-family:var(--mono);font-weight:700;font-size:1.1rem;letter-spacing:-.02em;color:var(--text);display:flex;align-items:center;gap:10px}
+.logo img{width:28px;height:28px;border-radius:7px}
+.logo span{color:var(--accent2)}
+.nav-right{display:flex;gap:8px;align-items:center}
+.nav-link{font-size:.875rem;padding:7px 14px;color:var(--text2);border-radius:6px;transition:color .2s,background .2s}
+.nav-link:hover{color:var(--text);background:rgba(255,255,255,.04);text-decoration:none}
+.nav-cta{font-size:.875rem;padding:7px 18px;background:var(--accent);color:#fff;border-radius:8px;font-weight:500;transition:background .2s,transform .1s}
+.nav-cta:hover{background:var(--accent2);text-decoration:none;transform:translateY(-1px)}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:13px 28px;border-radius:10px;border:none;font-size:.95rem;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap;text-decoration:none}
+.btn:hover{text-decoration:none}
+.btn-primary{background:var(--accent);color:#fff;box-shadow:0 0 20px rgba(124,106,255,.25)}
+.btn-primary:hover{background:var(--accent2);transform:translateY(-2px);box-shadow:0 0 30px rgba(124,106,255,.35)}
+.btn-ghost{background:transparent;border:1px solid var(--border2);color:var(--text2)}
+.btn-ghost:hover{border-color:var(--text3);color:var(--text);transform:translateY(-2px)}
 
 /* Hero */
-.hero{padding-top:160px;padding-bottom:96px;text-align:center}
-.hero .badge{display:inline-block;font-family:var(--mono);font-size:.75rem;color:var(--accent2);border:1px solid rgba(109,92,255,.3);border-radius:999px;padding:4px 14px;margin-bottom:24px;letter-spacing:.04em}
-.hero h1{font-size:clamp(2.5rem,6vw,4rem);font-weight:700;letter-spacing:-.04em;line-height:1.1;margin-bottom:20px}
-.hero h1 em{font-style:normal;color:var(--accent2)}
-.hero p{font-size:1.15rem;color:var(--text2);max-width:540px;margin:0 auto 40px}
-.waitlist-form{display:flex;gap:10px;max-width:440px;margin:0 auto;justify-content:center}
-.waitlist-form input{flex:1;padding:12px 16px;border-radius:8px;border:1px solid var(--border);background:var(--bg2);color:var(--text);font-size:.95rem;outline:none;transition:border-color .2s;min-width:0}
-.waitlist-form input::placeholder{color:var(--text3)}
-.waitlist-form input:focus{border-color:var(--accent)}
-.btn{display:inline-flex;align-items:center;justify-content:center;padding:12px 28px;border-radius:8px;border:none;background:var(--accent);color:#fff;font-size:.95rem;font-weight:600;cursor:pointer;transition:background .2s,transform .1s;white-space:nowrap}
-.btn:hover{background:var(--accent2);transform:translateY(-1px)}
-.btn:active{transform:translateY(0)}
-.hero-sub{font-size:.8rem;color:var(--text3);margin-top:14px}
+.hero{padding-top:160px;padding-bottom:100px;text-align:center;position:relative}
+.hero::before{content:'';position:absolute;top:60px;left:50%;transform:translateX(-50%);width:600px;height:400px;background:radial-gradient(ellipse,rgba(124,106,255,.12) 0%,transparent 70%);pointer-events:none}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:.75rem;color:var(--accent2);border:1px solid rgba(124,106,255,.2);border-radius:999px;padding:5px 16px;margin-bottom:28px;background:rgba(124,106,255,.04)}
+.hero-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:glow 2s ease-in-out infinite}
+.hero h1{font-size:clamp(2.8rem,6.5vw,4.2rem);font-weight:800;letter-spacing:-.045em;line-height:1.08;margin-bottom:24px}
+.hero h1 em{font-style:normal;background:linear-gradient(135deg,var(--accent2),#c084fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{font-size:1.15rem;color:var(--text2);max-width:520px;margin:0 auto 40px;line-height:1.65}
+.hero-terminal{max-width:360px;margin:0 auto 32px;text-align:left;border-radius:12px;overflow:hidden;border:1px solid var(--border);background:var(--bg2);box-shadow:0 4px 24px rgba(0,0,0,.3)}
+.hero-terminal .bar{display:flex;align-items:center;gap:7px;padding:11px 16px;border-bottom:1px solid var(--border);background:var(--bg3)}
+.hero-terminal .bar .d{width:10px;height:10px;border-radius:50%}
+.hero-terminal .bar .d.r{background:#ef4444}.hero-terminal .bar .d.y{background:#eab308}.hero-terminal .bar .d.g{background:#22c55e}
+.hero-terminal pre{padding:16px 20px;margin:0;font-family:var(--mono);font-size:.88rem;color:var(--text2);line-height:1.8}
+.hero-terminal .prompt{color:var(--green)}
+.hero-terminal .cmd{color:var(--text)}
+.hero-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:16px}
+.hero-sub{font-size:.8rem;color:var(--text3)}
+
+/* Section headers */
+.section-label{font-family:var(--mono);font-size:.7rem;color:var(--accent2);letter-spacing:.14em;text-transform:uppercase;margin-bottom:14px}
+.section-title{font-size:clamp(1.9rem,4.5vw,2.6rem);font-weight:700;letter-spacing:-.035em;line-height:1.15;margin-bottom:16px}
+.section-desc{color:var(--text2);font-size:1.05rem;max-width:560px;line-height:1.65}
 
 /* Problem */
 .problem{background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
 .problem .container{text-align:center}
-.section-label{font-family:var(--mono);font-size:.75rem;color:var(--accent2);letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px}
-.problem h2{font-size:clamp(1.8rem,4vw,2.5rem);font-weight:700;letter-spacing:-.03em;margin-bottom:16px}
-.problem p{color:var(--text2);max-width:600px;margin:0 auto 40px;font-size:1.05rem}
-.problem-visual{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:700px;margin:0 auto}
-.problem-card{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:28px 20px;text-align:center}
-.problem-card .icon{font-size:2rem;margin-bottom:12px}
+.problem .section-desc{margin:0 auto 48px}
+.problem-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:720px;margin:0 auto}
+.problem-card{background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:32px 24px;text-align:center;transition:border-color .3s,transform .3s}
+.problem-card:hover{border-color:var(--border2);transform:translateY(-2px)}
+.problem-card .icon{font-size:1.8rem;margin-bottom:14px;display:block}
 .problem-card h3{font-size:.95rem;font-weight:600;margin-bottom:6px}
-.problem-card p{font-size:.85rem;color:var(--text3);margin:0}
+.problem-card p{font-size:.83rem;color:var(--text3);line-height:1.5}
 
-/* Solution / Features */
+/* Features */
 .features .container{text-align:center}
-.features h2{font-size:clamp(1.8rem,4vw,2.5rem);font-weight:700;letter-spacing:-.03em;margin-bottom:48px}
-.feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.feature-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:36px 28px;text-align:left;transition:border-color .2s}
-.feature-card:hover{border-color:var(--accent)}
-.feature-card .icon{width:44px;height:44px;border-radius:10px;background:rgba(109,92,255,.12);display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin-bottom:18px}
-.feature-card h3{font-size:1.1rem;font-weight:600;margin-bottom:8px}
-.feature-card p{color:var(--text2);font-size:.9rem;line-height:1.6}
-.feature-card code{font-family:var(--mono);font-size:.8rem;color:var(--accent2);background:rgba(109,92,255,.08);padding:2px 6px;border-radius:4px}
+.features .section-desc{margin:0 auto 56px}
+.feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.feature-card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:32px 26px;text-align:left;transition:border-color .3s,transform .3s}
+.feature-card:hover{border-color:rgba(124,106,255,.3);transform:translateY(-3px)}
+.feature-card .icon{width:42px;height:42px;border-radius:10px;background:var(--accent-glow2);display:flex;align-items:center;justify-content:center;font-size:1.2rem;margin-bottom:18px}
+.feature-card h3{font-size:1.05rem;font-weight:600;margin-bottom:8px;letter-spacing:-.01em}
+.feature-card p{color:var(--text2);font-size:.875rem;line-height:1.6}
+.feature-card code{font-family:var(--mono);font-size:.78rem;color:var(--accent2);background:var(--accent-glow);padding:2px 7px;border-radius:5px}
 
 /* Code */
 .code-section{background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
 .code-section .container{text-align:center}
-.code-section h2{font-size:clamp(1.8rem,4vw,2.5rem);font-weight:700;letter-spacing:-.03em;margin-bottom:8px}
-.code-section>  .container>p{color:var(--text2);margin-bottom:40px;font-size:1.05rem}
-.code-block{background:var(--bg);border:1px solid var(--border);border-radius:12px;text-align:left;overflow:hidden;max-width:640px;margin:0 auto}
-.code-header{display:flex;align-items:center;gap:8px;padding:12px 20px;border-bottom:1px solid var(--border);font-family:var(--mono);font-size:.75rem;color:var(--text3)}
-.code-header .dot{width:10px;height:10px;border-radius:50%;background:var(--border)}
-.code-header .dot.r{background:#ef4444}.code-header .dot.y{background:#eab308}.code-header .dot.g{background:#22c55e}
-pre{padding:24px;overflow-x:auto;font-family:var(--mono);font-size:.85rem;line-height:1.7;color:var(--text2)}
-pre .kw{color:#c084fc}
-pre .fn{color:#60a5fa}
-pre .str{color:#34d399}
-pre .cmt{color:var(--text3);font-style:italic}
-pre .num{color:#f59e0b}
+.code-section .section-desc{margin:0 auto 48px}
+.code-block{background:var(--bg);border:1px solid var(--border);border-radius:14px;text-align:left;overflow:hidden;max-width:620px;margin:0 auto;box-shadow:0 8px 32px rgba(0,0,0,.2)}
+.code-header{display:flex;align-items:center;gap:7px;padding:12px 18px;border-bottom:1px solid var(--border);background:var(--bg3)}
+.code-header .d{width:10px;height:10px;border-radius:50%}
+.code-header .d.r{background:#ef4444}.code-header .d.y{background:#eab308}.code-header .d.g{background:#22c55e}
+.code-header span.file{margin-left:auto;font-family:var(--mono);font-size:.72rem;color:var(--text3)}
+pre{padding:24px;overflow-x:auto;font-family:var(--mono);font-size:.84rem;line-height:1.8;color:var(--text2);margin:0}
+pre .kw{color:#c084fc}pre .fn{color:#60a5fa}pre .str{color:var(--green)}pre .cmt{color:var(--text3);font-style:italic}
 
 /* Pricing */
 .pricing .container{text-align:center}
-.pricing h2{font-size:clamp(1.8rem,4vw,2.5rem);font-weight:700;letter-spacing:-.03em;margin-bottom:48px}
-.pricing-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;max-width:760px;margin:0 auto}
-.pricing-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:36px 28px;text-align:left;position:relative}
-.pricing-card.featured{border-color:var(--accent)}
-.pricing-card .plan-name{font-family:var(--mono);font-size:.8rem;color:var(--accent2);letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px}
-.pricing-card .price{font-size:2.5rem;font-weight:700;letter-spacing:-.04em;margin-bottom:4px}
-.pricing-card .price span{font-size:1rem;color:var(--text2);font-weight:400}
-.pricing-card .price-sub{color:var(--text3);font-size:.85rem;margin-bottom:24px}
-.pricing-card ul{list-style:none;margin-bottom:28px}
-.pricing-card li{padding:6px 0;font-size:.9rem;color:var(--text2);display:flex;align-items:center;gap:8px}
-.pricing-card li::before{content:'✓';color:var(--green);font-weight:700;font-size:.8rem}
-.pricing-card .btn{width:100%;text-align:center}
-.pricing-card .btn.outline{background:transparent;border:1px solid var(--border);color:var(--text2)}
-.pricing-card .btn.outline:hover{border-color:var(--text3);color:var(--text)}
+.pricing .section-desc{margin:0 auto 56px}
+.pricing-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;max-width:700px;margin:0 auto}
+.pricing-card{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:40px 32px;text-align:left;position:relative;transition:border-color .3s}
+.pricing-card.featured{border-color:rgba(124,106,255,.4);box-shadow:0 0 40px rgba(124,106,255,.06)}
+.pricing-card .plan{font-family:var(--mono);font-size:.72rem;color:var(--accent2);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px}
+.pricing-card .price{font-size:2.8rem;font-weight:800;letter-spacing:-.04em;margin-bottom:2px}
+.pricing-card .price span{font-size:1rem;color:var(--text3);font-weight:400}
+.pricing-card .price-sub{color:var(--text3);font-size:.84rem;margin-bottom:28px}
+.pricing-card ul{list-style:none;margin-bottom:32px}
+.pricing-card li{padding:5px 0;font-size:.88rem;color:var(--text2);display:flex;align-items:center;gap:10px}
+.pricing-card li::before{content:'✓';color:var(--green);font-weight:700;font-size:.75rem;flex-shrink:0}
+.pricing-card .btn{width:100%;text-align:center;justify-content:center}
 
 /* FAQ */
-.faq .container{max-width:680px}
-.faq h2{font-size:clamp(1.8rem,4vw,2.5rem);font-weight:700;letter-spacing:-.03em;margin-bottom:48px;text-align:center}
-.faq-item{border-bottom:1px solid var(--border);padding:20px 0}
+.faq .container{max-width:640px}
+.faq-item{border-bottom:1px solid var(--border);padding:22px 0}
 .faq-item:first-of-type{border-top:1px solid var(--border)}
-.faq-q{font-weight:600;font-size:1rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px}
-.faq-q::after{content:'+';font-size:1.2rem;color:var(--text3);transition:transform .2s;flex-shrink:0}
-.faq-item.open .faq-q::after{transform:rotate(45deg)}
-.faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease,padding .3s ease;color:var(--text2);font-size:.9rem;line-height:1.7}
-.faq-item.open .faq-a{max-height:200px;padding-top:12px}
+.faq-q{font-weight:600;font-size:.95rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;transition:color .2s;user-select:none}
+.faq-q:hover{color:var(--accent2)}
+.faq-q::after{content:'+';font-size:1.1rem;color:var(--text3);transition:transform .3s;flex-shrink:0}
+.faq-item.open .faq-q::after{transform:rotate(45deg);color:var(--accent2)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s ease;color:var(--text2);font-size:.88rem;line-height:1.7}
+.faq-item.open .faq-a{max-height:200px;padding-top:14px}
+
+/* Trust bar */
+.trust{padding:56px 0;border-bottom:1px solid var(--border)}
+.trust-grid{display:flex;justify-content:center;flex-wrap:wrap;gap:48px;text-align:center}
+.trust-item .val{font-size:1.2rem;font-weight:700;display:block;margin-bottom:2px}
+.trust-item .label{font-size:.75rem;color:var(--text3);letter-spacing:.02em}
+
+/* Final CTA */
+.final-cta{text-align:center;position:relative}
+.final-cta::before{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:500px;height:300px;background:radial-gradient(ellipse,rgba(124,106,255,.08) 0%,transparent 70%);pointer-events:none}
+.final-cta .section-title{margin-bottom:16px}
+.final-cta .section-desc{margin:0 auto 36px}
 
 /* Footer */
-footer{border-top:1px solid var(--border);padding:48px 0}
+footer{border-top:1px solid var(--border);padding:40px 0}
 footer .container{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
-.footer-left{font-size:.85rem;color:var(--text3)}
+.footer-left{font-size:.82rem;color:var(--text3)}
 .footer-left span{color:var(--accent2)}
 .footer-links{display:flex;gap:24px}
-.footer-links a{font-size:.85rem;color:var(--text3);transition:color .2s}
-.footer-links a:hover{color:var(--text)}
+.footer-links a{font-size:.82rem;color:var(--text3);transition:color .2s}
+.footer-links a:hover{color:var(--text);text-decoration:none}
 
 /* Responsive */
 @media(max-width:768px){
-  section{padding:64px 0}
-  .hero{padding-top:120px;padding-bottom:64px}
-  .waitlist-form{flex-direction:column}
-  .waitlist-form input,.btn{width:100%}
-  .problem-visual,.feature-grid{grid-template-columns:1fr}
-  .pricing-cards{grid-template-columns:1fr}
+  section{padding:72px 0}
+  .hero{padding-top:120px;padding-bottom:72px}
+  .hero::before{width:300px;height:200px}
+  .problem-grid,.feature-grid{grid-template-columns:1fr}
+  .pricing-grid{grid-template-columns:1fr}
+  .hero-actions{flex-direction:column;align-items:center}
+  .btn{width:100%;max-width:320px}
+  .trust-grid{gap:32px}
   footer .container{flex-direction:column;text-align:center}
+  .nav-link.hide-mobile{display:none}
 }
 @media(max-width:480px){
-  .container{padding:0 16px}
-  .hero h1{font-size:2rem}
+  .container{padding:0 18px}
+  .hero h1{font-size:2.2rem}
 }
-
-/* Toast */
-.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:12px 24px;border-radius:8px;font-size:.9rem;opacity:0;transition:transform .3s,opacity .3s;z-index:200;pointer-events:none}
-.toast.show{transform:translateX(-50%) translateY(0);opacity:1}
 </style>
 </head>
 <body>
@@ -173,27 +209,32 @@ footer .container{display:flex;justify-content:space-between;align-items:center;
 <!-- Nav -->
 <nav>
   <div class="container">
-    <div class="logo" style="display:flex;align-items:center;gap:10px"><img src="/logo.jpg" alt="MrMemory" style="width:32px;height:32px;border-radius:8px"><span style="color:var(--accent)">mr</span>memory</div>
-    <div style="display:flex;gap:12px;align-items:center">
-      <a href="/docs" class="nav-cta">Docs</a>
-      <a href="/blog" class="nav-cta">Blog</a>
-      <a href="https://buy.stripe.com/00w4gB2REex4daHeP38g001" class="nav-cta" style="background:var(--accent);color:#fff;border-color:var(--accent)">Start Free Trial →</a>
+    <a href="/" class="logo"><img src="/logo.jpg" alt=""><span>mr</span>memory</a>
+    <div class="nav-right">
+      <a href="/docs" class="nav-link">Docs</a>
+      <a href="/blog" class="nav-link hide-mobile">Blog</a>
+      <a href="https://github.com/masterdarren23/mrmemory" class="nav-link hide-mobile">GitHub</a>
+      <a href="https://buy.stripe.com/00w4gB2REex4daHeP38g001" class="nav-cta">Start Free Trial</a>
     </div>
   </div>
 </nav>
 
 <!-- Hero -->
-<section class="hero" id="top">
+<section class="hero">
   <div class="container">
-    <div class="badge">Now in Early Access</div>
-    <h1>Your AI agent forgets everything.<br><em>We fixed that.</em></h1>
-    <p>Install in one line. Remember forever. MrMemory is the memory layer for AI agents - works with any framework. Starts at $5/mo.</p>
-    <div class="code-block" style="max-width:340px;margin:0 auto 24px;text-align:left"><div class="code-header"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span style="margin-left:8px">terminal</span></div><pre style="margin:0">$ pip install mrmemory</pre></div>
-    <div id="waitlist" style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-      <a href="https://buy.stripe.com/00w4gB2REex4daHeP38g001" class="btn" style="padding:14px 32px;font-size:1.05rem">Start 7-Day Free Trial</a>
-      <a href="/docs" class="btn outline" style="padding:14px 32px;font-size:1.05rem;background:transparent;border:1px solid var(--border);color:var(--text2)">View Docs</a>
+    <div class="hero-badge fade-up"><span class="dot"></span> Now in Early Access</div>
+    <h1 class="fade-up delay-1">Your AI agent forgets<br>everything. <em>We fixed that.</em></h1>
+    <p class="fade-up delay-2">One API to remember, recall, and share memories across agents. Install in one line. Works with any framework.</p>
+    <div class="hero-terminal fade-up delay-2">
+      <div class="bar"><span class="d r"></span><span class="d y"></span><span class="d g"></span></div>
+      <pre><span class="prompt">$</span> <span class="cmd">pip install mrmemory</span>
+<span class="cmt"># That's it. Your agent has memory now.</span></pre>
     </div>
-    <p class="hero-sub" id="hero-sub">7-day free trial · Then $5/mo · Cancel anytime</p>
+    <div class="hero-actions fade-up delay-3">
+      <a href="https://buy.stripe.com/00w4gB2REex4daHeP38g001" class="btn btn-primary">Start 7-Day Free Trial</a>
+      <a href="/docs" class="btn btn-ghost">Read the Docs</a>
+    </div>
+    <p class="hero-sub fade-up delay-3">Free for 7 days · Then $5/mo · Cancel anytime</p>
   </div>
 </section>
 
@@ -201,23 +242,23 @@ footer .container{display:flex;justify-content:space-between;align-items:center;
 <section class="problem">
   <div class="container">
     <div class="section-label">The Problem</div>
-    <h2>Your agents forget everything</h2>
-    <p>Every conversation starts from zero. Every preference forgotten. Every context - gone. You're building the most sophisticated AI system and it can't remember what you told it 5 minutes ago.</p>
-    <div class="problem-visual">
+    <div class="section-title">Every conversation starts from zero</div>
+    <p class="section-desc">You're building sophisticated AI — and it can't remember what you told it 5 minutes ago. The workarounds are worse than the problem.</p>
+    <div class="problem-grid">
       <div class="problem-card">
-        <div class="icon">💸</div>
+        <span class="icon">💸</span>
         <h3>Stuff the Prompt</h3>
-        <p>Shove everything in the system prompt - token costs go brr</p>
+        <p>Shove everything in context. Token costs explode.</p>
       </div>
       <div class="problem-card">
-        <div class="icon">🕐</div>
+        <span class="icon">🕐</span>
         <h3>Build Your Own</h3>
-        <p>Roll a vector DB pipeline - weeks of work, not your product</p>
+        <p>Roll a vector DB pipeline. Weeks of work that isn't your product.</p>
       </div>
       <div class="problem-card">
-        <div class="icon">🤷</div>
+        <span class="icon">🤷</span>
         <h3>Just… Don't</h3>
-        <p>Most people skip memory entirely. Users suffer.</p>
+        <p>Most people skip memory entirely. Users suffer in silence.</p>
       </div>
     </div>
   </div>
@@ -226,43 +267,54 @@ footer .container{display:flex;justify-content:space-between;align-items:center;
 <!-- Features -->
 <section class="features">
   <div class="container">
-    <div class="section-label">How It Works</div>
-    <h2>Dead simple. Ridiculously fast.</h2>
+    <div class="section-label">The Solution</div>
+    <div class="section-title">Memory that just works</div>
+    <p class="section-desc">Seven powerful primitives. One clean API. Zero infrastructure to manage.</p>
     <div class="feature-grid">
       <div class="feature-card">
         <div class="icon">🧠</div>
         <h3>Remember</h3>
-        <p>Store any memory with automatic embedding and indexing. No vector DB setup. No embedding pipeline. Just <code>amr.remember()</code> and you're done.</p>
+        <p>Store memories with automatic embedding and indexing. No vector DB setup. Just <code>remember()</code>.</p>
       </div>
       <div class="feature-card">
         <div class="icon">🔍</div>
         <h3>Recall</h3>
-        <p>Semantic search that returns what's actually relevant — not keyword matches. Real cosine similarity scores. Your agent asks a question, it gets the right memory.</p>
+        <p>Semantic search that returns what's relevant — not keyword matches. Real cosine similarity scores.</p>
       </div>
       <div class="feature-card">
         <div class="icon">🤝</div>
         <h3>Share</h3>
-        <p>Multi-agent memory sharing with explicit permissions. Agent A stores a memory, Agent B gets it in real-time via WebSocket. Your agents finally have a shared brain.</p>
+        <p>Multi-agent memory sharing with real-time WebSocket sync. Your agents finally share a brain.</p>
       </div>
       <div class="feature-card">
         <div class="icon">✨</div>
         <h3>Auto-Remember</h3>
-        <p>Send raw conversations, get intelligent memory extraction. LLM-powered deduplication, entity extraction, and auto-tagging. Just call <code>amr.auto_remember()</code>.</p>
+        <p>Send raw conversations, get intelligent extraction. Auto-dedup, entity tagging, and more.</p>
       </div>
       <div class="feature-card">
         <div class="icon">🗜️</div>
         <h3>Compress</h3>
-        <p>Memory growing too large? Compress groups semantically similar memories into denser representations. Keeps costs down and recall sharp. <code>amr.compress()</code></p>
+        <p>Merge similar memories into dense representations. Cut token costs 40-60% while keeping recall sharp.</p>
       </div>
       <div class="feature-card">
         <div class="icon">✏️</div>
         <h3>Self-Edit</h3>
-        <p>Agents update, merge, and prune their own memories. <code>update()</code>, <code>merge()</code>, <code>delete_outdated()</code> — full MemGPT-style memory control loop.</p>
+        <p>Agents update, merge, and prune their own memories. Full autonomous memory management.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">🛡️</div>
+        <h3>Governance</h3>
+        <p>Three-layer memory governance: private scratchpad, provisional with LLM judge, and core verified memories.</p>
       </div>
       <div class="feature-card">
         <div class="icon">🔗</div>
         <h3>LangChain Native</h3>
-        <p>Drop-in <code>MrMemoryCheckpointer</code> and <code>MrMemoryStore</code> for LangGraph. <code>pip install mrmemory[langchain]</code> and you're integrated.</p>
+        <p>Drop-in <code>MrMemoryCheckpointer</code> and <code>MrMemoryStore</code> for LangGraph. One import away.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">🦀</div>
+        <h3>Rust Core</h3>
+        <p>Built in Rust for speed and reliability. Sub-millisecond overhead. No garbage collector pauses.</p>
       </div>
     </div>
   </div>
@@ -272,27 +324,39 @@ footer .container{display:flex;justify-content:space-between;align-items:center;
 <section class="code-section">
   <div class="container">
     <div class="section-label">Developer Experience</div>
-    <h2>One line to install. Three lines to integrate.</h2>
-    <p>SDKs for Python, TypeScript, and Rust. Integrations with LangChain, CrewAI, AutoGen, and OpenClaw.</p>
+    <div class="section-title">Three lines to integrate</div>
+    <p class="section-desc">SDKs for Python and TypeScript. Integrations with LangChain, CrewAI, AutoGen, and more.</p>
     <div class="code-block">
       <div class="code-header">
-        <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
-        <span style="margin-left:8px">main.py</span>
+        <span class="d r"></span><span class="d y"></span><span class="d g"></span>
+        <span class="file">main.py</span>
       </div>
-<pre><span class="kw">from</span> mrmemory <span class="kw">import</span> AMR
+<pre><span class="kw">from</span> mrmemory <span class="kw">import</span> MrMemory
 
-client = AMR(<span class="str">"amr_sk_..."</span>, agent_id=<span class="str">"trading-bot"</span>, namespace=<span class="str">"weather-trading"</span>)
+client = MrMemory(<span class="str">"amr_sk_..."</span>, agent_id=<span class="str">"my-agent"</span>)
 
 <span class="cmt"># Store a memory</span>
-client.<span class="fn">remember</span>(
-    <span class="str">"Customer wants a weather prediction model"</span>,
-    tags=[<span class="str">"weather"</span>, <span class="str">"prediction"</span>, <span class="str">"intent"</span>]
-)
+client.<span class="fn">remember</span>(<span class="str">"User prefers concise answers and dark mode"</span>)
 
 <span class="cmt"># Recall with semantic search</span>
-results = client.<span class="fn">recall</span>(<span class="str">"What does this customer want?"</span>)
+results = client.<span class="fn">recall</span>(<span class="str">"What are the user's preferences?"</span>)
+
 <span class="kw">for</span> memory <span class="kw">in</span> results:
-    print(memory.content, memory.similarity)</pre>
+    print(memory.content, memory.similarity)
+<span class="cmt"># → "User prefers concise answers and dark mode" 0.94</span></pre>
+    </div>
+  </div>
+</section>
+
+<!-- Trust bar -->
+<section class="trust">
+  <div class="container">
+    <div class="trust-grid">
+      <div class="trust-item"><span class="val">⚡ Real-time</span><span class="label">WebSocket sync</span></div>
+      <div class="trust-item"><span class="val">🔒 Isolated</span><span class="label">Per-tenant encryption</span></div>
+      <div class="trust-item"><span class="val">🌐 Any Framework</span><span class="label">REST + WebSocket API</span></div>
+      <div class="trust-item"><span class="val">🦀 Rust</span><span class="label">No GC pauses</span></div>
+      <div class="trust-item"><span class="val">📦 Published</span><span class="label">PyPI + npm</span></div>
     </div>
   </div>
 </section>
@@ -301,36 +365,38 @@ results = client.<span class="fn">recall</span>(<span class="str">"What does thi
 <section class="pricing">
   <div class="container">
     <div class="section-label">Pricing</div>
-    <h2>Pricing that doesn't make you think twice</h2>
-    <div class="pricing-cards">
+    <div class="section-title">Simple, predictable pricing</div>
+    <p class="section-desc">No surprise fees. No usage-based gotchas. Start free, scale when ready.</p>
+    <div class="pricing-grid">
       <div class="pricing-card featured">
-        <div class="plan-name">Starter</div>
+        <div class="plan">Starter</div>
         <div class="price">$5<span>/mo</span></div>
         <div class="price-sub">Everything you need to ship</div>
         <ul>
-          <li>10,000 memories stored</li>
+          <li>10,000 memories</li>
           <li>50,000 API calls/month</li>
           <li>5 agents</li>
-          <li>Auto-embedding - you send text, we handle vectors</li>
-          <li>Semantic vector search (OpenAI embeddings + Qdrant)</li>
-          <li>Tenant-isolated, encrypted at rest</li>
-          <li>Community support</li>
+          <li>Semantic vector search</li>
+          <li>Auto-embedding</li>
+          <li>Memory compression</li>
+          <li>Tenant isolation</li>
         </ul>
-        <a href="https://buy.stripe.com/00w4gB2REex4daHeP38g001" class="btn">Get Started</a>
-        <p style="text-align:center;font-size:.8rem;color:var(--text3);margin-top:12px">No surprise fees. No usage-based gotchas.</p>
+        <a href="https://buy.stripe.com/00w4gB2REex4daHeP38g001" class="btn btn-primary">Start Free Trial</a>
       </div>
       <div class="pricing-card">
-        <div class="plan-name">Pro</div>
+        <div class="plan">Pro</div>
         <div class="price">$25<span>/mo</span></div>
         <div class="price-sub">For production workloads</div>
         <ul>
-          <li>100,000 memories stored</li>
+          <li>100,000 memories</li>
           <li>500,000 API calls/month</li>
-          <li>Unlimited agents & namespaces</li>
-          <li>WebSocket real-time streaming</li>
+          <li>Unlimited agents</li>
+          <li>WebSocket real-time sync</li>
+          <li>Memory governance</li>
           <li>Priority support</li>
+          <li>Self-hosting option</li>
         </ul>
-        <button class="btn outline" disabled>Coming Soon</button>
+        <button class="btn btn-ghost" disabled style="opacity:.5;cursor:not-allowed">Coming Soon</button>
       </div>
     </div>
   </div>
@@ -339,101 +405,70 @@ results = client.<span class="fn">recall</span>(<span class="str">"What does thi
 <!-- FAQ -->
 <section class="faq">
   <div class="container">
-    <div class="section-label">FAQ</div>
-    <h2>Common questions</h2>
+    <div class="section-label" style="text-align:center">FAQ</div>
+    <div class="section-title" style="text-align:center;margin-bottom:48px">Common questions</div>
 
     <div class="faq-item">
-      <div class="faq-q">How is this different from just using a vector database?</div>
+      <div class="faq-q">How is this different from a vector database?</div>
       <div class="faq-a">A vector DB is infrastructure. MrMemory is a product. You don't need to manage embeddings, write retrieval logic, handle tenant isolation, or build cleanup pipelines. You call <code>remember()</code> and <code>recall()</code>. We handle everything else.</div>
     </div>
-
     <div class="faq-item">
       <div class="faq-q">What frameworks do you support?</div>
-      <div class="faq-a">All of them. MrMemory is a REST + WebSocket API with SDKs for Python, TypeScript, and Rust. We have first-class integrations with LangChain, CrewAI, AutoGen, and OpenClaw. If your framework can make HTTP calls, it works with MrMemory.</div>
+      <div class="faq-a">All of them. MrMemory is a REST + WebSocket API with SDKs for Python and TypeScript. We have first-class integrations with LangChain, CrewAI, AutoGen, and OpenClaw. If your framework can make HTTP calls, it works.</div>
     </div>
-
     <div class="faq-item">
       <div class="faq-q">Is my data secure?</div>
-      <div class="faq-a">Yes. Every tenant gets isolated storage (separate Qdrant collections, row-level PostgreSQL isolation). Data is encrypted at rest. API keys are hashed, never stored plaintext. We take security seriously.</div>
+      <div class="faq-a">Yes. Every tenant gets isolated storage with row-level PostgreSQL isolation and separate Qdrant collections. API keys are SHA-256 hashed, never stored plaintext. Data encrypted at rest.</div>
     </div>
-
     <div class="faq-item">
       <div class="faq-q">Can I self-host?</div>
-      <div class="faq-a">Enterprise plan includes a self-hosted option. We're also planning a self-hosted embedding mode so you can keep your data fully local while using MrMemory Cloud for the memory API.</div>
+      <div class="faq-a">Yes — we provide a Docker Compose setup for self-hosting. The Pro plan includes a managed self-hosted option with support.</div>
     </div>
-
-    <div class="faq-item">
-      <div class="faq-q">What happens if I exceed my plan limits?</div>
-      <div class="faq-a">You'll get clear warnings before hitting limits. We don't silently charge overages. If you need more, upgrade to Pro or talk to us about Enterprise.</div>
-    </div>
-
     <div class="faq-item">
       <div class="faq-q">How long does integration take?</div>
-      <div class="faq-a">Under 2 minutes. Install the SDK, add your API key, call <code>remember()</code>. That's it. Our onboarding wizard gets you from signup to first API call in under 2 minutes.</div>
+      <div class="faq-a">Under 2 minutes. Install the SDK, add your API key, call <code>remember()</code>. That's it.</div>
     </div>
-  </div>
-</section>
-
-<!-- Trust -->
-<section class="trust" style="padding:48px 0;border-bottom:1px solid var(--border)">
-  <div class="container" style="display:flex;justify-content:center;flex-wrap:wrap;gap:40px;text-align:center">
-    <div><span style="font-size:1.5rem;font-weight:700;display:block">⚡ Real-time</span><span style="font-size:.8rem;color:var(--text3)">WebSocket memory sharing</span></div>
-    <div><span style="font-size:1.5rem;font-weight:700;display:block">🔒 Isolated</span><span style="font-size:.8rem;color:var(--text3)">tenant-isolated, encrypted at rest</span></div>
-    <div><span style="font-size:1.5rem;font-weight:700;display:block">🛠️ Agnostic</span><span style="font-size:.8rem;color:var(--text3)">works with every framework</span></div>
-    <div><span style="font-size:1.5rem;font-weight:700;display:block">🦀 Rust</span><span style="font-size:.8rem;color:var(--text3)">fast, reliable, no GC pauses</span></div>
   </div>
 </section>
 
 <!-- Final CTA -->
-<section style="padding:96px 0;text-align:center">
+<section class="final-cta">
   <div class="container">
-    <h2 style="font-size:clamp(1.8rem,4vw,2.5rem);font-weight:700;letter-spacing:-.03em;margin-bottom:16px">Stop building memory infrastructure.<br>Start building agents.</h2>
-    <p style="color:var(--text2);margin-bottom:32px;font-size:1.05rem">Sign up in 30 seconds. Give your agents a brain.</p>
-    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-      <a href="https://buy.stripe.com/00w4gB2REex4daHeP38g001" class="btn" style="padding:14px 36px;font-size:1.05rem">Start 7-Day Free Trial</a>
-      <a href="/docs" class="btn" style="padding:14px 36px;font-size:1.05rem;background:transparent;border:1px solid var(--border);color:var(--text2)">View Docs</a>
+    <div class="section-title">Stop building memory infra.<br>Start building agents.</div>
+    <p class="section-desc">Give your agents a brain in under 2 minutes.</p>
+    <div class="hero-actions">
+      <a href="https://buy.stripe.com/00w4gB2REex4daHeP38g001" class="btn btn-primary">Start 7-Day Free Trial</a>
+      <a href="/docs" class="btn btn-ghost">Read the Docs</a>
     </div>
-    <p style="font-size:.8rem;color:var(--text3);margin-top:14px">7-day free trial · Then $5/mo · Cancel anytime</p>
+    <p class="hero-sub">Free for 7 days · Then $5/mo · Cancel anytime</p>
   </div>
 </section>
 
 <!-- Footer -->
 <footer>
   <div class="container">
-    <div class="footer-left">
-      <span>mrmemory.dev</span> · Built by AI agents · © 2026
-    </div>
+    <div class="footer-left"><span>mrmemory</span>.dev · © 2026</div>
     <div class="footer-links">
       <a href="/docs">Docs</a>
-      <a href="#">GitHub</a>
-      <a href="#">Discord</a>
-      <a href="#">Twitter</a>
+      <a href="/blog">Blog</a>
+      <a href="https://github.com/masterdarren23/mrmemory">GitHub</a>
+      <a href="https://x.com/realmrmemory">Twitter</a>
     </div>
   </div>
 </footer>
 
-<!-- Toast -->
-<div class="toast" id="toast"></div>
-
 <script>
-// FAQ toggle
-document.querySelectorAll('.faq-q').forEach(q => {
-  q.addEventListener('click', () => {
-    q.parentElement.classList.toggle('open');
-  });
+document.querySelectorAll('.faq-q').forEach(q=>q.addEventListener('click',()=>q.parentElement.classList.toggle('open')));
+
+// Scroll reveal
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)'}})
+},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.feature-card,.problem-card,.pricing-card,.faq-item').forEach(el=>{
+  el.style.opacity='0';el.style.transform='translateY(20px)';el.style.transition='opacity .5s ease,transform .5s ease';
+  observer.observe(el);
 });
-
-// Toast
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 3000);
-}
-
-// (waitlist form removed - now links directly to Stripe checkout)
 </script>
-
 <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
