@@ -236,8 +236,8 @@ footer .container{display:flex;justify-content:space-between;align-items:center;
     </div>
     <p class="hero-sub fade-up delay-3">Free for 7 days · Then $5/mo · Cancel anytime</p>
     <div class="email-capture fade-up delay-3" style="margin-top:32px">
-      <form id="email-form" style="display:flex;gap:8px;max-width:420px;margin:0 auto">
-        <input type="email" id="email-input" placeholder="your@email.com" required style="flex:1;padding:11px 16px;border-radius:9px;border:1px solid var(--border);background:var(--bg2);color:var(--text);font-size:.9rem;outline:none;transition:border-color .2s">
+      <form id="email-form" action="https://formspree.io/f/xeojpdaz" method="POST" style="display:flex;gap:8px;max-width:420px;margin:0 auto">
+        <input type="email" name="email" id="email-input" placeholder="your@email.com" required style="flex:1;padding:11px 16px;border-radius:9px;border:1px solid var(--border);background:var(--bg2);color:var(--text);font-size:.9rem;outline:none;transition:border-color .2s">
         <button type="submit" class="btn btn-ghost" style="padding:11px 20px;font-size:.88rem;white-space:nowrap">Get Updates</button>
       </form>
       <p id="email-status" style="font-size:.75rem;color:var(--text3);margin-top:8px">Join the dev list — new features, tutorials, no spam.</p>
@@ -449,8 +449,8 @@ results = client.<span class="fn">recall</span>(<span class="str">"What are the 
     </div>
     <p class="hero-sub">Free for 7 days · Then $5/mo · Cancel anytime</p>
     <div style="margin-top:36px">
-      <form class="email-form-bottom" onsubmit="return handleEmail(event,this)" style="display:flex;gap:8px;max-width:420px;margin:0 auto">
-        <input type="email" placeholder="your@email.com" required style="flex:1;padding:11px 16px;border-radius:9px;border:1px solid var(--border);background:var(--bg2);color:var(--text);font-size:.9rem;outline:none">
+      <form class="email-form-bottom" action="https://formspree.io/f/xeojpdaz" method="POST" onsubmit="return handleEmail(event,this)" style="display:flex;gap:8px;max-width:420px;margin:0 auto">
+        <input type="email" name="email" placeholder="your@email.com" required style="flex:1;padding:11px 16px;border-radius:9px;border:1px solid var(--border);background:var(--bg2);color:var(--text);font-size:.9rem;outline:none">
         <button type="submit" class="btn btn-ghost" style="padding:11px 20px;font-size:.88rem;white-space:nowrap">Get Updates</button>
       </form>
       <p style="font-size:.75rem;color:var(--text3);margin-top:8px">Developer updates, tutorials, zero spam.</p>
