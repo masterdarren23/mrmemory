@@ -1,39 +1,15 @@
-﻿[
-    {
-        "slug":  "building-a-chatbot-that-remembers-leveraging-mrmemory-for-ai-powered-conversatio",
-        "title":  "Building a Chatbot That Remembers: Leveraging MrMemory for AI-Powered Conversations",
-        "description":  "Discover how to create a chatbot that remembers user preferences and past conversations using MrMemory, Streamlit, and LangChain.",
-        "date":  "2026-04-05",
-        "readTime":  "2 min read",
-        "tags":  [
-                     "MrMemory",
-                     "Streamlit",
-                     "LangChain",
-                     "AI"
-                 ]
-    },
-    {
-        "slug":  "how-to-add-memory-to-your-python-ai-agent-in-3-lines-of-code",
-        "title":  "How to Add Memory to Your Python AI Agent in 3 Lines of Code",
-        "description":  "Learn how to add persistent, searchable memory to your Python AI agent using MrMemory\u0027s Managed Memory API.",
-        "date":  "2026-04-05",
-        "readTime":  "2 min read",
-        "tags":  [
-                     "AI",
-                     "Python",
-                     "MrMemory"
-                 ]
-    },
-    {
-        "slug":  "adding-persistent-memory-to-langchain-agents-a-guide",
-        "title":  "Adding Persistent Memory to LangChain Agents: A Guide",
-        "description":  "Learn how to add persistent memory to your LangChain agents and improve their conversational capabilities.",
-        "date":  "2026-04-04",
-        "readTime":  "3 min read",
-        "tags":  [
-                     "LangChain",
-                     "persistent memory",
-                     "AI development"
-                 ]
-    }
+[
+  {
+    "slug": "why-ai-agents-need-long-term-memory-to-be-truly-useful",
+    "title": "Why AI Agents Need Long-Term Memory to Be Truly Useful",
+    "description": "Stateless AI agents forget everything between sessions. Here's why persistent memory changes the game \u2014 and how to add it in 3 lines of code.",
+    "date": "2026-04-05",
+    "readTime": "3 min read",
+    "tags": [
+      "AI",
+      "memory",
+      "agents",
+      "MrMemory"
+    ]
+  }
 ]
