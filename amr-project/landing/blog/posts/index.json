@@ -1,5 +1,17 @@
 [
   {
+    "slug": "how-to-add-memory-to-your-python-ai-agent-in-3-lines-of-code",
+    "title": "How to Add Memory to Your Python AI Agent in 3 Lines of Code",
+    "description": "Learn how to add persistent, searchable memory to your Python AI agent using MrMemory's Managed Memory API.",
+    "date": "2026-04-05",
+    "readTime": "2 min read",
+    "tags": [
+      "AI",
+      "Python",
+      "MrMemory"
+    ]
+  },
+  {
     "slug": "untitled",
     "title": "Untitled",
     "description": "",

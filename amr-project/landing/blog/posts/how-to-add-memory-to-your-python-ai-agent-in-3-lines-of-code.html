@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TS0RXEVBH6"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-TS0RXEVBH6');
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Add Memory to Your Python AI Agent in 3 Lines of Code — MrMemory Blog</title>
+<meta name="description" content="Learn how to add persistent, searchable memory to your Python AI agent using MrMemory&#x27;s Managed Memory API.">
+<meta property="og:title" content="How to Add Memory to Your Python AI Agent in 3 Lines of Code">
+<meta property="og:description" content="Learn how to add persistent, searchable memory to your Python AI agent using MrMemory&#x27;s Managed Memory API.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://mrmemory.dev/blog/posts/how-to-add-memory-to-your-python-ai-agent-in-3-lines-of-code.html">
+<link rel="canonical" href="https://mrmemory.dev/blog/posts/how-to-add-memory-to-your-python-ai-agent-in-3-lines-of-code.html">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0a0b;--bg2:#111113;--bg3:#18181b;--border:#27272a;
+  --text:#fafafa;--text2:#a1a1aa;--text3:#71717a;
+  --accent:#6d5cff;--accent2:#8b7aff;--green:#22c55e;
+  --mono:'SF Mono','Cascadia Code','Fira Code','Consolas',monospace;
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI','Inter',Helvetica,Arial,sans-serif;
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:var(--accent2);text-decoration:none}
+a:hover{text-decoration:underline}
+.container{max-width:720px;margin:0 auto;padding:0 24px}
+
+/* Nav */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,10,11,.8);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+nav .nav-inner{max-width:1080px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:56px}
+.logo{font-family:var(--mono);font-weight:700;font-size:1.1rem;letter-spacing:-.02em;color:var(--text)}
+.logo span{color:var(--accent)}
+.nav-links{display:flex;gap:20px;align-items:center}
+.nav-links a{font-size:.875rem;color:var(--text2);transition:color .2s}
+.nav-links a:hover{color:var(--text);text-decoration:none}
+.nav-cta{padding:6px 16px;border:1px solid var(--border);border-radius:6px}
+
+/* Article */
+.article-header{padding-top:120px;padding-bottom:32px;border-bottom:1px solid var(--border)}
+.article-header h1{font-size:2.2rem;font-weight:700;letter-spacing:-.03em;line-height:1.2;margin-bottom:16px}
+.article-meta{font-size:.9rem;color:var(--text3);display:flex;gap:16px;margin-bottom:16px}
+.article-tags{display:flex;gap:8px;flex-wrap:wrap}
+.article-tags .tag{font-family:var(--mono);font-size:.75rem;color:var(--accent2);border:1px solid rgba(109,92,255,.3);border-radius:999px;padding:2px 10px}
+
+/* Content */
+.article-content{padding:48px 0}
+.article-content h2{font-size:1.5rem;font-weight:600;letter-spacing:-.02em;margin:48px 0 16px;padding-top:16px;border-top:1px solid var(--border)}
+.article-content h3{font-size:1.2rem;font-weight:600;margin:32px 0 12px}
+.article-content p{color:var(--text2);margin-bottom:16px}
+.article-content ul,.article-content ol{color:var(--text2);margin-bottom:16px;padding-left:24px}
+.article-content li{margin-bottom:8px}
+.article-content strong{color:var(--text)}
+.article-content code{font-family:var(--mono);font-size:.875em;background:var(--bg3);padding:2px 6px;border-radius:4px;color:var(--accent2)}
+.article-content pre{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:20px;overflow-x:auto;margin-bottom:24px}
+.article-content pre code{background:none;padding:0;font-size:.875rem;color:var(--text)}
+.article-content blockquote{border-left:3px solid var(--accent);padding:12px 20px;margin:24px 0;background:var(--bg2);border-radius:0 8px 8px 0;color:var(--text2)}
+.article-content table{width:100%;border-collapse:collapse;margin:24px 0}
+.article-content th,.article-content td{padding:10px 14px;border:1px solid var(--border);text-align:left;font-size:.9rem}
+.article-content th{background:var(--bg2);color:var(--text);font-weight:600}
+.article-content td{color:var(--text2)}
+
+/* CTA */
+.article-cta{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:32px;text-align:center;margin:48px 0}
+.article-cta h3{font-size:1.3rem;margin-bottom:8px}
+.article-cta p{color:var(--text2);margin-bottom:20px}
+.article-cta a.btn{display:inline-block;padding:12px 28px;background:var(--accent);color:white;border-radius:8px;font-weight:600;font-size:.95rem;transition:background .2s}
+.article-cta a.btn:hover{background:var(--accent2);text-decoration:none}
+
+/* Back link */
+.back-link{display:inline-block;margin-top:120px;margin-bottom:32px;font-size:.9rem;color:var(--text3)}
+.back-link:hover{color:var(--text2)}
+
+/* Footer */
+footer{border-top:1px solid var(--border);padding:32px 0;text-align:center;color:var(--text3);font-size:.85rem;margin-top:48px}
+</style>
+</head>
+<body>
+
+<nav>
+<div class="nav-inner">
+  <a href="/" class="logo">Mr<span>Memory</span></a>
+  <div class="nav-links">
+    <a href="/docs">Docs</a>
+    <a href="/blog">Blog</a>
+    <a href="https://github.com/masterdarren23/mrmemory">GitHub</a>
+    <a href="https://buy.stripe.com/00w4gB2REex4daHeP38g001" class="nav-cta">Start Free Trial</a>
+  </div>
+</div>
+</nav>
+
+<div class="container">
+  <a href="/blog" class="back-link">← Back to Blog</a>
+  
+  <article>
+    <div class="article-header">
+      <h1>How to Add Memory to Your Python AI Agent in 3 Lines of Code</h1>
+      <div class="article-meta">
+        <span>2026-04-05</span>
+        <span>2 min read</span>
+      </div>
+      <div class="article-tags"><span class="tag">AI</span><span class="tag">Python</span><span class="tag">MrMemory</span></div>
+    </div>
+
+    <div class="article-content">
+      <h3>How to Add Memory to Your Python AI Agent in 3 Lines of Code</h3>
+
+<p><strong>Meta Description:</strong> Learn how to add persistent, searchable memory to your Python AI agent using MrMemory's Managed Memory API.</p>
+
+<p>As AI developers, we've all experienced the frustration of trying to build a stateful conversational AI without a proper memory management system. Without memory, our AI agents are like goldfish swimming in circles – impressive for thirty seconds, then utterly useless.</p>
+
+<h3>What is Long-term Memory for AI Agents?</h3>
+
+<p>Long-term memory for AI agents is the ability to store, retrieve, and reference past interactions across multiple sessions, enabling contextual awareness and personalized responses based on historical data. This fundamental aspect of human intelligence allows us to recall memories from our past, build upon previous experiences, and respond accordingly.</p>
+
+<h3>Why Adding Memory to Your AI Agent Actually Matters</h3>
+
+<p>Here's the brutal truth: stateless agents are party tricks. They answer questions brilliantly but can't maintain a coherent conversation beyond a single exchange. Memory transforms your agent from a fancy autocomplete tool into something genuinely useful:</p>
+
+<ul>
+<li><strong>Contextual Continuity</strong>: Your agent tracks conversation threads, remembers user preferences, and builds on previous interactions instead of starting from zero every time.</li>
+<li><strong>Personalization at Scale</strong>: Store user-specific details (project names, coding preferences, domain context) and deliver tailored responses that feel custom-built.</li>
+<li><strong>Complex Task Handling</strong>: Break down multi-step workflows where each step builds on the last—project management, workflow automation, or even chatbot-based customer service.</li>
+</ul>
+
+<h3>Adding Memory to Your AI Agent with MrMemory</h3>
+
+<p>To add memory to your Python AI agent, you can use MrMemory's Managed Memory API. Here's an example of how to do it in just 3 lines of code:</p>
+<pre><code class="language-python">
+pip install mrmemory
+from mrmemory import MrMemory
+client = MrMemory(api_key=&quot;your-key&quot;)
+</code></pre>
+<p>With this simple setup, you can store and recall memories using the <code>remember</code> and <code>recall</code> methods:</p>
+<pre><code class="language-python">
+client.remember(&quot;user prefers dark mode&quot;, tags=[&quot;preferences&quot;])
+results = client.recall(&quot;what theme does the user like?&quot;)
+print(results)  # Output: &quot;dark mode&quot;
+</code></pre>
+<h3>Comparison to Alternative Solutions</h3>
+
+<p>While there are other solutions available, such as Mem0, Zep, and MemGPT, MrMemory's Managed Memory API stands out for its ease of use, scalability, and compression capabilities. For example:</p>
+
+<ul>
+<li>Mem0 lacks memory compression, making it less efficient for large datasets.</li>
+<li>Zep is a self-hosted solution that requires significant infrastructure setup and maintenance.</li>
+<li>MemGPT is also self-hosted, which can limit its applicability in certain scenarios.</li>
+</ul>
+
+<h3>Conclusion</h3>
+
+<p>Adding memory to your Python AI agent is no longer a daunting task. With MrMemory's Managed Memory API, you can create stateful conversational AIs that remember conversations, build context, and respond intelligently. Try MrMemory today and take the first step towards building more advanced AI applications.</p>
+
+<p><strong>Try MrMemory:</strong> <a href="buy.stripe.com/00w4gB2REex4daHeP38g001">Sign up for a 7-day free trial</a> or <a href="mrmemory.dev/docs">visit our documentation</a> to learn more about how MrMemory can help you build better AI agents.</p>
+    </div>
+
+    <div class="article-cta">
+      <h3>Ready to give your AI agents memory?</h3>
+      <p>Install in one line. Remember forever. Start with a 7-day free trial.</p>
+      <a href="https://buy.stripe.com/00w4gB2REex4daHeP38g001" class="btn">Start Free Trial →</a>
+    </div>
+  </article>
+</div>
+
+<footer>
+  <div class="container">
+    &copy; 2026 MrMemory &middot; <a href="/">Home</a> &middot; <a href="/docs">Docs</a> &middot; <a href="https://github.com/masterdarren23/mrmemory">GitHub</a>
+  </div>
+</footer>
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
