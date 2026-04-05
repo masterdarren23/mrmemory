@@ -104,91 +104,59 @@ footer{border-top:1px solid var(--border);padding:32px 0;text-align:center;color
       <h1>Untitled</h1>
       <div class="article-meta">
         <span>2026-04-05</span>
-        <span>2 min read</span>
+        <span>1 min read</span>
       </div>
       <div class="article-tags"></div>
     </div>
 
     <div class="article-content">
-      <p>Here is the full article:</p>
+      <p>Here is the comprehensive blog article:</p>
 
 <p>---</p>
-<p>title: "Unlocking AI Memory with OpenAI Agents SDK and MrMemory"</p>
-<p>description: "Discover how to initialize an agent with memory using OpenAI's SDK and accelerate your AI development with MrMemory."</p>
-<p>tags: ["OpenAI", "MrMemory", "AI Memory"]</p>
+<p>title: "MrMemory + FastAPI: Building a Memory-Powered API"</p>
+<p>description: "Discover how to integrate MrMemory with FastAPI to build a powerful memory-powered API for your AI agents."</p>
+<p>tags: ["AI", "Machine Learning", "FastAPI", "MrMemory"]</p>
 <p>date: 2026-04-05</p>
 <p>---</p>
 
-<p><strong>Introduction</strong></p>
+<h3>Introduction</h3>
 
-<p>As AI agents become increasingly prevalent in enterprise workflows, a crucial challenge has emerged: retaining context and learning from past interactions. Without memory, even the most advanced AI models are reduced to mere automation tools, unable to build on previous experiences or recall user interactions. In this article, we'll explore how OpenAI's Agents SDK enables you to initialize an agent with memory, and how MrMemory can accelerate your development journey.</p>
+<p>As an AI developer, you're likely familiar with the challenges of building sophisticated AI systems that can remember and recall conversations. Without a robust memory management system, your agents may struggle to retain information and provide accurate responses. In this article, we'll explore how MrMemory, a managed memory API for AI agents, can be integrated with FastAPI to build a powerful memory-powered API.</p>
 
-<p><strong>Understanding Memory in AI Agents</strong></p>
+<h3>The Problem: Memory Management in AI</h3>
 
-<p>Before diving into the technical aspects, let's define what "memory" means in the context of AI agents. Memory refers to the ability of an agent to retain context, recall user interactions, and build on previous experiences. This is particularly important for enterprise-scale AI applications, where agents need to maintain working context within a conversation or workflow.</p>
+<p>When building AI systems, memory management is a crucial aspect that often gets overlooked. Without proper memory management, your AI agents may forget important context, leading to poor performance and inconsistent results. Traditional approaches to memory management involve manual embedding, indexing, and querying, which can be time-consuming and error-prone.</p>
 
-<p><strong>Initializing Agents with Memory using OpenAI's SDK</strong></p>
+<h3>The Solution: MrMemory + FastAPI</h3>
 
-<p>To initialize an agent with memory using OpenAI's SDK, you'll need to leverage the <code>session</code> object, which becomes the memory object. You can simply call <code>session.run("...")</code> repeatedly, and the SDK will handle context length, history, and continuity – making it far easier to build coherent, multithreaded applications.</p>
+<p>MrMemory is a managed memory API that provides seven powerful primitives for storing, searching, and retrieving AI agent memories. By integrating MrMemory with FastAPI, you can build a robust memory-powered API that simplifies the process of managing AI agent memories. Here's an example of how to get started:</p>
 
-<p>Here's a code example using Python:</p>
 <pre><code class="language-python">
-from openai import agents
+pip install mrmemory
 
-# Initialize an agent with memory
-agent = agents.Agent(session_id=&quot;my_session&quot;, db_path=&quot;:memory:&quot;, sessions_table=&quot;agent_sessions&quot;)
+from mrmemory import MrMemory
+client = MrMemory(api_key=&quot;your-key&quot;)
 
-# Run the agent and recall previous interactions
-results = agent.run(&quot;What was our last conversation about?&quot;)
-print(results)
-</code></pre>
-<p><strong>Accelerating Development with MrMemory</strong></p>
-
-<p>While OpenAI's SDK provides a solid foundation for building AI agents, there are still many challenges to overcome. That's where MrMemory comes in – a managed memory API designed specifically for AI developers. With MrMemory, you can:</p>
-
-<ul>
-<li>Auto-remember user interactions and conversations</li>
-<li>Compress memory storage by up to 60% using our proprietary compression algorithm</li>
-<li>Integrate with OpenAI embeddings for enhanced context-awareness</li>
-</ul>
-
-<p>Here's an example of how you can use MrMemory in your Python application:</p>
-<pre><code class="language-python">
-import mrmemory
-
-# Initialize MrMemory client
-client = mrmemory.MrMemory(api_key=&quot;your-key&quot;)
-
-# Remember a user interaction
+# Store a memory
 client.remember(&quot;user prefers dark mode&quot;, tags=[&quot;preferences&quot;])
 
-# Recall previous interactions
+# Recall a memory
 results = client.recall(&quot;what theme does the user like?&quot;)
-print(results)
 </code></pre>
-<p><strong>Alternatives and Comparison</strong></p>
 
-<p>While OpenAI's SDK provides a solid foundation for building AI agents, there are other alternatives available. For example:</p>
+<h3>Comparison: Alternatives to MrMemory</h3>
 
-<ul>
-<li>Mem0: A lightweight framework for building multi-agent workflows, but lacking compression and self-edit tools.</li>
-<li>Zep: A self-hosted solution that requires significant development efforts to integrate with your application.</li>
-<li>MemGPT: Another self-hosted solution that is not specifically designed for AI developers.</li>
-</ul>
+<p>While there are other alternatives available, such as Mem0 and Zep, MrMemory stands out for its ease of use, scalability, and comprehensive features. Unlike Mem0, which requires manual setup and configuration, MrMemory provides a simple API that can be easily integrated with FastAPI. Similarly, while Zep offers some memory management capabilities, it lacks the comprehensive features and scalability offered by MrMemory.</p>
 
-<p><strong>Conclusion</strong></p>
+<h3>Conclusion: Try MrMemory Today</h3>
 
-<p>Initializing an agent with memory using OpenAI's SDK is a crucial step towards building context-aware AI applications. By leveraging MrMemory, you can accelerate your development journey and overcome the challenges of retaining context and learning from past interactions. Try MrMemory today and take your AI development to the next level!</p>
+<p>In this article, we've explored how MrMemory can be integrated with FastAPI to build a powerful memory-powered API for AI agents. With its ease of use, scalability, and comprehensive features, MrMemory is an ideal solution for developers looking to simplify the process of managing AI agent memories. To get started with MrMemory, try it out today and discover the benefits of building a robust memory-powered API.</p>
 
-<p><a href="https://mrmemory.dev/docs">CTA button: Try MrMemory</a></p>
+<p>Try MrMemory: <a href="https://mrmemory.dev">https://mrmemory.dev</a></p>
 
-<p><strong>Suggested Internal Links</strong></p>
+<p>Read the Docs: <a href="https://mrmemory.dev/docs">https://mrmemory.dev/docs</a></p>
 
-<ul>
-<li><a href="https://mrmemory.dev/docs">MrMemory Documentation</a></li>
-<li><a href="https://openai.com/blog/agents-sdk">OpenAI Agents SDK Documentation</a></li>
-<li><a href="https://blog.openai.com/build-ai-agent-memory">How to Build an AI Agent with Memory Using the OpenAI SDK</a></li>
-</ul>
+<p>Join the dev list: <a href="https://mrmemory.dev/dev-list">https://mrmemory.dev/dev-list</a></p>
     </div>
 
     <div class="article-cta">
