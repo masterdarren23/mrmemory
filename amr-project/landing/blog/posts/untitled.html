@@ -103,8 +103,8 @@ footer{border-top:1px solid var(--border);padding:32px 0;text-align:center;color
     <div class="article-header">
       <h1>Untitled</h1>
       <div class="article-meta">
-        <span>2026-04-04</span>
-        <span>1 min read</span>
+        <span>2026-04-05</span>
+        <span>2 min read</span>
       </div>
       <div class="article-tags"></div>
     </div>
@@ -112,66 +112,77 @@ footer{border-top:1px solid var(--border);padding:32px 0;text-align:center;color
     <div class="article-content">
       <p>Here is the comprehensive article:</p>
 
-<p><strong>Give Your Crew Persistent Memory with MrMemory</strong></p>
+<p><strong>MrMemory + AutoGen: Multi-Agent Memory Tutorial</strong></p>
+<p>=====================================================</p>
 
-<h3>Meta Description</h3>
-<p>Elevate your AI agents' performance by giving them persistent memory. Learn how to add long-term memory to CrewAI and improve results.</p>
+<p><strong>Meta description:</strong> Learn how to create multi-agent conversations with memory using MrMemory and AutoGen. Discover the benefits of semantic recall, auto-remember, and memory compression.</p>
 
-<p>---</p>
-<p>title: "Give Your Crew Persistent Memory with MrMemory"</p>
-<p>description: "Elevate your AI agents' performance by giving them persistent memory. Learn how to add long-term memory to CrewAI and improve results."</p>
-<p>tags: ["persistent memory", "CrewAI", "MrMemory"]</p>
-<p>date: 2026-04-05</p>
-<p>---</p>
+<p><strong>Introduction</strong></p>
+<p>---------------</p>
 
-<h3>Introduction</h3>
+<p>As AI developers, we know that building sophisticated conversational agents requires more than just clever language processing. Memory plays a crucial role in maintaining context across sessions, adapting to user preferences, and providing personalized experiences. However, traditional approaches often involve cumbersome infrastructure setup or rely on manual workarounds. In this tutorial, we'll explore how MrMemory's managed memory API simplifies the process of creating multi-agent conversations with memory.</p>
 
-<p>As you're building your CrewAI agents, have you ever struggled with the limitations of short-term memory? Maybe you've noticed that your agents can't retain information across sessions or tasks. This is where persistent memory comes in – a game-changer for improving your AI's performance.</p>
+<p><strong>Multi-Agent Conversations with Memory</strong></p>
+<p>------------------------------------</p>
 
-<p>In this article, we'll explore how to add long-term memory to CrewAI and supercharge your agents' capabilities with MrMemory.</p>
+<p>To demonstrate the power of MrMemory in a multi-agent conversation scenario, let's create two AI agents: a "manager" for resolving customer issues and a "customer_bot" for gathering information on customer problems. Both agents will use GPT-4 language models.</p>
 
-<h3>Adding Persistent Memory to CrewAI</h3>
-
-<p>To give your CrewAI agents the gift of persistence, you need to create a shared memory instance for your entire crew. This is where MrMemory comes in – a managed memory API designed specifically for AI agents like yours.</p>
-
-<p>With MrMemory, you can easily integrate persistent memory into your CrewAI projects. Here's an example of how to get started:</p>
 <pre><code class="language-python">
-import mrmemory
+from mrmemory import AMR
 
-client = MrMemory(api_key=&quot;your-key&quot;)
-client.remember(&quot;user prefers dark mode&quot;, tags=[&quot;preferences&quot;])
-results = client.recall(&quot;what theme does the user like?&quot;)
+# Initialize the memory client with your API key and agent ID
+client = AMR(&quot;amr_sk_your_key&quot;, agent_id=&quot;trading-bot&quot;, namespace=&quot;weather-trading&quot;)
+
+# Store a memory
+client.remember(&quot;Customer wants a weather forecast for tomorrow&quot;)
 </code></pre>
-<h3>Comparison with Alternatives</h3>
 
-<p>While there are other solutions available, such as Mem0 and Zep, they lack the compression and self-edit tools that MrMemory offers. MemGPT is another option, but it's limited to self-hosted environments.</p>
+<p><strong>Memory Compression (40-60% Token Savings)</strong></p>
+<p>--------------------------------------------</p>
 
-<p>MrMemory stands out from the competition due to its comprehensive suite of features, including:</p>
+<p>With MrMemory, you can compress similar memories into dense representations, cutting token costs by 40-60% while keeping recall sharp. This feature is particularly useful in scenarios where memory storage becomes a bottleneck.</p>
+
+<pre><code class="language-python">
+# Compress a memory
+compressed_memory = client.compress(&quot;weather forecast for tomorrow&quot;)
+</code></pre>
+
+<p><strong>Self-Edit Tools</strong></p>
+<p>-------------------</p>
+
+<p>Agents can update, merge, and prune their own memories using MrMemory's self-edit tools. This autonomy ensures that your agents' memories remain consistent and up-to-date without requiring manual intervention.</p>
+
+<pre><code class="language-python">
+# Update a memory
+client.update(&quot;weather forecast updated to today&quot;)
+</code></pre>
+
+<p><strong>Comparison with Alternatives</strong></p>
+<p>-------------------------------</p>
+
+<p>While Mem0 provides a smart, self-improving memory layer for Large Language Models (LLMs), it lacks compression features. Zep and MemGPT are self-hosted solutions that require manual setup and maintenance.</p>
+
+<p><strong>Conclusion</strong></p>
+<p>--------------</p>
+
+<p>In this tutorial, we've seen how MrMemory simplifies the process of creating multi-agent conversations with memory. By leveraging semantic recall, auto-remember, and memory compression, you can build sophisticated AI agents that adapt to user preferences and provide personalized experiences. Try MrMemory today and discover the power of managed memory for your next AI project!</p>
+
+<p><strong>Call-to-Action</strong></p>
+<p>-----------------</p>
+
+<p>Ready to take your AI development to the next level? Start a 7-day free trial with MrMemory and explore its features in-depth.</p>
+
+<p><a href="https://mrmemory.dev/docs">CTA button: Try MrMemory</a></p>
+
+<p><strong>Internal Links</strong></p>
+<p>------------------</p>
 
 <ul>
-<li>Semantic recall</li>
-<li>Auto-remember</li>
-<li>Memory compression (40-60% token savings)</li>
-<li>LangChain integration</li>
-<li>Self-edit tools</li>
-<li>Three-layer governance</li>
-<li>Anti-pollution</li>
+<li><a href="https://mrmemory.dev/docs">MrMemory Documentation</a></li>
+<li><a href="https://dev.to/autogen/multi-agent-conversations-memory-1p5i">AutoGen Multi-agent Conversations Memory - DEV Community</a></li>
 </ul>
 
-<h3>Conclusion and Call-to-Action</h3>
-
-<p>In this article, we've explored the importance of persistent memory for CrewAI agents and how MrMemory can help you achieve it. With its comprehensive feature set and ease of integration, MrMemory is the perfect solution for elevating your AI's performance.</p>
-
-<p>Try MrMemory today and give your Crew the gift of persistence!</p>
-
-<p><strong>Suggested Internal Links:</strong></p>
-
-<ul>
-<li><a href="https://crewai.dev/docs">CrewAI Documentation</a></li>
-<li><a href="https://mrmemory.dev/api-reference">MrMemory API Reference</a></li>
-</ul>
-
-<p><strong>Tags:</strong> persistent memory, CrewAI, MrMemory</p>
+<p><strong>Tags:</strong> MrMemory, AutoGen, AI development, multi-agent conversations, memory management, semantic recall, auto-remember</p>
     </div>
 
     <div class="article-cta">
