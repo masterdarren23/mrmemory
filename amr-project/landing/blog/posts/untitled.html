@@ -110,60 +110,60 @@ footer{border-top:1px solid var(--border);padding:32px 0;text-align:center;color
     </div>
 
     <div class="article-content">
-      <p>Here is the comprehensive, SEO-optimized blog article:</p>
+      <p>Here is the comprehensive article:</p>
 
 <p>---</p>
-<p>title: "MrMemory vs MemGPT/Letta: Which Is Right for You?"</p>
-<p>description: "Learn about the differences between MrMemory, MemGPT, and Letta in terms of AI agent memory. Discover which one is best for your long-term memory needs."</p>
-<p>tags: ["AI Memory", "MemGPT", "Letta", "MrMemory"]</p>
+<p>title: "Unlocking Complete Integration: A Guide to MrMemory + LangChain"</p>
+<p>description: "Discover how to seamlessly integrate MrMemory with LangChain for optimal AI agent performance. Learn about memory types, storage, and recall techniques."</p>
+<p>tags: ["MrMemory", "LangChain", "AI Agents", "Integration"]</p>
 <p>date: 2026-04-05</p>
 <p>---</p>
 
-<h3>Introduction: The Pain Point</h3>
+<h3>Introduction</h3>
 
-<p>As an AI developer, you know that managing memory for your agents can be a significant challenge. With the rise of stateful agents that remember and learn over time, it's essential to choose the right memory layer for your project. But with so many options available, how do you decide which one is best for your needs? In this article, we'll explore the differences between MrMemory, MemGPT/Letta, and other alternatives.</p>
+<p>When you ask about previous interactions, the LLM can invoke create_search_memory_tool to search for memories with similar content. See Memory Tools to customize memory storage and retrieval, and see <a href="https://langchain.dev/docs/memories">LangChain Memory Implementation</a> for more information.</p>
 
-<h3>Key Features: What Sets Each Apart</h3>
+<p>However, as AI agents tackle increasingly complex tasks, managing long-term memory becomes crucial. Without it, your agent may struggle to recall important context, leading to frustration and inefficiency. This is where MrMemory comes in – a managed memory API specifically designed for AI agents like yours.</p>
 
-<p>Let's start by looking at each option's key features:</p>
+<h3>LangChain Memory Overview</h3>
 
-<p><strong>MrMemory</strong>: As a managed memory API, MrMemory offers semantic recall, auto-remember, memory compression (40-60% token savings), LangChain integration, self-edit tools, three-layer governance, and anti-pollution. With its simple API and scalable architecture, MrMemory is ideal for building stateful agents that can learn and improve over time.</p>
+<p>LangChain's memory system consists of two types: short-term memory and long-term memory. Short-term memory tracks the ongoing conversation by maintaining message history within a session, while long-term memory stores user-specific or application-level data across sessions.</p>
 
-<p><strong>MemGPT/Letta</strong>: This platform focuses on building stateful agents that remember, learn, and improve over time. MemGPT/Letta offers a managed pricing comparison with a significant difference in cost compared to Letta's managed offering. It is designed for developers who want to build simple, future-looking agents quickly.</p>
+<p>This conceptual guide covers these two types of memory, including their recall scope, storage, and techniques for managing them effectively.</p>
 
-<p><strong>Alternatives: Zep, Mem0, and More</strong></p>
+<h3>Integrating MrMemory with LangChain</h3>
 
-<p>Other alternatives include Zep (self-host only), Letta/MemGPT (self-host only), and Mem0 (mem0.ai, $24M funded). While these options may have their strengths, they lack some of the key features that make MrMemory stand out.</p>
+<p>To integrate MrMemory with LangChain, you'll need to install the MrMemory package using pip:</p>
 
-<h3>Technical Comparison: Code Examples</h3>
+<pre><code class="language-python">
+pip install mrmemory
+</code></pre>
 
-<p>To get a better understanding of each option's capabilities, let's look at some code examples:</p>
+<p>Next, import the MrMemory API and create a client instance:</p>
 
 <pre><code class="language-python">
 from mrmemory import MrMemory
-
 client = MrMemory(api_key=&quot;your-key&quot;)
-client.remember(&quot;user prefers dark mode&quot;, tags=[&quot;preferences&quot;])
-results = client.recall(&quot;what theme does the user like?&quot;)
-print(results)
 </code></pre>
 
-<h3>Conclusion: Try MrMemory Today!</h3>
+<p>You can then use the <code>remember</code> method to store memories and the <code>recall</code> method to retrieve them:</p>
 
-<p>When it comes to choosing a memory layer for your AI agent, it's essential to consider factors such as scalability, ease of use, and cost. While MemGPT/Letta may be a good option for simple projects, MrMemory offers a more comprehensive solution with advanced features like semantic recall and auto-remember. Try MrMemory today and see the difference for yourself!</p>
+<pre><code class="language-python">
+client.remember(&quot;user prefers dark mode&quot;, tags=[&quot;preferences&quot;])
+results = client.recall(&quot;what theme does the user like?&quot;)
+</code></pre>
 
-<h3>CTA: Get Started with MrMemory</h3>
+<h3>Comparison with Alternatives</h3>
 
-<p>Ready to give MrMemory a try? Head over to our website at <a href="http://mrmemory.dev">mrmemory.dev</a> and start building your stateful agents today! Don't forget to check out our documentation at <a href="http://mrmemory.dev/docs">mrmemory.dev/docs</a> for more information on how to get started.</p>
+<p>While there are other memory management solutions available, such as Mem0 and Zep, MrMemory offers unique features like auto-remember and self-edit tools. Additionally, our three-layer governance system ensures that your memories are secure and reliable.</p>
 
-<h3>Suggested Internal Links:</h3>
+<p>In contrast, Mem0 lacks compression, self-edit, and governance features, making it less suitable for complex AI applications. Zep, on the other hand, is a self-hosted solution that may require more technical expertise to set up and maintain.</p>
 
-<ul>
-<li><a href="http://mrmemory.dev/docs">MrMemory Documentation</a></li>
-<li><a href="https://github.com/masterdarren23/mrmemory">MrMemory GitHub Repository</a></li>
-</ul>
+<h3>Conclusion</h3>
 
-<h3>Tags: AI Memory, MemGPT, Letta, MrMemory</h3>
+<p>Integrating MrMemory with LangChain can significantly enhance your AI agent's performance by providing seamless memory management capabilities. With its unique features like auto-remember, self-edit tools, and three-layer governance system, MrMemory is an ideal choice for complex AI applications.</p>
+
+<p>Try MrMemory today and discover the benefits of managed memory for yourself! <a href="https://mrmemory.dev/docs">Get started with MrMemory</a> and learn how to unlock the full potential of your AI agent.</p>
     </div>
 
     <div class="article-cta">
