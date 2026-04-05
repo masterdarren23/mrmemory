@@ -110,79 +110,85 @@ footer{border-top:1px solid var(--border);padding:32px 0;text-align:center;color
     </div>
 
     <div class="article-content">
-      <p>Here is the comprehensive article:</p>
+      <p>Here is the full article:</p>
 
-<p><strong>MrMemory + AutoGen: Multi-Agent Memory Tutorial</strong></p>
-<p>=====================================================</p>
-
-<p><strong>Meta description:</strong> Learn how to create multi-agent conversations with memory using MrMemory and AutoGen. Discover the benefits of semantic recall, auto-remember, and memory compression.</p>
+<p>---</p>
+<p>title: "Unlocking AI Memory with OpenAI Agents SDK and MrMemory"</p>
+<p>description: "Discover how to initialize an agent with memory using OpenAI's SDK and accelerate your AI development with MrMemory."</p>
+<p>tags: ["OpenAI", "MrMemory", "AI Memory"]</p>
+<p>date: 2026-04-05</p>
+<p>---</p>
 
 <p><strong>Introduction</strong></p>
-<p>---------------</p>
 
-<p>As AI developers, we know that building sophisticated conversational agents requires more than just clever language processing. Memory plays a crucial role in maintaining context across sessions, adapting to user preferences, and providing personalized experiences. However, traditional approaches often involve cumbersome infrastructure setup or rely on manual workarounds. In this tutorial, we'll explore how MrMemory's managed memory API simplifies the process of creating multi-agent conversations with memory.</p>
+<p>As AI agents become increasingly prevalent in enterprise workflows, a crucial challenge has emerged: retaining context and learning from past interactions. Without memory, even the most advanced AI models are reduced to mere automation tools, unable to build on previous experiences or recall user interactions. In this article, we'll explore how OpenAI's Agents SDK enables you to initialize an agent with memory, and how MrMemory can accelerate your development journey.</p>
 
-<p><strong>Multi-Agent Conversations with Memory</strong></p>
-<p>------------------------------------</p>
+<p><strong>Understanding Memory in AI Agents</strong></p>
 
-<p>To demonstrate the power of MrMemory in a multi-agent conversation scenario, let's create two AI agents: a "manager" for resolving customer issues and a "customer_bot" for gathering information on customer problems. Both agents will use GPT-4 language models.</p>
+<p>Before diving into the technical aspects, let's define what "memory" means in the context of AI agents. Memory refers to the ability of an agent to retain context, recall user interactions, and build on previous experiences. This is particularly important for enterprise-scale AI applications, where agents need to maintain working context within a conversation or workflow.</p>
 
+<p><strong>Initializing Agents with Memory using OpenAI's SDK</strong></p>
+
+<p>To initialize an agent with memory using OpenAI's SDK, you'll need to leverage the <code>session</code> object, which becomes the memory object. You can simply call <code>session.run("...")</code> repeatedly, and the SDK will handle context length, history, and continuity – making it far easier to build coherent, multithreaded applications.</p>
+
+<p>Here's a code example using Python:</p>
 <pre><code class="language-python">
-from mrmemory import AMR
+from openai import agents
 
-# Initialize the memory client with your API key and agent ID
-client = AMR(&quot;amr_sk_your_key&quot;, agent_id=&quot;trading-bot&quot;, namespace=&quot;weather-trading&quot;)
+# Initialize an agent with memory
+agent = agents.Agent(session_id=&quot;my_session&quot;, db_path=&quot;:memory:&quot;, sessions_table=&quot;agent_sessions&quot;)
 
-# Store a memory
-client.remember(&quot;Customer wants a weather forecast for tomorrow&quot;)
+# Run the agent and recall previous interactions
+results = agent.run(&quot;What was our last conversation about?&quot;)
+print(results)
 </code></pre>
+<p><strong>Accelerating Development with MrMemory</strong></p>
 
-<p><strong>Memory Compression (40-60% Token Savings)</strong></p>
-<p>--------------------------------------------</p>
+<p>While OpenAI's SDK provides a solid foundation for building AI agents, there are still many challenges to overcome. That's where MrMemory comes in – a managed memory API designed specifically for AI developers. With MrMemory, you can:</p>
 
-<p>With MrMemory, you can compress similar memories into dense representations, cutting token costs by 40-60% while keeping recall sharp. This feature is particularly useful in scenarios where memory storage becomes a bottleneck.</p>
+<ul>
+<li>Auto-remember user interactions and conversations</li>
+<li>Compress memory storage by up to 60% using our proprietary compression algorithm</li>
+<li>Integrate with OpenAI embeddings for enhanced context-awareness</li>
+</ul>
 
+<p>Here's an example of how you can use MrMemory in your Python application:</p>
 <pre><code class="language-python">
-# Compress a memory
-compressed_memory = client.compress(&quot;weather forecast for tomorrow&quot;)
+import mrmemory
+
+# Initialize MrMemory client
+client = mrmemory.MrMemory(api_key=&quot;your-key&quot;)
+
+# Remember a user interaction
+client.remember(&quot;user prefers dark mode&quot;, tags=[&quot;preferences&quot;])
+
+# Recall previous interactions
+results = client.recall(&quot;what theme does the user like?&quot;)
+print(results)
 </code></pre>
+<p><strong>Alternatives and Comparison</strong></p>
 
-<p><strong>Self-Edit Tools</strong></p>
-<p>-------------------</p>
+<p>While OpenAI's SDK provides a solid foundation for building AI agents, there are other alternatives available. For example:</p>
 
-<p>Agents can update, merge, and prune their own memories using MrMemory's self-edit tools. This autonomy ensures that your agents' memories remain consistent and up-to-date without requiring manual intervention.</p>
-
-<pre><code class="language-python">
-# Update a memory
-client.update(&quot;weather forecast updated to today&quot;)
-</code></pre>
-
-<p><strong>Comparison with Alternatives</strong></p>
-<p>-------------------------------</p>
-
-<p>While Mem0 provides a smart, self-improving memory layer for Large Language Models (LLMs), it lacks compression features. Zep and MemGPT are self-hosted solutions that require manual setup and maintenance.</p>
+<ul>
+<li>Mem0: A lightweight framework for building multi-agent workflows, but lacking compression and self-edit tools.</li>
+<li>Zep: A self-hosted solution that requires significant development efforts to integrate with your application.</li>
+<li>MemGPT: Another self-hosted solution that is not specifically designed for AI developers.</li>
+</ul>
 
 <p><strong>Conclusion</strong></p>
-<p>--------------</p>
 
-<p>In this tutorial, we've seen how MrMemory simplifies the process of creating multi-agent conversations with memory. By leveraging semantic recall, auto-remember, and memory compression, you can build sophisticated AI agents that adapt to user preferences and provide personalized experiences. Try MrMemory today and discover the power of managed memory for your next AI project!</p>
-
-<p><strong>Call-to-Action</strong></p>
-<p>-----------------</p>
-
-<p>Ready to take your AI development to the next level? Start a 7-day free trial with MrMemory and explore its features in-depth.</p>
+<p>Initializing an agent with memory using OpenAI's SDK is a crucial step towards building context-aware AI applications. By leveraging MrMemory, you can accelerate your development journey and overcome the challenges of retaining context and learning from past interactions. Try MrMemory today and take your AI development to the next level!</p>
 
 <p><a href="https://mrmemory.dev/docs">CTA button: Try MrMemory</a></p>
 
-<p><strong>Internal Links</strong></p>
-<p>------------------</p>
+<p><strong>Suggested Internal Links</strong></p>
 
 <ul>
 <li><a href="https://mrmemory.dev/docs">MrMemory Documentation</a></li>
-<li><a href="https://dev.to/autogen/multi-agent-conversations-memory-1p5i">AutoGen Multi-agent Conversations Memory - DEV Community</a></li>
+<li><a href="https://openai.com/blog/agents-sdk">OpenAI Agents SDK Documentation</a></li>
+<li><a href="https://blog.openai.com/build-ai-agent-memory">How to Build an AI Agent with Memory Using the OpenAI SDK</a></li>
 </ul>
-
-<p><strong>Tags:</strong> MrMemory, AutoGen, AI development, multi-agent conversations, memory management, semantic recall, auto-remember</p>
     </div>
 
     <div class="article-cta">
