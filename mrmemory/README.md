@@ -125,7 +125,7 @@ Run MrMemory on your own infrastructure:
 
 ```bash
 git clone https://github.com/masterdarren23/mrmemory.git
-cd mrmemory/amr-project
+cd mrmemory
 cp .env.example .env   # Add your OPENAI_API_KEY
 docker compose up -d   # API at http://localhost:8080
 ```
@@ -189,7 +189,7 @@ Auth: `Authorization: Bearer amr_sk_...`
 ## Project Structure
 
 ```
-amr-project/
+mrmemory/
 ├── api/                    # Rust API server (Axum)
 │   ├── src/
 │   ├── migrations/
