@@ -42,3 +42,7 @@ marketing-engine/data/x_cookies.json
 # OS
 .DS_Store
 Thumbs.db
+check_devto.py
+fix_devto.py
+gen_key.py
+test_mrmemory.py
