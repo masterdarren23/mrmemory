@@ -11,6 +11,12 @@ SOUL.md
 TOOLS.md
 USER.md
 amr-stderr.log
+mrmemory/agent-backend/
+mrmemory/agent-devops/
+mrmemory/agent-frontend/
+mrmemory/agent-marketing/
+mrmemory/agent-sdk/
+mrmemory/pitch-deck/
 polymarket-kalshi-weather-bot/
 prediction-market-analysis/
 polymarket-research.md
