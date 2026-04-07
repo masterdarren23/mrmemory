@@ -1,39 +1,19 @@
 [
   {
-    "slug": "apply-decay-function-to-fade-old-embeddings",
-    "title": "Apply decay function to fade old embeddings",
-    "description": "**Antipollution Patterns for AI Agent Memory**",
-    "date": "2026-04-07",
-    "readTime": "1 min read",
-    "tags": [
-      "AI",
-      "MrMemory"
-    ]
-  },
-  {
     "slug": "three-layer-memory-governance-core-provisional-private",
     "title": "Three-Layer Memory Governance: Core, Provisional, Private",
     "description": "Discover how MrMemory's three-layer memory governance framework ensures secure and efficient management of AI agent memories.",
     "date": "2026-04-06",
     "readTime": "2 min read",
-    "tags": [
-      "AI",
-      "memory governance",
-      "MrMemory"
-    ]
+    "tags": ["AI", "memory governance", "MrMemory"]
   },
   {
     "slug": "why-ai-agents-need-long-term-memory-to-be-truly-useful",
     "title": "Why AI Agents Need Long-Term Memory to Be Truly Useful",
-    "description": "Stateless AI agents forget everything between sessions. Here's why persistent memory changes the game \u2014 and how to add it in 3 lines of code.",
+    "description": "Stateless AI agents forget everything between sessions. Here's why persistent memory changes the game — and how to add it in 3 lines of code.",
     "date": "2026-04-05",
     "readTime": "3 min read",
-    "tags": [
-      "AI",
-      "memory",
-      "agents",
-      "MrMemory"
-    ]
+    "tags": ["AI", "memory", "agents", "MrMemory"]
   },
   {
     "slug": "building-a-chatbot-that-remembers-leveraging-mrmemory-for-ai-powered-conversatio",
@@ -41,12 +21,7 @@
     "description": "Discover how to create a chatbot that remembers user preferences and past conversations using MrMemory, Streamlit, and LangChain.",
     "date": "2026-04-05",
     "readTime": "2 min read",
-    "tags": [
-      "MrMemory",
-      "Streamlit",
-      "LangChain",
-      "AI"
-    ]
+    "tags": ["MrMemory", "Streamlit", "LangChain", "AI"]
   },
   {
     "slug": "how-to-add-memory-to-your-python-ai-agent-in-3-lines-of-code",
@@ -54,11 +29,7 @@
     "description": "Learn how to add persistent, searchable memory to your Python AI agent using MrMemory's Managed Memory API.",
     "date": "2026-04-05",
     "readTime": "2 min read",
-    "tags": [
-      "AI",
-      "Python",
-      "MrMemory"
-    ]
+    "tags": ["AI", "Python", "MrMemory"]
   },
   {
     "slug": "adding-persistent-memory-to-langchain-agents-a-guide",
@@ -66,10 +37,6 @@
     "description": "Learn how to add persistent memory to your LangChain agents and improve their conversational capabilities.",
     "date": "2026-04-04",
     "readTime": "3 min read",
-    "tags": [
-      "LangChain",
-      "persistent memory",
-      "AI development"
-    ]
+    "tags": ["LangChain", "persistent memory", "AI development"]
   }
 ]
