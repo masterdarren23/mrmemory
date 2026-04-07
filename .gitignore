@@ -1,3 +1,19 @@
+# Non-MrMemory workspace files (keep repo clean for users)
+marketing-engine/
+data/
+memory/
+AGENTS.md
+BOOTSTRAP.md
+HEARTBEAT.md
+IDENTITY.md
+MEMORY.md
+SOUL.md
+TOOLS.md
+USER.md
+amr-stderr.log
+polymarket-kalshi-weather-bot/
+prediction-market-analysis/
+
 # Secrets
 *.env
 .env
