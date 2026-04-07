@@ -13,6 +13,10 @@ USER.md
 amr-stderr.log
 polymarket-kalshi-weather-bot/
 prediction-market-analysis/
+polymarket-research.md
+temp-screenshot.png
+test-*.ps1
+trade*.py
 
 # Secrets
 *.env
