@@ -438,5 +438,5 @@ pub fn proposal_routes() -> Router<AppState> {
         .route("/v1/memories/private", post(create_private_memory))
         .route("/v1/memories/propose", post(propose_memory))
         .route("/v1/memories/proposals", get(list_proposals_handler))
-        .route("/v1/memories/proposals/{id}/decide", post(decide_proposal_handler))
+        .route("/v1/memories/proposals/:id/decide", post(decide_proposal_handler))
 }

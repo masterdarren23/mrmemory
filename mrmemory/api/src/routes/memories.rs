@@ -296,6 +296,18 @@ async fn list_memories(
     }))
 }
 
+/// GET /v1/memories/{id} — retrieve a single memory by external ID.
+async fn get_memory_handler(
+    tenant: TenantContext,
+    State(state): State<AppState>,
+    Path(id): Path<String>,
+) -> Result<Json<MemoryResponse>, AppError> {
+    let row = db::get_memory_by_external_id(&state.db, tenant.tenant_id, &id)
+        .await?
+        .ok_or(AppError::NotFound)?;
+    Ok(Json(row.to_response()))
+}
+
 /// DELETE /v1/memories/{id} — forget a specific memory.
 async fn delete_memory_handler(
     tenant: TenantContext,
@@ -652,7 +664,7 @@ pub fn memory_routes() -> Router<AppState> {
         .route("/v1/memories/outdated", delete(delete_outdated_handler))
         .route("/v1/memories/merge", post(merge_memories_handler))
         .route(
-            "/v1/memories/{id}",
-            delete(delete_memory_handler).patch(update_memory_handler),
+            "/v1/memories/:id",
+            get(get_memory_handler).delete(delete_memory_handler).patch(update_memory_handler),
         )
 }

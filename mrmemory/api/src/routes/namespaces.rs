@@ -50,7 +50,7 @@ async fn get_policy(
 
 pub fn namespace_routes() -> Router<AppState> {
     Router::new().route(
-        "/v1/namespaces/{name}/policy",
+        "/v1/namespaces/:name/policy",
         put(set_policy).get(get_policy),
     )
 }
