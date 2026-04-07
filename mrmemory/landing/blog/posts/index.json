@@ -1,5 +1,16 @@
 [
   {
+    "slug": "apply-decay-function-to-fade-old-embeddings",
+    "title": "Apply decay function to fade old embeddings",
+    "description": "**Antipollution Patterns for AI Agent Memory**",
+    "date": "2026-04-07",
+    "readTime": "1 min read",
+    "tags": [
+      "AI",
+      "MrMemory"
+    ]
+  },
+  {
     "slug": "three-layer-memory-governance-core-provisional-private",
     "title": "Three-Layer Memory Governance: Core, Provisional, Private",
     "description": "Discover how MrMemory's three-layer memory governance framework ensures secure and efficient management of AI agent memories.",
