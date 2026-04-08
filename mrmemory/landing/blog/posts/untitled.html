@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TS0RXEVBH6"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-TS0RXEVBH6');
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Untitled — MrMemory Blog</title>
+<meta name="description" content="**The Dark Side of Multi-Agent Systems: When Memory Fails**">
+<meta property="og:title" content="Untitled">
+<meta property="og:description" content="**The Dark Side of Multi-Agent Systems: When Memory Fails**">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://mrmemory.dev/blog/posts/untitled.html">
+<link rel="canonical" href="https://mrmemory.dev/blog/posts/untitled.html">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0a0b;--bg2:#111113;--bg3:#18181b;--border:#27272a;
+  --text:#fafafa;--text2:#a1a1aa;--text3:#71717a;
+  --accent:#6d5cff;--accent2:#8b7aff;--green:#22c55e;
+  --mono:'SF Mono','Cascadia Code','Fira Code','Consolas',monospace;
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI','Inter',Helvetica,Arial,sans-serif;
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:var(--accent2);text-decoration:none}
+a:hover{text-decoration:underline}
+.container{max-width:720px;margin:0 auto;padding:0 24px}
+
+/* Nav */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,10,11,.8);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+nav .nav-inner{max-width:1080px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:56px}
+.logo{font-family:var(--mono);font-weight:700;font-size:1.1rem;letter-spacing:-.02em;color:var(--text)}
+.logo span{color:var(--accent)}
+.nav-links{display:flex;gap:20px;align-items:center}
+.nav-links a{font-size:.875rem;color:var(--text2);transition:color .2s}
+.nav-links a:hover{color:var(--text);text-decoration:none}
+.nav-cta{padding:6px 16px;border:1px solid var(--border);border-radius:6px}
+
+/* Article */
+.article-header{padding-top:120px;padding-bottom:32px;border-bottom:1px solid var(--border)}
+.article-header h1{font-size:2.2rem;font-weight:700;letter-spacing:-.03em;line-height:1.2;margin-bottom:16px}
+.article-meta{font-size:.9rem;color:var(--text3);display:flex;gap:16px;margin-bottom:16px}
+.article-tags{display:flex;gap:8px;flex-wrap:wrap}
+.article-tags .tag{font-family:var(--mono);font-size:.75rem;color:var(--accent2);border:1px solid rgba(109,92,255,.3);border-radius:999px;padding:2px 10px}
+
+/* Content */
+.article-content{padding:48px 0}
+.article-content h2{font-size:1.5rem;font-weight:600;letter-spacing:-.02em;margin:48px 0 16px;padding-top:16px;border-top:1px solid var(--border)}
+.article-content h3{font-size:1.2rem;font-weight:600;margin:32px 0 12px}
+.article-content p{color:var(--text2);margin-bottom:16px}
+.article-content ul,.article-content ol{color:var(--text2);margin-bottom:16px;padding-left:24px}
+.article-content li{margin-bottom:8px}
+.article-content strong{color:var(--text)}
+.article-content code{font-family:var(--mono);font-size:.875em;background:var(--bg3);padding:2px 6px;border-radius:4px;color:var(--accent2)}
+.article-content pre{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:20px;overflow-x:auto;margin-bottom:24px}
+.article-content pre code{background:none;padding:0;font-size:.875rem;color:var(--text)}
+.article-content blockquote{border-left:3px solid var(--accent);padding:12px 20px;margin:24px 0;background:var(--bg2);border-radius:0 8px 8px 0;color:var(--text2)}
+.article-content table{width:100%;border-collapse:collapse;margin:24px 0}
+.article-content th,.article-content td{padding:10px 14px;border:1px solid var(--border);text-align:left;font-size:.9rem}
+.article-content th{background:var(--bg2);color:var(--text);font-weight:600}
+.article-content td{color:var(--text2)}
+
+/* CTA */
+.article-cta{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:32px;text-align:center;margin:48px 0}
+.article-cta h3{font-size:1.3rem;margin-bottom:8px}
+.article-cta p{color:var(--text2);margin-bottom:20px}
+.article-cta a.btn{display:inline-block;padding:12px 28px;background:var(--accent);color:white;border-radius:8px;font-weight:600;font-size:.95rem;transition:background .2s}
+.article-cta a.btn:hover{background:var(--accent2);text-decoration:none}
+
+/* Back link */
+.back-link{display:inline-block;margin-top:120px;margin-bottom:32px;font-size:.9rem;color:var(--text3)}
+.back-link:hover{color:var(--text2)}
+
+/* Footer */
+footer{border-top:1px solid var(--border);padding:32px 0;text-align:center;color:var(--text3);font-size:.85rem;margin-top:48px}
+</style>
+</head>
+<body>
+
+<nav>
+<div class="nav-inner">
+  <a href="/" class="logo">Mr<span>Memory</span></a>
+  <div class="nav-links">
+    <a href="/docs">Docs</a>
+    <a href="/blog">Blog</a>
+    <a href="https://github.com/masterdarren23/mrmemory">GitHub</a>
+    <a href="https://buy.stripe.com/00w4gB2REex4daHeP38g001" class="nav-cta">Start Free Trial</a>
+  </div>
+</div>
+</nav>
+
+<div class="container">
+  <a href="/blog" class="back-link">← Back to Blog</a>
+  
+  <article>
+    <div class="article-header">
+      <h1>Untitled</h1>
+      <div class="article-meta">
+        <span>2026-04-08</span>
+        <span>2 min read</span>
+      </div>
+      <div class="article-tags"></div>
+    </div>
+
+    <div class="article-content">
+      <p><strong>The Dark Side of Multi-Agent Systems: When Memory Fails</strong></p>
+<p>======================================================</p>
+
+<p>As we push the boundaries of AI collaboration, one critical aspect is often overlooked: memory. In multi-agent systems, agents need to recall knowledge, preferences, and outcomes over time – but their memory requirements are more complex than you think.</p>
+
+<p>Take, for example, the e-commerce platform with thousands of concurrent users. When a user logs in, they expect personalized recommendations based on past purchases. But what if the agent forgets this crucial information? The entire user experience falls apart.</p>
+
+<p><strong>The Pitfalls of Short-Term Memory (STM)</strong></p>
+<p>-----------------------------------------</p>
+
+<p>STM is great for maintaining recent context within an active session. However, it's limited by persistence and scalability issues. Imagine a scenario where multiple agents update STM concurrently – you'd need a robust system to handle the concurrent updates and provide fast recall times.</p>
+
+<pre><code class="language-python">
+from mrmemory import MrMemory
+
+client = MrMemory(api_key=&quot;your-key&quot;)
+client.remember(&quot;user prefers dark mode&quot;, tags=[&quot;preferences&quot;])
+</code></pre>
+
+<p>This is where MrMemory's managed memory API shines. It provides compression, self-edit tools, and three-layer governance to ensure data consistency and scalability.</p>
+
+<p><strong>The Long-Term Memory (LTM) Conundrum</strong></p>
+<p>--------------------------------------</p>
+
+<p>LTMs provide persistence of information across sessions. But designing an LTM that ensures data consistency and scalability is no easy feat. You need to consider factors like ownership, privacy, and concurrent updates.</p>
+
+<pre><code class="language-python">
+results = client.recall(&quot;what theme does the user like?&quot;)
+</code></pre>
+
+<p><strong>Team Memory: The Unsung Hero</strong></p>
+<p>-----------------------------</p>
+
+<p>Effective team memory enables agents to share knowledge and collaborate effectively. But designing a robust team memory requires careful consideration of data consistency, ownership, and privacy.</p>
+
+<p><strong>A Comparison with Alternatives</strong></p>
+<p>----------------------------------</p>
+
+<p>While Mem0 offers some features similar to MrMemory, it lacks compression, self-edit tools, and three-layer governance. Zep is a self-hosted solution that requires significant infrastructure investment. MemGPT is a large language model specifically designed for memory-intensive tasks.</p>
+
+<table>
+<tr><th>Feature</th><th>MrMemory</th><th>Mem0</th><th>Zep</th><th>MemGPT</th></tr>
+<tr><th>Compression</th><th>40-60% token savings</th><th>-</th><th>-</th><th>-</th></tr>
+<tr><th>Self-edit tools</th><th>Yes</th><th>-</th><th>-</th><th>-</th></tr>
+<table>
+<tr><th>Three-layer governance</th><th>Yes</th><th>-</th><th>-</th><th>-</th></tr>
+<tr><th>Anti-pollution</th><th>Yes</th><th>-</th><th>-</th><th>-</th></tr>
+
+<p><strong>Conclusion</strong></p>
+<p>----------</p>
+
+<p>Designing memory schemas for multi-agent systems requires careful consideration of factors like synchronization, ownership, privacy, and data consistency. MrMemory's managed memory API provides a solution to these challenges, enabling agents to recall knowledge, preferences, and outcomes over time.</p>
+
+<p>Try MrMemory today and discover how its managed memory API can improve your agent collaboration and decision-making capabilities.</p>
+
+<p><strong>Recommended Reading</strong></p>
+
+<ul>
+<li><a href="https://mrmemory.dev/docs/memory">Memory - Multi-agent Reference Architecture</a></li>
+<li><a href="https://mrmemory.dev/blog/why-multi-agent-systems-need-memory-engineering">Why Multi-Agent Systems Need Memory Engineering</a></li>
+</ul>
+
+<p><strong>Tags</strong></p>
+
+<ul>
+<li>multi-agent systems</li>
+<li>memory schemas</li>
+<li>short-term memory (STM)</li>
+<li>long-term memory (LTM)</li>
+<li>team memory</li>
+<li>MrMemory</li>
+</ul>
+    </div>
+
+    <div class="article-cta">
+      <h3>Ready to give your AI agents memory?</h3>
+      <p>Install in one line. Remember forever. Start with a 7-day free trial.</p>
+      <a href="https://buy.stripe.com/00w4gB2REex4daHeP38g001" class="btn">Start Free Trial →</a>
+    </div>
+  </article>
+</div>
+
+<footer>
+  <div class="container">
+    &copy; 2026 MrMemory &middot; <a href="/">Home</a> &middot; <a href="/docs">Docs</a> &middot; <a href="https://github.com/masterdarren23/mrmemory">GitHub</a>
+  </div>
+</footer>
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
