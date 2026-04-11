@@ -1,5 +1,18 @@
 [
   {
+    "slug": "why-your-ai-agent-needs-a-memory-that-sticks",
+    "title": "Why Your AI Agent Needs a Memory That Sticks",
+    "description": "Most AI agents forget everything at restart. Time to give them a brain that remembers.",
+    "date": "2026-04-11",
+    "readTime": "1 min read",
+    "tags": [
+      "AI agent memory",
+      "Mem0",
+      "Zep",
+      "Letta"
+    ]
+  },
+  {
     "slug": "untitled",
     "title": "Untitled",
     "description": "**Implementing Context-Aware Auto Dream in Production Pipelines**",
