@@ -1,5 +1,18 @@
 [
   {
+    "slug": "solving-memory-decay-with-claude-codes-auto-dream",
+    "title": "Solving Memory Decay with Claude Code's Auto Dream",
+    "description": "How to tame your AI agent's memory issues with Auto Dream and improve its performance.",
+    "date": "2026-04-12",
+    "readTime": "1 min read",
+    "tags": [
+      "AI Agent Memory",
+      "Claude Code",
+      "Auto Dream",
+      "Memory Consolidation"
+    ]
+  },
+  {
     "slug": "why-your-ai-agent-needs-a-memory-that-sticks",
     "title": "Why Your AI Agent Needs a Memory That Sticks",
     "description": "Most AI agents forget everything at restart. Time to give them a brain that remembers.",
