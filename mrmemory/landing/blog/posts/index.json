@@ -1,5 +1,13 @@
 [
   {
+    "slug": "untitled",
+    "title": "Untitled",
+    "description": "",
+    "date": "2026-04-13",
+    "readTime": "1 min read",
+    "tags": []
+  },
+  {
     "slug": "solving-memory-decay-with-claude-codes-auto-dream",
     "title": "Solving Memory Decay with Claude Code's Auto Dream",
     "description": "How to tame your AI agent's memory issues with Auto Dream and improve its performance.",
@@ -24,14 +32,6 @@
       "Zep",
       "Letta"
     ]
-  },
-  {
-    "slug": "untitled",
-    "title": "Untitled",
-    "description": "**Implementing Context-Aware Auto Dream in Production Pipelines**",
-    "date": "2026-04-10",
-    "readTime": "2 min read",
-    "tags": []
   },
   {
     "slug": "three-layer-memory-governance-core-provisional-private",
