@@ -1,5 +1,18 @@
 [
   {
+    "slug": "persistent-memory-in-llms-solving-the-context-window-problem",
+    "title": "Persistent Memory in LLMs: Solving the Context Window Problem",
+    "description": "Tired of your AI agent's memory lapses? Learn how to implement persistent memory using Tree-Sitter and GraphRAG.",
+    "date": "2026-04-16",
+    "readTime": "1 min read",
+    "tags": [
+      "persistent memory",
+      "LLMs",
+      "Tree-Sitter",
+      "GraphRAG"
+    ]
+  },
+  {
     "slug": "untitled",
     "title": "Untitled",
     "description": "**The Context Decay Problem: A Step-by-Step Guide to Implementing Auto Dream with Claude Code**",
