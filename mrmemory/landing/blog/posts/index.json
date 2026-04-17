@@ -1,5 +1,16 @@
 [
   {
+    "slug": "load-your-data-into-a-tree-sitter-parser",
+    "title": "Load your data into a Tree-Sitter parser",
+    "description": "**Building Persistent Memory with Knowledge Graphs and Tree-Sitter**",
+    "date": "2026-04-17",
+    "readTime": "2 min read",
+    "tags": [
+      "AI",
+      "MrMemory"
+    ]
+  },
+  {
     "slug": "persistent-memory-in-llms-solving-the-context-window-problem",
     "title": "Persistent Memory in LLMs: Solving the Context Window Problem",
     "description": "Tired of your AI agent's memory lapses? Learn how to implement persistent memory using Tree-Sitter and GraphRAG.",

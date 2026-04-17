@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TS0RXEVBH6"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-TS0RXEVBH6');
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Load your data into a Tree-Sitter parser — MrMemory Blog</title>
+<meta name="description" content="**Building Persistent Memory with Knowledge Graphs and Tree-Sitter**">
+<meta property="og:title" content="Load your data into a Tree-Sitter parser">
+<meta property="og:description" content="**Building Persistent Memory with Knowledge Graphs and Tree-Sitter**">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://mrmemory.dev/blog/posts/load-your-data-into-a-tree-sitter-parser.html">
+<link rel="canonical" href="https://mrmemory.dev/blog/posts/load-your-data-into-a-tree-sitter-parser.html">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0a0b;--bg2:#111113;--bg3:#18181b;--border:#27272a;
+  --text:#fafafa;--text2:#a1a1aa;--text3:#71717a;
+  --accent:#6d5cff;--accent2:#8b7aff;--green:#22c55e;
+  --mono:'SF Mono','Cascadia Code','Fira Code','Consolas',monospace;
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI','Inter',Helvetica,Arial,sans-serif;
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:var(--accent2);text-decoration:none}
+a:hover{text-decoration:underline}
+.container{max-width:720px;margin:0 auto;padding:0 24px}
+
+/* Nav */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,10,11,.8);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+nav .nav-inner{max-width:1080px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:56px}
+.logo{font-family:var(--mono);font-weight:700;font-size:1.1rem;letter-spacing:-.02em;color:var(--text)}
+.logo span{color:var(--accent)}
+.nav-links{display:flex;gap:20px;align-items:center}
+.nav-links a{font-size:.875rem;color:var(--text2);transition:color .2s}
+.nav-links a:hover{color:var(--text);text-decoration:none}
+.nav-cta{padding:6px 16px;border:1px solid var(--border);border-radius:6px}
+
+/* Article */
+.article-header{padding-top:120px;padding-bottom:32px;border-bottom:1px solid var(--border)}
+.article-header h1{font-size:2.2rem;font-weight:700;letter-spacing:-.03em;line-height:1.2;margin-bottom:16px}
+.article-meta{font-size:.9rem;color:var(--text3);display:flex;gap:16px;margin-bottom:16px}
+.article-tags{display:flex;gap:8px;flex-wrap:wrap}
+.article-tags .tag{font-family:var(--mono);font-size:.75rem;color:var(--accent2);border:1px solid rgba(109,92,255,.3);border-radius:999px;padding:2px 10px}
+
+/* Content */
+.article-content{padding:48px 0}
+.article-content h2{font-size:1.5rem;font-weight:600;letter-spacing:-.02em;margin:48px 0 16px;padding-top:16px;border-top:1px solid var(--border)}
+.article-content h3{font-size:1.2rem;font-weight:600;margin:32px 0 12px}
+.article-content p{color:var(--text2);margin-bottom:16px}
+.article-content ul,.article-content ol{color:var(--text2);margin-bottom:16px;padding-left:24px}
+.article-content li{margin-bottom:8px}
+.article-content strong{color:var(--text)}
+.article-content code{font-family:var(--mono);font-size:.875em;background:var(--bg3);padding:2px 6px;border-radius:4px;color:var(--accent2)}
+.article-content pre{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:20px;overflow-x:auto;margin-bottom:24px}
+.article-content pre code{background:none;padding:0;font-size:.875rem;color:var(--text)}
+.article-content blockquote{border-left:3px solid var(--accent);padding:12px 20px;margin:24px 0;background:var(--bg2);border-radius:0 8px 8px 0;color:var(--text2)}
+.article-content table{width:100%;border-collapse:collapse;margin:24px 0}
+.article-content th,.article-content td{padding:10px 14px;border:1px solid var(--border);text-align:left;font-size:.9rem}
+.article-content th{background:var(--bg2);color:var(--text);font-weight:600}
+.article-content td{color:var(--text2)}
+
+/* CTA */
+.article-cta{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:32px;text-align:center;margin:48px 0}
+.article-cta h3{font-size:1.3rem;margin-bottom:8px}
+.article-cta p{color:var(--text2);margin-bottom:20px}
+.article-cta a.btn{display:inline-block;padding:12px 28px;background:var(--accent);color:white;border-radius:8px;font-weight:600;font-size:.95rem;transition:background .2s}
+.article-cta a.btn:hover{background:var(--accent2);text-decoration:none}
+
+/* Back link */
+.back-link{display:inline-block;margin-top:120px;margin-bottom:32px;font-size:.9rem;color:var(--text3)}
+.back-link:hover{color:var(--text2)}
+
+/* Footer */
+footer{border-top:1px solid var(--border);padding:32px 0;text-align:center;color:var(--text3);font-size:.85rem;margin-top:48px}
+</style>
+</head>
+<body>
+
+<nav>
+<div class="nav-inner">
+  <a href="/" class="logo">Mr<span>Memory</span></a>
+  <div class="nav-links">
+    <a href="/docs">Docs</a>
+    <a href="/blog">Blog</a>
+    <a href="https://github.com/masterdarren23/mrmemory">GitHub</a>
+    <a href="https://buy.stripe.com/00w4gB2REex4daHeP38g001" class="nav-cta">Start Free Trial</a>
+  </div>
+</div>
+</nav>
+
+<div class="container">
+  <a href="/blog" class="back-link">← Back to Blog</a>
+  
+  <article>
+    <div class="article-header">
+      <h1>Load your data into a Tree-Sitter parser</h1>
+      <div class="article-meta">
+        <span>2026-04-17</span>
+        <span>2 min read</span>
+      </div>
+      <div class="article-tags"><span class="tag">AI</span><span class="tag">MrMemory</span></div>
+    </div>
+
+    <div class="article-content">
+      <p><strong>Building Persistent Memory with Knowledge Graphs and Tree-Sitter</strong></p>
+
+<p>I still remember the day I had to restart my language model from scratch. All that context, all those insights... gone. But it's a problem every AI developer faces when building stateless large language models (LLMs). But what if you could build an AI agent that remembers complex information and reasons over vast networks of memories? Enter knowledge graphs and graph-based retrieval.</p>
+
+<h3>Step 1: Importing Data</h3>
+
+<p>To build a knowledge graph, you'll need to import your data into a graph database. I use Tree-Sitter to parse and analyze my codebase. It's a lightweight library that extracts entities and links from the parsed tree.</p>
+
+<pre><code class="language-python">
+import tree_sitter
+
+# Load your data into a Tree-Sitter parser
+parser = tree_sitter.Parser()
+source_code = &quot;&quot;&quot;your code here&quot;&quot;&quot;
+tree = parser.parse(source_code)
+
+# Extract entities and links from the parsed tree
+entities = []
+links = []
+
+for node in tree.root_child():
+if node.type == &quot;entity&quot;:
+entities.append(node.text)
+elif node.type == &quot;link&quot;:
+links.append((node.from_node().text, node.to_node().text))
+</code></pre>
+
+<h3>Step 2: Storing Data in a Graph Database</h3>
+
+<p>Once you've extracted your data, you'll need to store it in a graph database. I use GraphRAG to build and manage my knowledge graph.</p>
+
+<pre><code class="language-python">
+from rag import Rag
+
+# Create a new GraphRAG instance
+rag = Rag()
+
+# Add entities and links to the graph
+for entity in entities:
+rag.add_entity(entity)
+
+for link in links:
+rag.add_link(link[0], link[1])
+</code></pre>
+
+<h3>Step 3: Grouping Related Info into Communities</h3>
+
+<p>Knowledge graphs allow you to group related information together. This enables your AI agent to reason over vast networks of memories and make more accurate predictions.</p>
+
+<pre><code class="language-python">
+# Create communities from related entities
+communities = rag.create_communities(entities)
+
+# Store the communities in your database
+db = RagDB()
+for community in communities:
+db.add_community(community)
+</code></pre>
+
+<h3>Step 4: Implementing Graph-Based Retrieval</h3>
+
+<p>Now that you've built your knowledge graph, it's time to implement graph-based retrieval; i use GraphRAG to query my graph and retrieve relevant information.</p>
+
+<pre><code class="language-python">
+# Create a new GraphRAG instance
+rag = Rag()
+
+# Query the graph for related entities
+results = rag.query(entities, links)
+
+# Return the results to your AI agent
+return results
+</code></pre>
+
+<h3>Comparison with Alternatives</h3>
+
+<p>While GraphRAG is an excellent tool for building persistent memory, there are other alternatives available. For example, Mem0 uses a different approach to knowledge graph construction.</p>
+
+<table>
+<tr><th>Tool</th><th>Description</th></tr>
+<tr><th>GraphRAG</th><th>Knowledge graph-based retrieval</th></tr>
+<tr><th>Mem0</th><th>Alternative knowledge graph construction</th></tr>
+
+<h3>Conclusion</h3>
+
+<p>Building persistent memory for your AI agents is a complex task, but with the right tools and techniques, it's now possible. By using knowledge graphs and graph-based retrieval techniques, you can create AI agents that are more accurate, efficient, and effective.</p>
+
+<p><strong>Try MrMemory today and start building your own persistent memory solution!</strong></p>
+
+<p><a href="https://mrmemory.dev/docs">CTA Button: Try MrMemory</a></p>
+
+<h3>Suggested Internal Links</h3>
+
+<ul>
+<li><a href="https://mrmemory.dev/docs">MrMemory Documentation</a></li>
+<li><a href="https://mrmemory.dev/knowledge-graphs/">Knowledge Graphs for AI Agents</a></li>
+<li><a href="https://mrmemory.dev/graph-based-retrieval/">Graph-Based Retrieval for AI Agents</a></li>
+</ul>
+
+<h3>Tags</h3>
+
+<ul>
+<li>knowledge graph</li>
+<li>persistent memory</li>
+<li>AI agents</li>
+<li>graph-based retrieval</li>
+<li>Tree-Sitter</li>
+<li>GraphRAG</li>
+</ul>
+    </div>
+
+    <div class="article-cta">
+      <h3>Ready to give your AI agents memory?</h3>
+      <p>Install in one line. Remember forever. Start with a 7-day free trial.</p>
+      <a href="https://buy.stripe.com/00w4gB2REex4daHeP38g001" class="btn">Start Free Trial →</a>
+    </div>
+  </article>
+</div>
+
+<footer>
+  <div class="container">
+    &copy; 2026 MrMemory &middot; <a href="/">Home</a> &middot; <a href="/docs">Docs</a> &middot; <a href="https://github.com/masterdarren23/mrmemory">GitHub</a>
+  </div>
+</footer>
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
