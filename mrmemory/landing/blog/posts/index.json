@@ -1,5 +1,16 @@
 [
   {
+    "slug": "project-overview",
+    "title": "Project Overview",
+    "description": "**Implementing Persistent Memory for Large Language Models**",
+    "date": "2026-04-18",
+    "readTime": "2 min read",
+    "tags": [
+      "AI",
+      "MrMemory"
+    ]
+  },
+  {
     "slug": "load-your-data-into-a-tree-sitter-parser",
     "title": "Load your data into a Tree-Sitter parser",
     "description": "**Building Persistent Memory with Knowledge Graphs and Tree-Sitter**",
