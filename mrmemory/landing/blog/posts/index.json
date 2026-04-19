@@ -1,5 +1,13 @@
 [
   {
+    "slug": "untitled",
+    "title": "Untitled",
+    "description": "**Persistent AI Agent Memory: Don't Let Your Agents Forget**",
+    "date": "2026-04-19",
+    "readTime": "2 min read",
+    "tags": []
+  },
+  {
     "slug": "project-overview",
     "title": "Project Overview",
     "description": "**Implementing Persistent Memory for Large Language Models**",
@@ -33,14 +41,6 @@
       "Tree-Sitter",
       "GraphRAG"
     ]
-  },
-  {
-    "slug": "untitled",
-    "title": "Untitled",
-    "description": "**The Context Decay Problem: A Step-by-Step Guide to Implementing Auto Dream with Claude Code**",
-    "date": "2026-04-15",
-    "readTime": "2 min read",
-    "tags": []
   },
   {
     "slug": "solving-memory-decay-with-claude-codes-auto-dream",
