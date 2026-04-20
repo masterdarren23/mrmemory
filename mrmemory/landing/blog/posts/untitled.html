@@ -12,9 +12,9 @@ gtag('config', 'G-TS0RXEVBH6');
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Untitled — MrMemory Blog</title>
-<meta name="description" content="**Persistent AI Agent Memory: Don&#x27;t Let Your Agents Forget**">
+<meta name="description" content="**persistent memory: the missing piece in your AI agents**">
 <meta property="og:title" content="Untitled">
-<meta property="og:description" content="**Persistent AI Agent Memory: Don&#x27;t Let Your Agents Forget**">
+<meta property="og:description" content="**persistent memory: the missing piece in your AI agents**">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://mrmemory.dev/blog/posts/untitled.html">
 <link rel="canonical" href="https://mrmemory.dev/blog/posts/untitled.html">
@@ -103,110 +103,78 @@ footer{border-top:1px solid var(--border);padding:32px 0;text-align:center;color
     <div class="article-header">
       <h1>Untitled</h1>
       <div class="article-meta">
-        <span>2026-04-19</span>
+        <span>2026-04-20</span>
         <span>2 min read</span>
       </div>
       <div class="article-tags"></div>
     </div>
 
     <div class="article-content">
-      <p><strong>Persistent AI Agent Memory: Don't Let Your Agents Forget</strong></p>
+      <p>---</p>
+<p><strong>persistent memory: the missing piece in your AI agents</strong></p>
 
-<p>Imagine building an AI agent that remembers the user's preferences, recalls past experiences, and learns from interactions. Sounds like a game-changer for your 2026 project? It should be – but most AI agents are stuck in a one-shot task cycle, forgetting everything between sessions.</p>
+<p>AI agents are supposed to learn from their interactions with users. But without a reliable way to store context and recall it later, they're like trying to have a conversation with a toddler – fun at first, but soon frustrating.</p>
 
-<p>Let's fix this with five simple techniques to implement persistent memory:</p>
+<p>Let's dive into five essential considerations for implementing persistent memory in AI agents:</p>
 
-<h3>File-Based Memory Architecture</h3>
+<h3>1. Understand your agent's architecture</h3>
 
-<p>Store curated knowledge, raw observations, and task history in markdown files on disk. Here's an example:</p>
-<pre><code class="language-python">
-import os
+<p>You can't design a memory system without knowing how complex it needs to be. IBM notes that "AI agents vary from simple reflex agents to advanced learning agents" – and their memory implementation depends on the agent’s complexity, use case, and required adaptability.</p>
 
-data_dir = os.path.join(os.getcwd(), &quot;.agent&quot;)
-learnings_file = os.path.join(data_dir, &quot;learnings.md&quot;)
-</code></pre>
-<p>This approach is straightforward but can get cumbersome as your agent grows.</p>
+<p>For example, you might use short-term memory for immediate retrieval needs while long-term memories are being processed in the background.</p>
 
-<h3>Vector Database with Embeddings</h3>
-
-<p>Use vector databases like Qdrant or Annoy to store and retrieve embeddings. For example:</p>
 <pre><code class="language-python">
 from mrmemory import MrMemory
-
 client = MrMemory(api_key=&quot;your-key&quot;)
 client.remember(&quot;user prefers dark mode&quot;, tags=[&quot;preferences&quot;])
 </code></pre>
-<p>This enables your agent to efficiently store complex data structures.</p>
 
-<h3>Episodic Memory with PostgreSQL</h3>
+<h3>2. Choose the right memory provider</h3>
 
-<p>Implement episodic memory using a relational database like PostgreSQL. For example:</p>
+<p>Selecting a suitable memory provider is crucial for efficient data storage and retrieval. Tiger Data emphasizes production-grade performance through hypertables, pgvectorscale, and native compression.</p>
+
+<p>Consider your agent's specific needs – do you need high-performance or low-latency?</p>
+
 <pre><code class="language-python">
-import psycopg2
-
-conn = psycopg2.connect(
-    host=&quot;localhost&quot;,
-    database=&quot;your_database&quot;,
-    user=&quot;your_username&quot;,
-    password=&quot;your_password&quot;
-)
-cur = conn.cursor()
-cur.execute(&quot;&quot;&quot;
-CREATE TABLE episodic_memories (
-id SERIAL PRIMARY KEY,
-event VARCHAR(255),
-timestamp TIMESTAMP
-);
-&quot;&quot;&quot;)
+results = client.recall(&quot;what theme does the user like?&quot;)
 </code></pre>
-<p>This approach lets your agent store specific events or experiences.</p>
 
-<h3>AutoMemoryTools with LangChain</h3>
+<h3>3. Balance memory requirements with performance</h3>
 
-<p>Use AutoMemoryTools to manage long-term memory, retrieval, and context management. For example:</p>
+<p>Memory retrieval shouldn't impact response times. Implement strict access controls to ensure data complies with privacy regulations and optimize memory retrieval for efficient performance.</p>
+
+<h3>4. Contextualize your agent's conversations</h3>
+
+<p>Context is key in AI agents. By default, agents store chat history in an InMemoryChatHistoryProvider or the underlying AI service. But you can use a custom ChatHistoryProvider to manage memory more effectively.</p>
+
 <pre><code class="language-python">
-import langchain
+var endpoint = Environment.GetEnvironmentVariable(&quot;AZURE_OPENAI_ENDPOINT&quot;)
+?? throw new InvalidOperationException(&quot;Set AZURE_OPENAI_ENDPOINT&quot;);
+var deploymentName = Environment.GetEnvironmentVariable(&quot;AZURE_OPENAI_DEPLOYMENT_NAME&quot;) ?? &quot;gpt-4o-mini&quot;;
 
-agent = langchain.Agent(memory=langchain.Memory())
-agent.memory.add_item(&quot;user prefers dark mode&quot;, tags=[&quot;preferences&quot;])
+AIAgent agent = new AIProjectClient(new Uri(endpoint), new DefaultAzureCredential())
+.AsAIAgent(
+model: deploymentName,
+instructions: &quot;You are a friendly assistant. Keep your answers brief.&quot;,
+name: &quot;MemoryAgent&quot;);
 </code></pre>
-<p>This framework simplifies persistent memory management.</p>
 
-<h3>MrMemory with Auto-Remember</h3>
+<h3>5. Evaluate alternatives and comparison</h3>
 
-<p>MrMemory provides auto-remember functionality, so you can store user preferences and learn from interactions without writing explicit code. For example:</p>
-<pre><code class="language-python">
-from mrmemory import MrMemory
-
-client = MrMemory(api_key=&quot;your-key&quot;)
-client.remember(&quot;user prefers dark mode&quot;, tags=[&quot;preferences&quot;])
-</code></pre>
-<p>This approach minimizes effort while implementing persistent memory.</p>
-
-<h3>Comparison and Alternatives</h3>
-
-<p>Other frameworks, like Mem0, Zep, and MemGPT, provide similar functionality. However, MrMemory stands out for its ease of use and auto-remember feature.</p>
-
-<ul>
-<li>  Mem0 requires explicit code for retrieval.</li>
-<li>  Zep is self-hosted but requires more effort to implement.</li>
-<li>  MemGPT may not offer the same flexibility as MrMemory.</li>
-</ul>
+<p>Several memory solutions exist, each with their pros and cons. Mem0 offers compression and governance tools but lacks self-edit functionality. Zep is self-hosted but requires significant development effort. MrMemory strikes a balance between features and ease of use.</p>
 
 <h3>Conclusion</h3>
 
-<p>Implementing persistent memory can be challenging, but these five techniques make it simpler. Choose a method that fits your project's needs and see how it works for you.</p>
+<p>Implementing persistent memory in AI agents can be challenging. By considering these essential considerations, you can create more effective and personalized AI agents. Try MrMemory today to see how it can help you achieve your goals!</p>
 
-<p><strong>Try MrMemory today and simplify implementing persistent memory in your AI agent projects!</strong></p>
-
-<p><strong>Suggested internal links:</strong></p>
+<p><strong>Recommended internal links:</strong></p>
 
 <ul>
-<li>  <a href="mrmemory.dev/docs/persistent-memory">Implementing Persistent Memory with MrMemory</a></li>
-<li>  <a href="langchain.ai/docs/auto-memory-tools">AutoMemoryTools with LangChain</a></li>
+<li><a href="https://mrmemory.dev/docs">MrMemory Documentation</a></li>
+<li><a href="https://artificialintelligence.com/building-smarter-ai-agents-with-long-term-memory-deep-dive/">Building Smarter AI Agents with Long-term Memory</a></li>
 </ul>
 
-<p><strong>Tags:</strong> #persistentmemory #aienterprise #aiagent #ml</p>
+<p><strong>Tags:</strong> persistent memory, AI agents, MrMemory, memory management, agent architecture, memory provider, context, performance optimization.</p>
     </div>
 
     <div class="article-cta">
