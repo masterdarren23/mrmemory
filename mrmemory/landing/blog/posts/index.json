@@ -1,5 +1,13 @@
 [
   {
+    "slug": "untitled",
+    "title": "Untitled",
+    "description": "",
+    "date": "2026-04-23",
+    "readTime": "1 min read",
+    "tags": []
+  },
+  {
     "slug": "",
     "title": "...",
     "description": "Here's the rewritten article:",
@@ -9,14 +17,6 @@
       "AI",
       "MrMemory"
     ]
-  },
-  {
-    "slug": "untitled",
-    "title": "Untitled",
-    "description": "",
-    "date": "2026-04-21",
-    "readTime": "1 min read",
-    "tags": []
   },
   {
     "slug": "project-overview",
