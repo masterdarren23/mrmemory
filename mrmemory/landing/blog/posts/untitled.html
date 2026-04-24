@@ -12,9 +12,9 @@ gtag('config', 'G-TS0RXEVBH6');
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Untitled — MrMemory Blog</title>
-<meta name="description" content="">
+<meta name="description" content="Here&#x27;s the rewritten article with the specified issues addressed:">
 <meta property="og:title" content="Untitled">
-<meta property="og:description" content="">
+<meta property="og:description" content="Here&#x27;s the rewritten article with the specified issues addressed:">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://mrmemory.dev/blog/posts/untitled.html">
 <link rel="canonical" href="https://mrmemory.dev/blog/posts/untitled.html">
@@ -103,14 +103,82 @@ footer{border-top:1px solid var(--border);padding:32px 0;text-align:center;color
     <div class="article-header">
       <h1>Untitled</h1>
       <div class="article-meta">
-        <span>2026-04-23</span>
-        <span>1 min read</span>
+        <span>2026-04-24</span>
+        <span>2 min read</span>
       </div>
       <div class="article-tags"></div>
     </div>
 
     <div class="article-content">
-      
+      <p>Here's the rewritten article with the specified issues addressed:</p>
+
+<p>---</p>
+<h3>The Code Review Agent That Couldn't Remember</h3>
+
+<p>I once worked on a code review agent that got stuck in an infinite loop of flagging the same pattern over and over again. Without memory, it wasn't reviewing code – it was generating redundant output. This got me thinking: what do AI agents actually need from memory?</p>
+
+<p><strong>The Four Types of Memory</strong></p>
+
+<ul>
+<li>Episodic memory stores decisions made, outcomes observed, and events that occurred in previous runs.</li>
+<li>Semantic memory stores domain knowledge about the project, such as coding standards, architecture patterns, and team conventions.</li>
+<li>Procedural memory stores approaches that work and don't work in a specific context.</li>
+<li>Working memory stores relevant information for each run (loaded fresh from persistent storage).</li>
+</ul>
+
+<h3>Implementing Persistent Memory</h3>
+
+<p>#### Code Review Agents</p>
+<p>To implement persistent memory in code review agents, you'll need a system to store flagged patterns, coding standards, architecture patterns, team conventions, and best practices. Here's an example using MrMemory:</p>
+<pre><code class="language-python">
+from mrmemory import MrMemory
+
+client = MrMemory(api_key=&quot;your-key&quot;)
+client.remember(&quot;flagged pattern 1&quot;, tags=[&quot;code_review&quot;])
+results = client.recall(&quot;what patterns were flagged last week?&quot;)
+</code></pre>
+<p>#### Research Synthesis Agents</p>
+<p>Research synthesis agents require a system to store and recall research findings, domain knowledge about the project (theories, models, methodologies), and approaches that work or don't work in this context. For instance:</p>
+<pre><code class="language-python">
+from mrmemory import MrMemory
+
+client = MrMemory(api_key=&quot;your-key&quot;)
+client.remember(&quot;previous findings on topic 1&quot;, tags=[&quot;research_synthesis&quot;])
+results = client.recall(&quot;what were the previous findings on topic 2?&quot;)
+</code></pre>
+<p>#### Project Management Agents</p>
+<p>For project management agents, you'll need a system to store and recall decisions made about project status and outcomes, domain knowledge (scope, timeline, budget), and approaches that work or don't work in this context. Consider:</p>
+<pre><code class="language-python">
+from mrmemory import MrMemory
+
+client = MrMemory(api_key=&quot;your-key&quot;)
+client.remember(&quot;previous decisions on project status&quot;, tags=[&quot;project_management&quot;])
+results = client.recall(&quot;what were the previous decisions about budget allocation?&quot;)
+</code></pre>
+<h3>Choosing a Persistent Memory Solution</h3>
+
+<p>While alternatives like Mem0, Zep, and MemGPT exist, MrMemory stands out for its cost-effectiveness (it's significantly cheaper than many other solutions) and ease of use (its API is simple and intuitive).</p>
+
+<h3>Conclusion</h3>
+<p>Implementing persistent memory in AI agents can be complex. However, with the right tools and techniques, it's achievable without breaking the bank or your head. MrMemory's simple API makes it easy to implement episodic, semantic, procedural, and working memory.</p>
+
+<p><strong>Try MrMemory today!</strong></p>
+
+<ul>
+<li>Install: <code>pip install mrmemory</code></li>
+<li>Docs: <a href="https://mrmemory.dev/docs">mrmemory.dev/docs</a></li>
+<li>GitHub: <a href="https://github.com/masterdarren23/mrmemory">github.com/masterdarren23/mrmemory</a></li>
+</ul>
+
+<h3>Tags</h3>
+
+<ul>
+<li>persistent memory</li>
+<li>AI agents</li>
+<li>code review agents</li>
+<li>research synthesis agents</li>
+<li>project management agents</li>
+</ul>
     </div>
 
     <div class="article-cta">
