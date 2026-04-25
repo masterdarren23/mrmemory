@@ -1,5 +1,18 @@
 [
   {
+    "slug": "taming-token-bloat-with-persistent-memory",
+    "title": "Taming Token Bloat with Persistent Memory",
+    "description": "Large Language Models (LLMs) can forget crucial details every time a user closes the chat window. We'll explore how to implement long-term memory using multi-tier persistent memory and vector databases.",
+    "date": "2026-04-25",
+    "readTime": "1 min read",
+    "tags": [
+      "LLM",
+      "persistent memory",
+      "context retention",
+      "long-term intelligence"
+    ]
+  },
+  {
     "slug": "untitled",
     "title": "Untitled",
     "description": "Here's the rewritten article with the specified issues addressed:",
