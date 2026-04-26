@@ -1,5 +1,17 @@
 [
   {
+    "slug": "fixing-ai-agents-memory-problems",
+    "title": "Fixing AI Agents' Memory Problems",
+    "description": "Persistent memory is key to making AI agents useful beyond one-shot tasks. Here's how to do it.",
+    "date": "2026-04-26",
+    "readTime": "1 min read",
+    "tags": [
+      "AI Agent Memory",
+      "Memory Persistence",
+      "Stateful Agents"
+    ]
+  },
+  {
     "slug": "taming-token-bloat-with-persistent-memory",
     "title": "Taming Token Bloat with Persistent Memory",
     "description": "Large Language Models (LLMs) can forget crucial details every time a user closes the chat window. We'll explore how to implement long-term memory using multi-tier persistent memory and vector databases.",
