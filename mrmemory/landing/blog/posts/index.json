@@ -1,5 +1,13 @@
 [
   {
+    "slug": "untitled",
+    "title": "Untitled",
+    "description": "| --- | --- |",
+    "date": "2026-04-27",
+    "readTime": "1 min read",
+    "tags": []
+  },
+  {
     "slug": "fixing-ai-agents-memory-problems",
     "title": "Fixing AI Agents' Memory Problems",
     "description": "Persistent memory is key to making AI agents useful beyond one-shot tasks. Here's how to do it.",
@@ -23,14 +31,6 @@
       "context retention",
       "long-term intelligence"
     ]
-  },
-  {
-    "slug": "untitled",
-    "title": "Untitled",
-    "description": "Here's the rewritten article with the specified issues addressed:",
-    "date": "2026-04-24",
-    "readTime": "2 min read",
-    "tags": []
   },
   {
     "slug": "",
