@@ -2,8 +2,8 @@
   {
     "slug": "untitled",
     "title": "Untitled",
-    "description": "[OLLAMA ERROR] HTTPConnectionPool(host='localhost', port=11434): Max retries exceeded with url: /api/chat (Caused by NewConnectionError('<urllib3.connectio",
-    "date": "2026-04-29",
+    "description": "",
+    "date": "2026-04-30",
     "readTime": "1 min read",
     "tags": []
   },
