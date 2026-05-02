@@ -1,5 +1,18 @@
 [
   {
+    "slug": "persistent-memory-in-java-ai-agents-a-developers-guide",
+    "title": "Persistent Memory in Java AI Agents: A Developer's Guide",
+    "description": "Learn how to implement persistent memory in your Java AI agents using Mem0 and MrMemory frameworks.",
+    "date": "2026-05-02",
+    "readTime": "1 min read",
+    "tags": [
+      "agent memory",
+      "java ai agents",
+      "mem0",
+      "mrmemory"
+    ]
+  },
+  {
     "slug": "untitled",
     "title": "Untitled",
     "description": "**Implementing Persistent Memory in AI Agents: 5 Essential Best Practices (2026)**",
