@@ -1,5 +1,13 @@
 [
   {
+    "slug": "untitled",
+    "title": "Untitled",
+    "description": "Your AI agent has no persistent memory \u2013 every session starts from scratch. That's a problem. Imagine having to re-inject context into each call, losing in",
+    "date": "2026-05-03",
+    "readTime": "1 min read",
+    "tags": []
+  },
+  {
     "slug": "persistent-memory-in-java-ai-agents-a-developers-guide",
     "title": "Persistent Memory in Java AI Agents: A Developer's Guide",
     "description": "Learn how to implement persistent memory in your Java AI agents using Mem0 and MrMemory frameworks.",
@@ -11,14 +19,6 @@
       "mem0",
       "mrmemory"
     ]
-  },
-  {
-    "slug": "untitled",
-    "title": "Untitled",
-    "description": "**Implementing Persistent Memory in AI Agents: 5 Essential Best Practices (2026)**",
-    "date": "2026-05-01",
-    "readTime": "2 min read",
-    "tags": []
   },
   {
     "slug": "fixing-ai-agents-memory-problems",
