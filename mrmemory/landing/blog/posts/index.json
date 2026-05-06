@@ -1,5 +1,13 @@
 [
   {
+    "slug": "untitled",
+    "title": "Untitled",
+    "description": "Your agent is a stateless tool that forgets everything between sessions. This means it can't learn from past interactions, maintain context across sessions",
+    "date": "2026-05-06",
+    "readTime": "1 min read",
+    "tags": []
+  },
+  {
     "slug": "persistent-memory-in-java-ai-agents",
     "title": "Persistent Memory in Java AI Agents",
     "description": "Implementing persistent memory with MrMemory's API for production-level deployment",
@@ -10,14 +18,6 @@
       "Java AI agents",
       "MrMemory"
     ]
-  },
-  {
-    "slug": "untitled",
-    "title": "Untitled",
-    "description": "**Choosing the Right AI Agent Memory Framework for Your Next Project: A Comparison of 6 Top Options in 2026**",
-    "date": "2026-05-04",
-    "readTime": "3 min read",
-    "tags": []
   },
   {
     "slug": "persistent-memory-in-java-ai-agents-a-developers-guide",
