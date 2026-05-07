@@ -12,9 +12,9 @@ gtag('config', 'G-TS0RXEVBH6');
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Untitled — MrMemory Blog</title>
-<meta name="description" content="Your agent is a stateless tool that forgets everything between sessions. This means it can&#x27;t learn from past interactions, maintain context across sessions">
+<meta name="description" content="**Implementing Persistent Memory in Java AI Agents: A Step-by-Step Guide**">
 <meta property="og:title" content="Untitled">
-<meta property="og:description" content="Your agent is a stateless tool that forgets everything between sessions. This means it can&#x27;t learn from past interactions, maintain context across sessions">
+<meta property="og:description" content="**Implementing Persistent Memory in Java AI Agents: A Step-by-Step Guide**">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://mrmemory.dev/blog/posts/untitled.html">
 <link rel="canonical" href="https://mrmemory.dev/blog/posts/untitled.html">
@@ -103,56 +103,101 @@ footer{border-top:1px solid var(--border);padding:32px 0;text-align:center;color
     <div class="article-header">
       <h1>Untitled</h1>
       <div class="article-meta">
-        <span>2026-05-06</span>
-        <span>1 min read</span>
+        <span>2026-05-07</span>
+        <span>2 min read</span>
       </div>
       <div class="article-tags"></div>
     </div>
 
     <div class="article-content">
-      <h3>The Problem with Stateless Agents</h3>
+      <p><strong>Implementing Persistent Memory in Java AI Agents: A Step-by-Step Guide</strong></p>
 
-<p>Your agent is a stateless tool that forgets everything between sessions. This means it can't learn from past interactions, maintain context across sessions, or build knowledge over time. For example, I built an AI assistant for my mom's household management app. It couldn't remember her favorite coffee order or the last time she cleaned the living room.</p>
+<p>Many teams struggle with implementing persistent memory in their Java AI agents. Without it, agents forget previous interactions, leading to frustrating experiences for users and developers alike.</p>
 
-<h3>Top AI Agent Memory Frameworks in 2026</h3>
+<p>Imagine an agent that can't recall what it reviewed last week or what patterns it flagged. This is a common problem faced by many teams when moving from demos to production workflows. Persistent memory lets an agent carry useful context across sessions, making it more capable and reliable.</p>
 
-<p>Here are top frameworks that can help you implement effective memory systems for your Java agents:</p>
+<p>To implement persistent memory in Java AI agents, you need to understand three key concepts:</p>
 
-<ol>
-<li><strong>MrMemory</strong>: A managed memory API that provides intelligent, personalized memory capabilities.</li>
-<li><strong>Mem0</strong>: A dedicated memory layer with institutional and personalization features.</li>
-<li><strong>Hindsight</strong>: A hybrid framework combining institutional and personalization features.</li>
-<li><strong>Letta</strong>: A tiered framework inspired by operating systems for robust memory management.</li>
-</ol>
+<ul>
+<li>  <strong>Retention</strong>: The ability of the agent to store information over time.</li>
+<li>  <strong>Recall</strong>: The ability of the agent to retrieve stored information when needed.</li>
+<li>  <strong>Scope</strong>: The extent to which the agent can access and manipulate stored information.</li>
+</ul>
 
-<h3>MrMemory: A Managed Memory API</h3>
+<h2>Using MrMemory</h2>
 
-<p>MrMemory simplifies implementing persistent memory for your agents. With it, you can store conversation history, manage long-term factual knowledge, implement semantic memory search, handle context windows effectively, and personalize agent behavior based on past interactions.</p>
+<p>To use MrMemory, you need to install it via pip:</p>
+
+<pre><code class="language-bash">
+pip install mrmemory
+</code></pre>
+
+<p>Then, create a client instance with your API key:</p>
+
+<pre><code class="language-python">
+from mrmemory import MrMemory
+
+client = MrMemory(api_key=&quot;your-key&quot;)
+</code></pre>
+
+<p>You can now store information using the <code>remember</code> method and retrieve it later using the <code>recall</code> method:</p>
+
+<pre><code class="language-python">
+client.remember(&quot;user prefers dark mode&quot;, tags=[&quot;preferences&quot;])
+results = client.recall(&quot;what theme does the user like?&quot;)
+print(results)
+</code></pre>
+
+<h2>Implementing AutoMemoryTools in Spring AI Agents</h2>
+
+<p>If you're using Spring AI agents, you can use the <code>AutoMemoryTools</code> library to implement persistent memory. This library provides a set of tools for managing agent memory, including <code>AutoMemoryToolsAdvisor</code>, which gives your agents a durable, file-based long-term memory.</p>
+
+<p>To use <code>AutoMemoryTools</code> in Spring AI agents, you need to add the following dependencies to your project:</p>
+
+<pre><code class="language-xml">
+&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-ai-agent-utils&lt;/artifactId&gt;
+&lt;/dependency&gt;
+</code></pre>
+
+<p>Then, create an instance of <code>AutoMemoryToolsAdvisor</code> and configure it to use a file-based long-term memory:</p>
+
 <pre><code class="language-java">
-import com.mrmemory.MrMemory;
+@Aspect
+public class MemoryAdvisor {
 
-public class Example {
-    public static void main(String[] args) {
-        MrMemory client = new MrMemory(&quot;your-api-key&quot;);
-        client.remember(&quot;user prefers dark mode&quot;, &quot;preferences&quot;);
-        String results = client.recall(&quot;what theme does the user like?&quot;);
-        System.out.println(results);
+    @Autowired
+    private AutoMemoryToolsAdvisor advisor;
+
+    public void setAdvisor(AutoMemoryToolsAdvisor advisor) {
+        this.advisor = advisor;
+    }
+
+    @Before(&quot;execution(* com.example.MyAgent.*(..))&quot;)
+    public void before() {
+        advisor.setMemoryPath(&quot;/path/to/memory&quot;);
     }
 }
 </code></pre>
-<h3>Comparison and Alternatives</h3>
 
-<p>While MrMemory is a top choice, consider other frameworks:</p>
+<h2>Alternatives to MrMemory</h2>
+
+<p>While MrMemory is a powerful tool for implementing persistent memory in Java AI agents, there are other alternatives available. Some popular options include:</p>
 
 <ul>
-<li><strong>Mem0</strong>: A dedicated memory layer providing institutional and personalization features.</li>
-<li><strong>Zep</strong>: A graph-based framework focusing on temporal knowledge graphs.</li>
-<li><strong>MemGPT</strong>: A self-hosted memory system integrating with GPT-3.</li>
+<li>  <strong>Mem0</strong>: A managed memory API that provides a simple and efficient way to store and retrieve information.</li>
+<li>  <strong>Zep</strong>: An open-source framework for building conversational AI agents with persistent memory.</li>
+<li>  <strong>MemGPT</strong>: A library for building conversational AI agents with persistent memory using GPT-3.</li>
 </ul>
 
-<h3>Conclusion</h3>
+<h2>Conclusion</h2>
 
-<p>Choosing the right AI agent memory framework is crucial for building intelligent assistants. With MrMemory, you can implement a robust and scalable memory system for your Java agents. Try it today and simplify your development process!</p>
+<p>Implementing persistent memory in Java AI agents is a crucial step towards creating reliable and capable agents. In this article, we explored how to use MrMemory to implement persistent memory in Java AI agents. We also discussed the importance of retention, recall, and scope when implementing persistent memory. Whether you're using Spring AI agents or building from scratch, MrMemory provides a simple and efficient way to store and retrieve information.</p>
+
+<p>---</p>
+
+<p><strong>Tags:</strong> <a href="https://mrmemory.dev/tags/persistent-memory/">persistent memory</a>, <a href="https://mrmemory.dev/tags/java-ai-agents/">java ai agents</a>, <a href="https://mrmemory.dev/tags/mrmemory/">mrmemory</a></p>
     </div>
 
     <div class="article-cta">

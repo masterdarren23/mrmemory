@@ -2,9 +2,9 @@
   {
     "slug": "untitled",
     "title": "Untitled",
-    "description": "Your agent is a stateless tool that forgets everything between sessions. This means it can't learn from past interactions, maintain context across sessions",
-    "date": "2026-05-06",
-    "readTime": "1 min read",
+    "description": "**Implementing Persistent Memory in Java AI Agents: A Step-by-Step Guide**",
+    "date": "2026-05-07",
+    "readTime": "2 min read",
     "tags": []
   },
   {
