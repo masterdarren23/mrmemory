@@ -1,5 +1,17 @@
 [
   {
+    "slug": "fixing-ai-agents-memory-problems",
+    "title": "Fixing AI Agents' Memory Problems",
+    "description": "Get your AI agents to remember stuff. Like, actually remember.",
+    "date": "2026-05-08",
+    "readTime": "1 min read",
+    "tags": [
+      "AI agent memory",
+      "production-ready AI agents",
+      "scalable long-term memory"
+    ]
+  },
+  {
     "slug": "untitled",
     "title": "Untitled",
     "description": "**Implementing Persistent Memory in Java AI Agents: A Step-by-Step Guide**",
@@ -30,18 +42,6 @@
       "java ai agents",
       "mem0",
       "mrmemory"
-    ]
-  },
-  {
-    "slug": "fixing-ai-agents-memory-problems",
-    "title": "Fixing AI Agents' Memory Problems",
-    "description": "Persistent memory is key to making AI agents useful beyond one-shot tasks. Here's how to do it.",
-    "date": "2026-04-26",
-    "readTime": "1 min read",
-    "tags": [
-      "AI Agent Memory",
-      "Memory Persistence",
-      "Stateful Agents"
     ]
   },
   {
