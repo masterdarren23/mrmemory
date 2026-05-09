@@ -1,5 +1,17 @@
 [
   {
+    "slug": "fixing-ai-agent-memory-5-real-solutions-for-production-environments",
+    "title": "Fixing AI Agent Memory: 5 Real Solutions for Production Environments",
+    "description": "Learn how to optimize context management in production environments with LLMs, including techniques like retrieval, pruning, and selective storage.",
+    "date": "2026-05-09",
+    "readTime": "2 min read",
+    "tags": [
+      "AI agent memory",
+      "context engineering",
+      "LLM memory management"
+    ]
+  },
+  {
     "slug": "fixing-ai-agents-memory-problems",
     "title": "Fixing AI Agents' Memory Problems",
     "description": "Get your AI agents to remember stuff. Like, actually remember.",
