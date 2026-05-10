@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TS0RXEVBH6"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-TS0RXEVBH6');
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Remember a user&#x27;s preference — MrMemory Blog</title>
+<meta name="description" content="When building AI agents, we often overlook one critical component: memory. Without it, every interaction starts from scratch – no prior knowledge, no user ">
+<meta property="og:title" content="Remember a user&#x27;s preference">
+<meta property="og:description" content="When building AI agents, we often overlook one critical component: memory. Without it, every interaction starts from scratch – no prior knowledge, no user ">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://mrmemory.dev/blog/posts/remember-a-users-preference.html">
+<link rel="canonical" href="https://mrmemory.dev/blog/posts/remember-a-users-preference.html">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0a0b;--bg2:#111113;--bg3:#18181b;--border:#27272a;
+  --text:#fafafa;--text2:#a1a1aa;--text3:#71717a;
+  --accent:#6d5cff;--accent2:#8b7aff;--green:#22c55e;
+  --mono:'SF Mono','Cascadia Code','Fira Code','Consolas',monospace;
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI','Inter',Helvetica,Arial,sans-serif;
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:var(--accent2);text-decoration:none}
+a:hover{text-decoration:underline}
+.container{max-width:720px;margin:0 auto;padding:0 24px}
+
+/* Nav */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,10,11,.8);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+nav .nav-inner{max-width:1080px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:56px}
+.logo{font-family:var(--mono);font-weight:700;font-size:1.1rem;letter-spacing:-.02em;color:var(--text)}
+.logo span{color:var(--accent)}
+.nav-links{display:flex;gap:20px;align-items:center}
+.nav-links a{font-size:.875rem;color:var(--text2);transition:color .2s}
+.nav-links a:hover{color:var(--text);text-decoration:none}
+.nav-cta{padding:6px 16px;border:1px solid var(--border);border-radius:6px}
+
+/* Article */
+.article-header{padding-top:120px;padding-bottom:32px;border-bottom:1px solid var(--border)}
+.article-header h1{font-size:2.2rem;font-weight:700;letter-spacing:-.03em;line-height:1.2;margin-bottom:16px}
+.article-meta{font-size:.9rem;color:var(--text3);display:flex;gap:16px;margin-bottom:16px}
+.article-tags{display:flex;gap:8px;flex-wrap:wrap}
+.article-tags .tag{font-family:var(--mono);font-size:.75rem;color:var(--accent2);border:1px solid rgba(109,92,255,.3);border-radius:999px;padding:2px 10px}
+
+/* Content */
+.article-content{padding:48px 0}
+.article-content h2{font-size:1.5rem;font-weight:600;letter-spacing:-.02em;margin:48px 0 16px;padding-top:16px;border-top:1px solid var(--border)}
+.article-content h3{font-size:1.2rem;font-weight:600;margin:32px 0 12px}
+.article-content p{color:var(--text2);margin-bottom:16px}
+.article-content ul,.article-content ol{color:var(--text2);margin-bottom:16px;padding-left:24px}
+.article-content li{margin-bottom:8px}
+.article-content strong{color:var(--text)}
+.article-content code{font-family:var(--mono);font-size:.875em;background:var(--bg3);padding:2px 6px;border-radius:4px;color:var(--accent2)}
+.article-content pre{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:20px;overflow-x:auto;margin-bottom:24px}
+.article-content pre code{background:none;padding:0;font-size:.875rem;color:var(--text)}
+.article-content blockquote{border-left:3px solid var(--accent);padding:12px 20px;margin:24px 0;background:var(--bg2);border-radius:0 8px 8px 0;color:var(--text2)}
+.article-content table{width:100%;border-collapse:collapse;margin:24px 0}
+.article-content th,.article-content td{padding:10px 14px;border:1px solid var(--border);text-align:left;font-size:.9rem}
+.article-content th{background:var(--bg2);color:var(--text);font-weight:600}
+.article-content td{color:var(--text2)}
+
+/* CTA */
+.article-cta{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:32px;text-align:center;margin:48px 0}
+.article-cta h3{font-size:1.3rem;margin-bottom:8px}
+.article-cta p{color:var(--text2);margin-bottom:20px}
+.article-cta a.btn{display:inline-block;padding:12px 28px;background:var(--accent);color:white;border-radius:8px;font-weight:600;font-size:.95rem;transition:background .2s}
+.article-cta a.btn:hover{background:var(--accent2);text-decoration:none}
+
+/* Back link */
+.back-link{display:inline-block;margin-top:120px;margin-bottom:32px;font-size:.9rem;color:var(--text3)}
+.back-link:hover{color:var(--text2)}
+
+/* Footer */
+footer{border-top:1px solid var(--border);padding:32px 0;text-align:center;color:var(--text3);font-size:.85rem;margin-top:48px}
+</style>
+</head>
+<body>
+
+<nav>
+<div class="nav-inner">
+  <a href="/" class="logo">Mr<span>Memory</span></a>
+  <div class="nav-links">
+    <a href="/docs">Docs</a>
+    <a href="/blog">Blog</a>
+    <a href="https://github.com/masterdarren23/mrmemory">GitHub</a>
+    <a href="https://buy.stripe.com/00w4gB2REex4daHeP38g001" class="nav-cta">Start Free Trial</a>
+  </div>
+</div>
+</nav>
+
+<div class="container">
+  <a href="/blog" class="back-link">← Back to Blog</a>
+  
+  <article>
+    <div class="article-header">
+      <h1>Remember a user&#x27;s preference</h1>
+      <div class="article-meta">
+        <span>2026-05-10</span>
+        <span>2 min read</span>
+      </div>
+      <div class="article-tags"><span class="tag">AI</span><span class="tag">MrMemory</span></div>
+    </div>
+
+    <div class="article-content">
+      <h2>The Hidden Cost of Statelessness in Agentic Systems</h2>
+
+<p>When building AI agents, we often overlook one critical component: memory. Without it, every interaction starts from scratch – no prior knowledge, no user preferences, and no recall of past attempts. For simple tasks, this might be okay, but for complex workflows or repeated conversations, statelessness becomes a hard limit on what your system can achieve.</p>
+
+<p>Memory is the key to accumulating context across sessions, personalizing responses over time, avoiding redundant work, and building on prior successes. But implementing it isn't straightforward – agentic systems need multiple types of memory, each with its own requirements. Let's dive into how you can design, implement, and evaluate a robust memory system for your production agents.</p>
+
+<h3>Memory Types: Short-Term vs Long-Term</h3>
+
+<p>In most agentic systems, we distinguish between short-term memory (STM) for temporary information and long-term memory (LTM) for permanent storage of learned preferences or knowledge. But that's not all – you also need retrieval mechanisms to surface relevant memories.</p>
+
+<pre><code class="language-python">
+from mrmemory import MrMemory
+client = MrMemory(api_key=&quot;your-key&quot;)
+# Remember a user&#x27;s preference
+client.remember(&quot;user prefers dark mode&quot;, tags=[&quot;preferences&quot;])
+</code></pre>
+
+<h3>Choosing the Right Storage Backend</h3>
+
+<p>With so many storage options available, selecting the right one for your agentic system can be daunting. When choosing between vector databases, caching layers, and session stores, consider factors like data structure, query performance, and scalability.</p>
+
+<pre><code class="language-python">
+results = client.recall(&quot;what theme does the user like?&quot;)
+</code></pre>
+
+<h3>Making Memory Work in Production</h3>
+
+<p>Implementing memory in production requires careful consideration of consistency, latency, and operational complexity. Using a unified platform for managing multiple storage patterns can help reduce overhead and improve performance.</p>
+
+<table>
+<tr><th>Product</th><th>Description</th></tr>
+<tr><th>Mem0</th><th>A scalable long-term memory solution that integrates with LangChain.</th></tr>
+<tr><th>Zep</th><th>A self-hosted AI agent platform that includes a built-in memory system.</th></tr>
+<table>
+<tr><th>MemGPT</th><th>A large language model-based memory system for AI agents.</th></tr>
+
+<h3>The Alternative Solutions</h3>
+
+<p>Other popular options like Mem0, Zep, and MemGPT have their strengths, but they often lack the comprehensive features and scalability of MrMemory.</p>
+
+<h3>Conclusion</h3>
+
+<p>Implementing effective AI agent memory in production systems is more than just choosing a storage backend or retrieval mechanism – it requires a deep understanding of the trade-offs between consistency, latency, and operational complexity. By following these guidelines, you can design and implement a robust memory system that enhances efficiency and capabilities.</p>
+
+<p>Try MrMemory today and see how it can help you build more reliable, personalized, and effective agentic AI applications!</p>
+
+<p>---</p>
+
+<h3>Tags</h3>
+
+<ul>
+<li>AI agent memory</li>
+<li>Agentic systems</li>
+<li>Memory types</li>
+<li>Storage backends</li>
+<li>Retrieval mechanisms</li>
+<li>Scalability</li>
+<li>Performance</li>
+</ul>
+    </div>
+
+    <div class="article-cta">
+      <h3>Ready to give your AI agents memory?</h3>
+      <p>Install in one line. Remember forever. Start with a 7-day free trial.</p>
+      <a href="https://buy.stripe.com/00w4gB2REex4daHeP38g001" class="btn">Start Free Trial →</a>
+    </div>
+  </article>
+</div>
+
+<footer>
+  <div class="container">
+    &copy; 2026 MrMemory &middot; <a href="/">Home</a> &middot; <a href="/docs">Docs</a> &middot; <a href="https://github.com/masterdarren23/mrmemory">GitHub</a>
+  </div>
+</footer>
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

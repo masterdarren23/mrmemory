@@ -1,5 +1,16 @@
 [
   {
+    "slug": "remember-a-users-preference",
+    "title": "Remember a user's preference",
+    "description": "When building AI agents, we often overlook one critical component: memory. Without it, every interaction starts from scratch \u2013 no prior knowledge, no user ",
+    "date": "2026-05-10",
+    "readTime": "2 min read",
+    "tags": [
+      "AI",
+      "MrMemory"
+    ]
+  },
+  {
     "slug": "fixing-ai-agent-memory-5-real-solutions-for-production-environments",
     "title": "Fixing AI Agent Memory: 5 Real Solutions for Production Environments",
     "description": "Learn how to optimize context management in production environments with LLMs, including techniques like retrieval, pruning, and selective storage.",
