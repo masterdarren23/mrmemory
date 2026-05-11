@@ -1,5 +1,13 @@
 [
   {
+    "slug": "untitled",
+    "title": "Untitled",
+    "description": "AI agents have become the backbone of modern applications, but their stateless nature can lead to a host of problems. Repeated instructions, zero personali",
+    "date": "2026-05-11",
+    "readTime": "2 min read",
+    "tags": []
+  },
+  {
     "slug": "remember-a-users-preference",
     "title": "Remember a user's preference",
     "description": "When building AI agents, we often overlook one critical component: memory. Without it, every interaction starts from scratch \u2013 no prior knowledge, no user ",
@@ -33,14 +41,6 @@
       "production-ready AI agents",
       "scalable long-term memory"
     ]
-  },
-  {
-    "slug": "untitled",
-    "title": "Untitled",
-    "description": "**Implementing Persistent Memory in Java AI Agents: A Step-by-Step Guide**",
-    "date": "2026-05-07",
-    "readTime": "2 min read",
-    "tags": []
   },
   {
     "slug": "persistent-memory-in-java-ai-agents",
