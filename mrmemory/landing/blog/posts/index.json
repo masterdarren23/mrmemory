@@ -1,5 +1,13 @@
 [
   {
+    "slug": "untitled",
+    "title": "Untitled",
+    "description": "**The Wrong Way to Remember: A Tale of AI Agents Gone Rogue**",
+    "date": "2026-05-25",
+    "readTime": "2 min read",
+    "tags": []
+  },
+  {
     "slug": "persistent-ai-agent-memory-taming-the-statelessness-beast",
     "title": "Persistent AI Agent Memory: Taming the Statelessness Beast",
     "description": "Ditch context windows and user preferences oblivion. Build intelligent assistants with long-term contextualization.",
@@ -10,14 +18,6 @@
       "persistent memory",
       "long-term contextualization"
     ]
-  },
-  {
-    "slug": "untitled",
-    "title": "Untitled",
-    "description": "**Optimizing Your Production AI Agents for Long-Term Memory Retention**",
-    "date": "2026-05-23",
-    "readTime": "2 min read",
-    "tags": []
   },
   {
     "slug": "remember-a-users-preference",
