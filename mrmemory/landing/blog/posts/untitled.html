@@ -12,9 +12,9 @@ gtag('config', 'G-TS0RXEVBH6');
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Untitled — MrMemory Blog</title>
-<meta name="description" content="**The Cost of Context Loss**">
+<meta name="description" content="| --- | --- |">
 <meta property="og:title" content="Untitled">
-<meta property="og:description" content="**The Cost of Context Loss**">
+<meta property="og:description" content="| --- | --- |">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://mrmemory.dev/blog/posts/untitled.html">
 <link rel="canonical" href="https://mrmemory.dev/blog/posts/untitled.html">
@@ -103,82 +103,42 @@ footer{border-top:1px solid var(--border);padding:32px 0;text-align:center;color
     <div class="article-header">
       <h1>Untitled</h1>
       <div class="article-meta">
-        <span>2026-05-29</span>
+        <span>2026-05-31</span>
         <span>1 min read</span>
       </div>
       <div class="article-tags"></div>
     </div>
 
     <div class="article-content">
-      <p><strong>The Cost of Context Loss</strong></p>
-
-<p>Your agents aren't failing. Their context is.</p>
-
-<p>When building complex AI systems, we often overlook the importance of memory infrastructure. Without persistent memory, your agent will treat each request independently, forgetting what happened five minutes ago. This leads to inaccurate responses, inefficient workflows, and a frustrating user experience.</p>
-
-<h3>1. Long-Term Memory</h3>
-
-<p>Long-term memory stores persistent knowledge across sessions. It compiles relevant history at each step and connects to external knowledge sources like vector databases and APIs. Consider using vector embeddings for efficient storage and retrieval. Graph memory can also model relationships between entities and concepts.</p>
-
-<pre><code class="language-python">
-from mrmemory import MrMemory
-
-client = MrMemory(api_key=&quot;your-key&quot;)
-client.remember(&quot;user prefers dark mode&quot;, tags=[&quot;preferences&quot;])
-</code></pre>
-
-<h3>2. In-Context Memory</h3>
-
-<p>In-context memory is the conversation history and system prompt currently loaded in the model's context window. It's essential for maintaining context between interactions.</p>
-
-<p>Use a database like Redis to store in-context memory, and consider using a hybrid approach with both in-memory caching and persistent storage.</p>
-
-<pre><code class="language-python">
-client = MrMemory(api_key=&quot;your-key&quot;)
-results = client.recall(&quot;what theme does the user like?&quot;)
-</code></pre>
-
-<h3>3. Session Persistence</h3>
-
-<p>Session persistence ensures that your agent remembers past interactions across sessions, devices, and tools. Choose a database that supports persistent storage and cross-session queries. Implement mechanisms for storing and retrieving information across different devices.</p>
-
-<pre><code class="language-python">
-client = MrMemory(api_key=&quot;your-key&quot;)
-client.store_session(&quot;session-id&quot;, {&quot;user&quot;: &quot;John Doe&quot;})
-</code></pre>
-
-<h3>4. Context Pollution Defense</h3>
-
-<p>Context pollution occurs when irrelevant or conflicting information is stored in memory, leading to inaccurate responses. Implement conflict resolution techniques and ranking to prioritize relevant information.</p>
-
-<pre><code class="language-python">
-client = MrMemory(api_key=&quot;your-key&quot;)
-results = client.recall(&quot;what theme does the user like?&quot;, tags=[&quot;preferences&quot;])
-</code></pre>
-
-<h3>Choosing a Memory Architecture</h3>
-
-<p>When selecting a memory architecture, consider Mem0, Zep, and MemGPT. While these solutions offer some features, they lack others:</p>
-
-<ul>
-<li><strong>Mem0</strong>: Offers automatic extraction, conflict resolution, and multi-backend support but lacks compression.</li>
-<li><strong>Zep</strong>: Provides self-hosted solutions for customer service agents but lacks cross-session persistence.</li>
-</ul>
+      <table>
+<tr><th>MrMemory</th><th>Adjustable (1024 tokens)</th><th>High</th></tr>
+<tr><th>Mem0</th><th>Fixed (8k tokens)</th><th>Low</th></tr>
+<tr><th>Zep</th><th>Self-hosted only</th><th>N/A</th></tr>
 
 <h3>Conclusion</h3>
 
-<p>Building stateful AI systems requires more than just a model. With the essential features mentioned above, you can create agents that remember past interactions, learn from experience, and execute multi-step tasks efficiently.</p>
+<p>Implementing a robust context management system is crucial for building dependable AI agents. By combining context windows with long-term memory and retrieval, you can ensure your model focuses on high-signal tokens.</p>
 
-<p>Try MrMemory today:</p>
+<p>Try MrMemory today to overcome the limitations of LLMs and build more reliable AI agents. Explore our documentation and GitHub repository to learn more about our Managed Memory API.</p>
 
-<pre><code class="language-python">
-pip install mrmemory
-from mrmemory import MrMemory
+<p>---</p>
 
-client = MrMemory(api_key=&quot;your-key&quot;)
-</code></pre>
+<p><strong>Internal Links</strong></p>
 
-<p>Tags: AI agent memory, cross-session persistence, long-term knowledge, session persistence, context pollution defense.</p>
+<ul>
+<li><a href="https://weaviate.io/blog/context-engineering-for-ai-agents">Context Engineering - LLM Memory and Retrieval for AI Agents | Weaviate</a></li>
+<li><a href="https://medium.com/@tanishksoni/the-ultimate-guide-to-llm-memory-from-context-windows-to-advanced-agent-memory-systems-e3a0b6c7e1f5">to LLM Memory: From Context Windows to Advanced Agent Memory Systems | by Tanishk Soni | Medium</a></li>
+</ul>
+
+<p><strong>Tags</strong></p>
+
+<ul>
+<li>LLM context management</li>
+<li>AI agent memory architecture</li>
+<li>MrMemory</li>
+<li>Context engineering</li>
+<li>Large Language Models (LLMs)</li>
+</ul>
     </div>
 
     <div class="article-cta">
