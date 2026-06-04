@@ -1,5 +1,13 @@
 [
   {
+    "slug": "untitled",
+    "title": "Untitled",
+    "description": "**The Statelessness Problem**",
+    "date": "2026-06-04",
+    "readTime": "1 min read",
+    "tags": []
+  },
+  {
     "slug": "the-stateful-solution",
     "title": "The Stateful Solution",
     "description": "Building persistent memory into your AI agents requires more than just a few tweaks.",
@@ -11,14 +19,6 @@
       "LangChain",
       "Mem0"
     ]
-  },
-  {
-    "slug": "untitled",
-    "title": "Untitled",
-    "description": "**The Memory Problem: Why Your AI Agent Needs a Scalable Brain**",
-    "date": "2026-06-02",
-    "readTime": "2 min read",
-    "tags": []
   },
   {
     "slug": "memory-management-for-ai-agents-in-production",
