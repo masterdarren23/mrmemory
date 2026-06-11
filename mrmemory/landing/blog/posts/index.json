@@ -2,8 +2,8 @@
   {
     "slug": "untitled",
     "title": "Untitled",
-    "description": "You've probably chatted with an LLM-based agent like ChatGPT or Claude, only to have the conversation start from scratch every time. It's not a bug; it's j",
-    "date": "2026-06-10",
+    "description": "[OLLAMA ERROR] HTTPConnectionPool(host='localhost', port=11434): Max retries exceeded with url: /api/chat (Caused by NewConnectionError('<urllib3.connectio",
+    "date": "2026-06-11",
     "readTime": "1 min read",
     "tags": []
   },

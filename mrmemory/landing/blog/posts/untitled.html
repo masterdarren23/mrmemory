@@ -12,9 +12,9 @@ gtag('config', 'G-TS0RXEVBH6');
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Untitled — MrMemory Blog</title>
-<meta name="description" content="You&#x27;ve probably chatted with an LLM-based agent like ChatGPT or Claude, only to have the conversation start from scratch every time. It&#x27;s not a bug; it&#x27;s j">
+<meta name="description" content="[OLLAMA ERROR] HTTPConnectionPool(host=&#x27;localhost&#x27;, port=11434): Max retries exceeded with url: /api/chat (Caused by NewConnectionError(&#x27;&lt;urllib3.connectio">
 <meta property="og:title" content="Untitled">
-<meta property="og:description" content="You&#x27;ve probably chatted with an LLM-based agent like ChatGPT or Claude, only to have the conversation start from scratch every time. It&#x27;s not a bug; it&#x27;s j">
+<meta property="og:description" content="[OLLAMA ERROR] HTTPConnectionPool(host=&#x27;localhost&#x27;, port=11434): Max retries exceeded with url: /api/chat (Caused by NewConnectionError(&#x27;&lt;urllib3.connectio">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://mrmemory.dev/blog/posts/untitled.html">
 <link rel="canonical" href="https://mrmemory.dev/blog/posts/untitled.html">
@@ -103,67 +103,14 @@ footer{border-top:1px solid var(--border);padding:32px 0;text-align:center;color
     <div class="article-header">
       <h1>Untitled</h1>
       <div class="article-meta">
-        <span>2026-06-10</span>
+        <span>2026-06-11</span>
         <span>1 min read</span>
       </div>
       <div class="article-tags"></div>
     </div>
 
     <div class="article-content">
-      <h3>The Problem with LLMs</h3>
-
-<p>You've probably chatted with an LLM-based agent like ChatGPT or Claude, only to have the conversation start from scratch every time. It's not a bug; it's just how these models are designed – they're stateless, processing the current context window without any persistent state or long-term memory.</p>
-
-<h3>Persistent Memory: The Key to Long-Term Intelligence</h3>
-
-<p>A multi-tier memory architecture is crucial for building LLMs that can remember what was discussed yesterday, last week, and even longer. This involves integrating short-term session caching, mid-term vector memory, and long-term structured persistence to emulate cognitive memory layers.</p>
-
-<pre><code class="language-python">
-from mrmemory import MrMemory
-
-client = MrMemory(api_key=&quot;your-key&quot;)
-client.remember(&quot;user prefers dark mode&quot;, tags=[&quot;preferences&quot;])
-</code></pre>
-
-<p>By combining these tiers with optimized retrieval, scoring, and decay policies, you can create systems that maintain continuity, relevance, and personalization across sessions.</p>
-
-<h3>Building a Multi-Tier Memory Architecture</h3>
-
-<p>To build persistent, self-linking memory for LLM agents using open-source tools and zero additional cost, follow this practical guide. It blends insights from cognitive architectures with implementations using caches, vector databases, and NoSQL backends.</p>
-
-<pre><code class="language-python">
-results = client.recall(&quot;what theme does the user like?&quot;)
-print(results)
-</code></pre>
-
-<p>The multi-tier architecture can be viewed as a hybrid hierarchy that's short-term, mid-term, and long-term. Each tier has its strengths and weaknesses, so consider these when designing your persistent memory system.</p>
-
-<h3>Comparing Alternatives</h3>
-
-<p>Several solutions exist, including Mem0, Zep, and MemGPT. While they offer some form of persistence, they lack the comprehensive multi-tier architecture and optimized retrieval policies offered by MrMemory.</p>
-
-<table>
-<tr><th>Solution</th><th>Persistent State</th><th>Long-Term Memory</th></tr>
-<tr><th>Mem0</th><th>Limited</th><th>No</th></tr>
-<tr><th>Zep</th><th>Self-hosted only</th><th>Yes</th></tr>
-<table>
-<tr><th>MemGPT</th><th>External DB as disk</th><th>Elegant infinite-context illusion</th></tr>
-
-<h3>Conclusion</h3>
-
-<p>Designing persistent memory for LLMs is essential for creating adaptive, contextually aware systems. By following the multi-tier memory architecture outlined above and using MrMemory's API, you can create systems that maintain continuity, relevance, and personalization across sessions.</p>
-
-<p>Try MrMemory today and see how it can help you design a more effective persistent memory system for your LLMs.</p>
-
-<p><strong>Internal links:</strong></p>
-
-<ul>
-<li><a href="mrmemory.dev/docs/persistent-memory">How Multi-Tier Persistent Memory Transforms LLM Performance</a></li>
-<li><a href="medium.com/@jeremiah-ojo/building-persistent-self-linking-memory-for-llm-agents">A practical guide to building persistent, self-linking memory for LLM agents using open-source tools and zero additional cost</a></li>
-</ul>
-
-<p><strong>Tags:</strong> #persistentmemory #LLMs #multi-tierarchitecture #contextualawareness #adaptiveintelligence</p>
-<p>---</p>
+      <p>[OLLAMA ERROR] HTTPConnectionPool(host='localhost', port=11434): Max retries exceeded with url: /api/chat (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000002728E992F90>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))</p>
     </div>
 
     <div class="article-cta">
