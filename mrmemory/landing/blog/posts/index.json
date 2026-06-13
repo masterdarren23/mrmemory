@@ -1,5 +1,17 @@
 [
   {
+    "slug": "tackling-the-persistent-memory-problem-in-ai-agents",
+    "title": "Tackling the Persistent Memory Problem in AI Agents",
+    "description": "How to implement effective memory systems for better context, recall, and personalization with top frameworks.",
+    "date": "2026-06-13",
+    "readTime": "1 min read",
+    "tags": [
+      "AI Agent Memory",
+      "Persistent Memory",
+      "Context Management"
+    ]
+  },
+  {
     "slug": "fixing-the-llm-memory-problem",
     "title": "Fixing the LLM Memory Problem",
     "description": "How to make AI agents actually remember stuff.",
