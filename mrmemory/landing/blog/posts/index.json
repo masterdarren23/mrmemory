@@ -1,5 +1,16 @@
 [
   {
+    "slug": "initialize-a-vector-database-with-10000-dimensions",
+    "title": "Initialize a vector database with 10,000 dimensions",
+    "description": "In 2023, a major e-commerce platform's conversational AI agent experienced catastrophic memory loss during a critical holiday season. The agent forgot user",
+    "date": "2026-06-14",
+    "readTime": "3 min read",
+    "tags": [
+      "AI",
+      "MrMemory"
+    ]
+  },
+  {
     "slug": "tackling-the-persistent-memory-problem-in-ai-agents",
     "title": "Tackling the Persistent Memory Problem in AI Agents",
     "description": "How to implement effective memory systems for better context, recall, and personalization with top frameworks.",
