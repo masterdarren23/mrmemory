@@ -1,5 +1,13 @@
 [
   {
+    "slug": "untitled",
+    "title": "Untitled",
+    "description": "Most AI agents suffer from context loss, forgetting crucial information between interactions. This can lead to frustrating user experiences and decreased a",
+    "date": "2026-06-15",
+    "readTime": "2 min read",
+    "tags": []
+  },
+  {
     "slug": "initialize-a-vector-database-with-10000-dimensions",
     "title": "Initialize a vector database with 10,000 dimensions",
     "description": "In 2023, a major e-commerce platform's conversational AI agent experienced catastrophic memory loss during a critical holiday season. The agent forgot user",
@@ -34,14 +42,6 @@
       "memory architecture",
       "persistent storage"
     ]
-  },
-  {
-    "slug": "untitled",
-    "title": "Untitled",
-    "description": "[OLLAMA ERROR] HTTPConnectionPool(host='localhost', port=11434): Max retries exceeded with url: /api/chat (Caused by NewConnectionError('<urllib3.connectio",
-    "date": "2026-06-11",
-    "readTime": "1 min read",
-    "tags": []
   },
   {
     "slug": "store-user-preference",

@@ -12,9 +12,9 @@ gtag('config', 'G-TS0RXEVBH6');
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Untitled — MrMemory Blog</title>
-<meta name="description" content="[OLLAMA ERROR] HTTPConnectionPool(host=&#x27;localhost&#x27;, port=11434): Max retries exceeded with url: /api/chat (Caused by NewConnectionError(&#x27;&lt;urllib3.connectio">
+<meta name="description" content="Most AI agents suffer from context loss, forgetting crucial information between interactions. This can lead to frustrating user experiences and decreased a">
 <meta property="og:title" content="Untitled">
-<meta property="og:description" content="[OLLAMA ERROR] HTTPConnectionPool(host=&#x27;localhost&#x27;, port=11434): Max retries exceeded with url: /api/chat (Caused by NewConnectionError(&#x27;&lt;urllib3.connectio">
+<meta property="og:description" content="Most AI agents suffer from context loss, forgetting crucial information between interactions. This can lead to frustrating user experiences and decreased a">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://mrmemory.dev/blog/posts/untitled.html">
 <link rel="canonical" href="https://mrmemory.dev/blog/posts/untitled.html">
@@ -103,14 +103,74 @@ footer{border-top:1px solid var(--border);padding:32px 0;text-align:center;color
     <div class="article-header">
       <h1>Untitled</h1>
       <div class="article-meta">
-        <span>2026-06-11</span>
-        <span>1 min read</span>
+        <span>2026-06-15</span>
+        <span>2 min read</span>
       </div>
       <div class="article-tags"></div>
     </div>
 
     <div class="article-content">
-      <p>[OLLAMA ERROR] HTTPConnectionPool(host='localhost', port=11434): Max retries exceeded with url: /api/chat (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000002728E992F90>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))</p>
+      <p>Most AI agents suffer from context loss, forgetting crucial information between interactions. This can lead to frustrating user experiences and decreased app adoption. To tackle this issue, we'll dive into the top 8 AI agent memory frameworks, including their architecture breakdowns, code examples, and decision guide.</p>
+
+<h3>The Problem: Context Loss in AI Agents</h3>
+
+<p>AI agents need to store, retrieve, and reason over information across interactions, sessions, and tasks to provide intelligent, context-aware experiences. Without proper memory management, these systems suffer from amnesia, leading to poor user satisfaction.</p>
+
+<h3>Framework Comparison</h3>
+
+<p>Here's a detailed comparison of the 8 top AI agent memory frameworks:</p>
+
+<table>
+<tr><th>Framework</th><th>Memory Class</th><th>Architecture</th><th>Open Source</th><th>Stars</th><th>Lock-in</th><th>Managed Cloud</th><th>Self-Host</th></tr>
+<tr><th>Mem0</th><th>Personalization + some institutional</th><th>Vector + Graph</th><th>Apache 2.0</th><th>~48K</th><th>None</th><th>Yes</th><th>Yes</th></tr>
+<tr><th>Hindsight</th><th>Both (built for institutional)</th><th>Multi-strategy hybrid</th><th>MIT</th><th>~4K (growing fast)</th><th>None</th><th>Yes</th><th>Yes</th></tr>
+<table>
+<tr><th>Letta</th><th>Both</th><th>Tiered (OS-inspired)</th><th>Apache 2.0</th><th>~21K</th><th>None</th><th>Yes</th><th>Yes</th></tr>
+<tr><th>Zep / Graphiti</th><th>Both (strongest on temporal)</th><th>Temporal KG</th><th>Graphiti: open</th><th>~24K</th><th>None</th><th>Via Graphiti only</th><th>-</th></tr>
+<tr><th>Cognee</th><th>Institutional</th><th>KG + Vector</th><th>Open core</th><th>~12K</th><th>None</th><th>Yes</th><th>Yes</th></tr>
+<table>
+<tr><th>SuperMemory</th><th>Personalization + some institutional</th><th>Memory + RAG</th><th>No</th><th>—</th><th>None</th><th>Enterprise only</th><th>-</th></tr>
+<tr><th>LangMem</th><th>Personalization</th><th>Flat key-value + vector</th><th>MIT</th><th>~1.3K</th><th>LangGraph</th><th>No</th><th>Yes</th></tr>
+<tr><th>LlamaIndex Memory</th><th>Personalization</th><th>Composable buffers</th><th>MIT</th><th>Part of ~48K</th><th>Via LlamaCloud</th><th>Yes</th></tr>
+
+<h3>Code Example with MrMemory</h3>
+
+<pre><code class="language-python">
+pip install mrmemory
+from mrmemory import MrMemory
+client = MrMemory(api_key=&quot;your-key&quot;)
+client.remember(&quot;user prefers dark mode&quot;, tags=[&quot;preferences&quot;])
+results = client.recall(&quot;what theme does the user like?&quot;)
+</code></pre>
+<p>In this example, we're storing a user's preference and retrieving it when needed. MrMemory provides a simple API for managing context.</p>
+
+<h3>Choosing the Right Framework</h3>
+
+<p>Mem0 leads on community adoption (~48K GitHub stars), but Zep outperforms it in temporal knowledge graph architecture (63.8% vs 49.0% on LongMemEval). LangMem excels at personalization, while Letta is best suited for long-running tasks.</p>
+
+<p>However, all frameworks lack enterprise governance features like glossary management and entity resolution. Context layers can help fill this gap.</p>
+
+<h3>Conclusion</h3>
+
+<p>Selecting the right AI agent memory framework can be daunting. This guide helps you understand each framework's strengths and weaknesses. Try MrMemory today to see how it can prevent context loss and enhance your LLM-based applications.</p>
+
+<p><strong>Internal Links:</strong></p>
+
+<ul>
+<li><a href="https://mrmemory.dev/docs">MrMemory Documentation</a></li>
+<li><a href="https://bestaiagentmemoriesystems.com/">Best AI Agent Memory Systems in 2026</a></li>
+<li><a href="https://www.atlan.com/blog/ai-agent-memory-frameworks-comparison">AI Agent Memory Frameworks Compared and Ranked</a></li>
+</ul>
+
+<p><strong>Tags:</strong></p>
+
+<ul>
+<li>AI agent memory</li>
+<li>LLM-based applications</li>
+<li>Context loss</li>
+<li>Personalization</li>
+<li>Enterprise governance</li>
+</ul>
     </div>
 
     <div class="article-cta">
