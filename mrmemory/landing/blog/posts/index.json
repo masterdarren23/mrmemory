@@ -1,5 +1,16 @@
 [
   {
+    "slug": "initialize-a-client-instance",
+    "title": "Initialize a client instance",
+    "description": "**Overcoming Persistent Memory Problems: A Step-by-Step Guide to Implementing Personalization in AI Agent Memory**",
+    "date": "2026-06-16",
+    "readTime": "2 min read",
+    "tags": [
+      "AI",
+      "MrMemory"
+    ]
+  },
+  {
     "slug": "untitled",
     "title": "Untitled",
     "description": "Most AI agents suffer from context loss, forgetting crucial information between interactions. This can lead to frustrating user experiences and decreased a",
