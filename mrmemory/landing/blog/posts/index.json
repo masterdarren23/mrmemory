@@ -1,5 +1,16 @@
 [
   {
+    "slug": "the-persistent-memory-problem-a-story-of-a-struggling-ai-assistant",
+    "title": "The Persistent Memory Problem: A Story of a Struggling AI Assistant",
+    "description": "You've built an intelligent assistant that can learn and adapt, but it's stuck in its ways. It forgets past interactions, can't maintain context across ses",
+    "date": "2026-06-17",
+    "readTime": "2 min read",
+    "tags": [
+      "AI",
+      "MrMemory"
+    ]
+  },
+  {
     "slug": "initialize-a-client-instance",
     "title": "Initialize a client instance",
     "description": "**Overcoming Persistent Memory Problems: A Step-by-Step Guide to Implementing Personalization in AI Agent Memory**",
