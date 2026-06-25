@@ -12,9 +12,9 @@ gtag('config', 'G-TS0RXEVBH6');
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Untitled — MrMemory Blog</title>
-<meta name="description" content="**The Persistence Problem with Large Language Models**">
+<meta name="description" content="Conversations with basic bots feel disconnected because they&#x27;re treated as brand new interactions every time. But what if your agent could remember past co">
 <meta property="og:title" content="Untitled">
-<meta property="og:description" content="**The Persistence Problem with Large Language Models**">
+<meta property="og:description" content="Conversations with basic bots feel disconnected because they&#x27;re treated as brand new interactions every time. But what if your agent could remember past co">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://mrmemory.dev/blog/posts/untitled.html">
 <link rel="canonical" href="https://mrmemory.dev/blog/posts/untitled.html">
@@ -103,78 +103,71 @@ footer{border-top:1px solid var(--border);padding:32px 0;text-align:center;color
     <div class="article-header">
       <h1>Untitled</h1>
       <div class="article-meta">
-        <span>2026-06-24</span>
+        <span>2026-06-25</span>
         <span>1 min read</span>
       </div>
       <div class="article-tags"></div>
     </div>
 
     <div class="article-content">
-      <p><strong>The Persistence Problem with Large Language Models</strong></p>
+      <h3>The Statelessness Problem</h3>
 
-<p>You've got a large language model (LLM) that's great at generating responses, but it's like starting from scratch every time. You waste tokens, time, and struggle to keep context across conversations.</p>
+<p>Conversations with basic bots feel disconnected because they're treated as brand new interactions every time. But what if your agent could remember past conversations? Let's dive into building an AI that actually remembers.</p>
 
-<p>Imagine having an agent that remembers your project context across sessions. No more re-explaining from scratch!</p>
+<h3>Maintaining Contextual History</h3>
 
-<h2>MrMemory: A Managed Memory API for AI Agents</h2>
+<p>The key to creating a memory-keeping AI is maintaining contextual history. Most basic bots are stateless, but you can build an agent that retains conversation history by implementing techniques like loading existing memories and retrieving relevant context.</p>
 
-<p>MrMemory is a managed memory API designed specifically for AI agents. It uses CLAUDE.md files and auto-memory to store and retrieve information across conversations.</p>
+<h3>Building Agent Memory with MrMemory</h3>
 
-<p>Here's an example of how you can use the MrMemory API:</p>
+<p>Let's get technical. We'll focus on building two layers of agent memory using tools from <a href="https://medium.com/technofin/giving-your-agent-memory-how-to-make-it-remember-between-conversations-4d35f7a5c6c8">Giving Your Agent Memory: How to Make It Remember Between Conversations</a>:</p>
+
+<ol>
+<li><strong>In-context memory</strong>: Everything in the current messages list, limited by context window.</li>
+<li><strong>External memory</strong>: A file or database that the agent reads and writes.</li>
+</ol>
+
+<h3>Using MrMemory's API</h3>
+
+<p>Install the library with <code>pip install mrmemory</code>. Then, import the necessary modules and initialize the client:</p>
 
 <pre><code class="language-python">
-pip install mrmemory
 from mrmemory import MrMemory
 client = MrMemory(api_key=&quot;your-key&quot;)
-client.remember(&quot;user prefers dark mode&quot;, tags=[&quot;preferences&quot;])
-results = client.recall(&quot;what theme does the user like?&quot;)
 </code></pre>
 
-<h2>Mem0: A Universal Memory Layer</h2>
+<p>Create a function to save memories using <code>save_memory</code>:</p>
 
-<p>Mem0 is an open-source memory layer that sits between your application and the LLM. It automates memory operations such as add, search, update, and delete across user, agent, and session memory.</p>
+<pre><code class="language-python">
+def save_memory(memories):
+for memory in memories:
+client.remember(memory[&quot;message&quot;], tags=memory.get(&quot;tags&quot;, []))
+</code></pre>
 
-<p>Some key features of Mem0 include:</p>
+<p>And another function to recall memories using <code>recall_memory</code>:</p>
 
-<ul>
-<li><strong>Universal memory layer</strong>: Provides a comprehensive persistence solution.</li>
-<li><strong>Memory operations</strong>: Exposes memory operations like add, search, update, and delete.</li>
-<li><strong>Open-source</strong>: Allows for customization and modification.</li>
-</ul>
+<pre><code class="language-python">
+def recall_memory(query):
+results = client.recall(query)
+return [result[&quot;message&quot;] for result in results]
+</code></pre>
 
-<h2>Choosing the Right Memory API</h2>
+<h3>Choosing the Right Tool</h3>
 
-<p>While both MrMemory and Mem0 offer robust memory solutions, there are some key differences to consider:</p>
+<p>MrMemory is a powerful tool, but there are alternatives like Mem0 and Zep. These tools have their own trade-offs – Mem0 lacks memory compression, while Zep requires self-hosting.</p>
 
-<ul>
-<li><strong>Compression capabilities</strong>: MrMemory offers compression capabilities, which can reduce data storage significantly. Mem0 lacks this feature.</li>
-<li><strong>Ease of use</strong>: MrMemory provides a more straightforward API and easier integration with CLAUDE.md files and auto-memory. Mem0 requires more technical expertise.</li>
-</ul>
+<h3>Conclusion</h3>
 
-<p>Other alternatives to consider include Zep (self-hosted persistence solution) and MemGPT (focuses on GPT-3 in memory, but lacks compression capabilities).</p>
+<p>Building an AI agent that remembers conversations isn't rocket science. With MrMemory's API and some technical know-how, you can create a more engaging conversational experience. Try it out and see the difference for yourself.</p>
 
-<h2>Conclusion</h2>
-
-<p>When choosing a memory API for your AI agents, it ultimately depends on your specific needs and requirements. Try MrMemory today and see how it can boost productivity and reduce errors in your conversations!</p>
-
-<h3>Internal Links:</h3>
+<p><strong>Related articles:</strong></p>
 
 <ul>
-<li><a href="https://mrmemory.dev/blog/project-overview/">Project Overview</a></li>
-<li><a href="https://mrmemory.dev/docs/">MrMemory API Documentation</a></li>
+<li><a href="https://medium.com/technofin/giving-your-agent-memory-how-to-make-it-remember-between-conversations-4d35f7a5c6c8">Giving Your Agent Memory: How to Make It Remember Between Conversations</a></li>
+<li><a href="https://example.com/how-to-make-ai-agents-remember-context-across-conversations">How to Make AI Agents Remember Context Across Conversations</a></li>
 </ul>
 
-<h3>Tags:</h3>
-
-<ul>
-<li>AI memory</li>
-<li>MrMemory</li>
-<li>Mem0</li>
-<li>Zep</li>
-<li>MemGPT</li>
-<li>CLAUDE.md files</li>
-<li>Auto-memory</li>
-</ul>
+<p><strong>Tags:</strong> ai agent memory, contextual history, loading existing memories, retrieving relevant context, mrmemory, semantic memory, external memory, in-context memory.</p>
     </div>
 
     <div class="article-cta">
