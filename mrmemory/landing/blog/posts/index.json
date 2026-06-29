@@ -1,5 +1,13 @@
 [
   {
+    "slug": "untitled",
+    "title": "Untitled",
+    "description": "You're stuck rebuilding the same AI agent from scratch every time it runs. It's like trying to learn a new language without any prior knowledge \u2013 frustrati",
+    "date": "2026-06-29",
+    "readTime": "1 min read",
+    "tags": []
+  },
+  {
     "slug": "initialize-mrmemory-client",
     "title": "Initialize MrMemory client",
     "description": "**Cutting AI Agent Memory Costs in Half**",
@@ -9,14 +17,6 @@
       "AI",
       "MrMemory"
     ]
-  },
-  {
-    "slug": "untitled",
-    "title": "Untitled",
-    "description": "Imagine building a conversational interface that remembers user preferences across sessions. Sounds simple, but it's not. Without persistent context, agent",
-    "date": "2026-06-27",
-    "readTime": "1 min read",
-    "tags": []
   },
   {
     "slug": "the-persistent-memory-problem-a-story-of-a-struggling-ai-assistant",

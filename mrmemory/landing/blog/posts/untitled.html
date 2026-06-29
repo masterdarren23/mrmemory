@@ -12,9 +12,9 @@ gtag('config', 'G-TS0RXEVBH6');
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Untitled — MrMemory Blog</title>
-<meta name="description" content="Imagine building a conversational interface that remembers user preferences across sessions. Sounds simple, but it&#x27;s not. Without persistent context, agent">
+<meta name="description" content="You&#x27;re stuck rebuilding the same AI agent from scratch every time it runs. It&#x27;s like trying to learn a new language without any prior knowledge – frustrati">
 <meta property="og:title" content="Untitled">
-<meta property="og:description" content="Imagine building a conversational interface that remembers user preferences across sessions. Sounds simple, but it&#x27;s not. Without persistent context, agent">
+<meta property="og:description" content="You&#x27;re stuck rebuilding the same AI agent from scratch every time it runs. It&#x27;s like trying to learn a new language without any prior knowledge – frustrati">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://mrmemory.dev/blog/posts/untitled.html">
 <link rel="canonical" href="https://mrmemory.dev/blog/posts/untitled.html">
@@ -103,64 +103,83 @@ footer{border-top:1px solid var(--border);padding:32px 0;text-align:center;color
     <div class="article-header">
       <h1>Untitled</h1>
       <div class="article-meta">
-        <span>2026-06-27</span>
+        <span>2026-06-29</span>
         <span>1 min read</span>
       </div>
       <div class="article-tags"></div>
     </div>
 
     <div class="article-content">
-      <h3>The Contextual Conundrum</h3>
+      <h3>The Statelessness Problem</h3>
 
-<p>Imagine building a conversational interface that remembers user preferences across sessions. Sounds simple, but it's not. Without persistent context, agents restart from scratch every time, causing workflows to stall and user experiences to suffer. We need a memory solution that can keep up with the demands of AI agents.</p>
+<p>You're stuck rebuilding the same AI agent from scratch every time it runs. It's like trying to learn a new language without any prior knowledge – frustrating and inefficient. Stateless agents repeat mistakes, forget context, and waste computational resources. It's a common problem in AI development, but there's an easy fix.</p>
 
-<h3>MrMemory: A Governance Model for Data Integrity</h3>
+<h3>Enabling Memory in CrewAI</h3>
 
-<p>MrMemory stands out with its three-layer governance model. This ensures data integrity and security through semantic recall, auto-remembering, and memory compression (40-60% token savings). The code is straightforward:</p>
-
+<p>To turn on memory in CrewAI, set <code>memory=True</code> when creating a <code>Crew</code> object:</p>
 <pre><code class="language-python">
-from mrmemory import MrMemory
+from crewai import Crew
+crew = Crew(
+agents=[...],
+tasks=[...],
+memory=True # &lt;--- That&#x27;s it
+)
+</code></pre>
+<p>This enables the memory system with sensible defaults — if you need more control, configure each memory type individually.</p>
 
-client = MrMemory(api_key=&quot;your-key&quot;)
+<h3>Understanding Memory Types</h3>
+
+<p>CrewAI's memory system has three types:</p>
+
+<ol>
+<li><strong>Short-term memory</strong>: stores session context and is lost when the session ends.</li>
+<li><strong>Long-term memory</strong>: stores cross-session learning and persists between runs.</li>
+<li><strong>Entity memory</strong>: tracks people and concepts across sessions.</li>
+</ol>
+
+<p>Configure each type using the <code>Memory</code> class:</p>
+<pre><code class="language-python">
+from crewai import Memory
+memory = Memory(
+recency_weight=0.5,
+recency_half_life_days=7
+)
+</code></pre>
+<h3>Using MrMemory for Persistent Knowledge Sharing</h3>
+
+<p>While CrewAI's memory system is powerful, implementing and managing it can be a challenge. That's where MrMemory comes in – a managed memory API that simplifies adding persistent knowledge sharing to your CrewAI agents:</p>
+<pre><code class="language-python">
+import mrmemory
+client = mrmemory.MrMemory(api_key=&quot;your-key&quot;)
 client.remember(&quot;user prefers dark mode&quot;, tags=[&quot;preferences&quot;])
 results = client.recall(&quot;what theme does the user like?&quot;)
 </code></pre>
+<p>Try MrMemory with a 7-day free trial.</p>
 
-<h3>Mem0 and Zep: Different Approaches to Memory Management</h3>
+<h3>Comparison to Alternatives</h3>
 
-<p>Mem0 relies on LLM-driven classification into a shared-brain model, while Zep employs a bi-temporal approach with Neo4j as a dependency. These alternatives have their strengths and weaknesses.</p>
-
-<h3>Persistence Model: Storing and Retrieving Data</h3>
-
-<p>MrMemory uses PostgreSQL for efficient storage and retrieval, whereas Mem0 optimizes storage and retrieval mechanisms. The choice of persistence model matters.</p>
-
-<h3>Multi-Agent Coordination: Graphiti Engine vs. Technical Expertise</h3>
-
-<p>Zep's Graphiti engine timestamps every fact, enabling temporal reasoning capabilities, but requires significant technical expertise for self-hosting.</p>
-
-<h3>Alternatives Worth Considering</h3>
+<p>Other memory systems, such as Mem0 and Zep, have different approaches:</p>
 
 <ul>
-<li>Mem0 offers open-source memory management with optimized storage and retrieval mechanisms.</li>
-<li>Zep provides production-grade memory management with a hybrid vector+graph architecture.</li>
-<li>MemGPT focuses on GPT-3 integration but lacks compression capabilities.</li>
+<li><strong>Mem0</strong> requires manual configuration and management.</li>
+<li><strong>Zep</strong> is self-hosted only, limiting its use in large-scale applications.</li>
 </ul>
+
+<p>MrMemory offers a managed API that simplifies the process of adding persistent knowledge sharing to your CrewAI agents.</p>
 
 <h3>Conclusion</h3>
 
-<p>When selecting a LangChain memory solution, consider your project's specific needs. If you require a comprehensive solution with governance and compression, MrMemory is worth trying.</p>
+<p>Adding long-term memory to your CrewAI agents is easier than ever. Follow our step-by-step guide and use MrMemory for persistent knowledge sharing to improve performance and efficiency. Try it out today with a 7-day free trial!</p>
 
-<p>---</p>
-
-<p>Tags: langchain, ai agent memory, mrmemory, mem0, zep, memgpt</p>
-
-<p>Internal links:</p>
+<p><strong>Suggested Internal Links:</strong></p>
 
 <ul>
-<li><a href="https://mrmemory.dev/docs">MrMemory Documentation</a></li>
-<li><a href="https://bestaiagentmemoryframeworks.com/">LangChain Memory Frameworks Compared</a></li>
-<li><a href="https://efficientworkflows.ai/">AI Agent Memory Solutions for Efficient Workflows</a></li>
+<li><a href="https://crewai.dev/docs">CrewAI Documentation</a></li>
+<li><a href="https://mrmemory.dev/docs">MrMemory API Reference</a></li>
 </ul>
+
+<p><strong>Tags:</strong> crewai, memory, long-term memory, persistent knowledge sharing, ai agents, mrmemory</p>
+<p>---</p>
     </div>
 
     <div class="article-cta">
