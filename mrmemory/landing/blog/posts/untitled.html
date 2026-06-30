@@ -12,9 +12,9 @@ gtag('config', 'G-TS0RXEVBH6');
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Untitled — MrMemory Blog</title>
-<meta name="description" content="You&#x27;re stuck rebuilding the same AI agent from scratch every time it runs. It&#x27;s like trying to learn a new language without any prior knowledge – frustrati">
+<meta name="description" content="We&#x27;ve all been there - building conversational AI systems that forget everything when the conversation ends. It&#x27;s frustrating, to say the least. But what i">
 <meta property="og:title" content="Untitled">
-<meta property="og:description" content="You&#x27;re stuck rebuilding the same AI agent from scratch every time it runs. It&#x27;s like trying to learn a new language without any prior knowledge – frustrati">
+<meta property="og:description" content="We&#x27;ve all been there - building conversational AI systems that forget everything when the conversation ends. It&#x27;s frustrating, to say the least. But what i">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://mrmemory.dev/blog/posts/untitled.html">
 <link rel="canonical" href="https://mrmemory.dev/blog/posts/untitled.html">
@@ -103,82 +103,71 @@ footer{border-top:1px solid var(--border);padding:32px 0;text-align:center;color
     <div class="article-header">
       <h1>Untitled</h1>
       <div class="article-meta">
-        <span>2026-06-29</span>
+        <span>2026-06-30</span>
         <span>1 min read</span>
       </div>
       <div class="article-tags"></div>
     </div>
 
     <div class="article-content">
-      <h3>The Statelessness Problem</h3>
+      <h2>Lost Context? Not on Our Watch.</h2>
 
-<p>You're stuck rebuilding the same AI agent from scratch every time it runs. It's like trying to learn a new language without any prior knowledge – frustrating and inefficient. Stateless agents repeat mistakes, forget context, and waste computational resources. It's a common problem in AI development, but there's an easy fix.</p>
+<p>We've all been there - building conversational AI systems that forget everything when the conversation ends. It's frustrating, to say the least. But what if we told you there's a solution?</p>
 
-<h3>Enabling Memory in CrewAI</h3>
+<h2>Setting Up Hindsight</h2>
 
-<p>To turn on memory in CrewAI, set <code>memory=True</code> when creating a <code>Crew</code> object:</p>
+<p>To get started with persistent memory, install <code>hindsight-autogen</code>, which provides three callable tools for <code>AssistantAgent</code>: <code>hindsight_retain</code>, <code>hindsight_recall</code>, and <code>hindsight_reflect</code>. These tools allow your agents to retain knowledge over time, extract facts from conversations, and retrieve relevant context semantically.</p>
+
 <pre><code class="language-python">
-from crewai import Crew
-crew = Crew(
-agents=[...],
-tasks=[...],
-memory=True # &lt;--- That&#x27;s it
-)
+pip install hindsight-all hindsight-autogen autogen-agentchat &quot;autogen-ext[openai]&quot;
 </code></pre>
-<p>This enables the memory system with sensible defaults — if you need more control, configure each memory type individually.</p>
 
-<h3>Understanding Memory Types</h3>
+<h2>Integrating MrMemory</h2>
 
-<p>CrewAI's memory system has three types:</p>
+<p>Now that you have <code>hindsight-autogen</code> set up, let's integrate MrMemory into your AutoGen agents. With MrMemory, you can easily remember and recall context using a simple API.</p>
 
-<ol>
-<li><strong>Short-term memory</strong>: stores session context and is lost when the session ends.</li>
-<li><strong>Long-term memory</strong>: stores cross-session learning and persists between runs.</li>
-<li><strong>Entity memory</strong>: tracks people and concepts across sessions.</li>
-</ol>
-
-<p>Configure each type using the <code>Memory</code> class:</p>
 <pre><code class="language-python">
-from crewai import Memory
-memory = Memory(
-recency_weight=0.5,
-recency_half_life_days=7
-)
-</code></pre>
-<h3>Using MrMemory for Persistent Knowledge Sharing</h3>
-
-<p>While CrewAI's memory system is powerful, implementing and managing it can be a challenge. That's where MrMemory comes in – a managed memory API that simplifies adding persistent knowledge sharing to your CrewAI agents:</p>
-<pre><code class="language-python">
-import mrmemory
-client = mrmemory.MrMemory(api_key=&quot;your-key&quot;)
+from mrmemory import MrMemory
+client = MrMemory(api_key=&quot;your-key&quot;)
 client.remember(&quot;user prefers dark mode&quot;, tags=[&quot;preferences&quot;])
 results = client.recall(&quot;what theme does the user like?&quot;)
 </code></pre>
-<p>Try MrMemory with a 7-day free trial.</p>
 
-<h3>Comparison to Alternatives</h3>
+<h2>Scoping Memory with Tags</h2>
 
-<p>Other memory systems, such as Mem0 and Zep, have different approaches:</p>
+<p>One of the key benefits of MrMemory is its ability to scope memory using tags. This allows you to retrieve specific context based on user preferences or conversation history.</p>
 
-<ul>
-<li><strong>Mem0</strong> requires manual configuration and management.</li>
-<li><strong>Zep</strong> is self-hosted only, limiting its use in large-scale applications.</li>
-</ul>
+<pre><code class="language-python">
+client.remember(&quot;user prefers dark mode&quot;, tags=[&quot;preferences&quot;])
+results = client.recall(&quot;what theme does the user like?&quot;, tags=[&quot;preferences&quot;])
+</code></pre>
 
-<p>MrMemory offers a managed API that simplifies the process of adding persistent knowledge sharing to your CrewAI agents.</p>
+<h2>Comparison Time</h2>
 
-<h3>Conclusion</h3>
-
-<p>Adding long-term memory to your CrewAI agents is easier than ever. Follow our step-by-step guide and use MrMemory for persistent knowledge sharing to improve performance and efficiency. Try it out today with a 7-day free trial!</p>
-
-<p><strong>Suggested Internal Links:</strong></p>
+<p>While MrMemory offers a robust and easy-to-use API, you may be wondering about other alternatives. Here's a brief comparison:</p>
 
 <ul>
-<li><a href="https://crewai.dev/docs">CrewAI Documentation</a></li>
-<li><a href="https://mrmemory.dev/docs">MrMemory API Reference</a></li>
+<li>Mem0: While Mem0 offers persistence, it lacks the flexibility of MrMemory's tagging system.</li>
+<li>Zep: Self-hosted solutions like Zep can be complex to set up and maintain.</li>
+<li>MemGPT: As a self-hosted solution, MemGPT requires significant infrastructure investment.</li>
 </ul>
 
-<p><strong>Tags:</strong> crewai, memory, long-term memory, persistent knowledge sharing, ai agents, mrmemory</p>
+<h2>Conclusion</h2>
+
+<p>In this tutorial, we've explored how to integrate persistent memory into your AutoGen agents using MrMemory. With its simple API and advanced scoping capabilities, MrMemory makes it easy to build conversational AI systems that remember everything.</p>
+
+<p><strong>Try MrMemory today and take the first step towards building more efficient conversations!</strong></p>
+
+<p>---</p>
+
+<p><strong>Internal Links:</strong></p>
+
+<ul>
+<li><a href="https://fastio.com/blog/auto-gen-memory-guide-managing-state-persistence/">AutoGen Memory Guide</a></li>
+<li><a href="https://rockb.com/mem0-guide-2026-add-persistent-memory-to-your-ai-agents/">Mem0 Guide 2026</a></li>
+</ul>
+
+<p><strong>Tags:</strong> AutoGen, Persistent Memory, MrMemory, Hindsight, Conversational AI, Contextual Understanding</p>
 <p>---</p>
     </div>
 
