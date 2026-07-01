@@ -1,5 +1,18 @@
 [
   {
+    "slug": "chatbot-amnesia-fixing-it-with-mrmemory",
+    "title": "Chatbot Amnesia: Fixing It with MrMemory",
+    "description": "Don't let your chatbot forget everything. Add memory to your OpenAI Agents in 5 minutes.",
+    "date": "2026-07-01",
+    "readTime": "1 min read",
+    "tags": [
+      "openai",
+      "agents sdk",
+      "memory",
+      "persistent memory"
+    ]
+  },
+  {
     "slug": "untitled",
     "title": "Untitled",
     "description": "We've all been there - building conversational AI systems that forget everything when the conversation ends. It's frustrating, to say the least. But what i",
