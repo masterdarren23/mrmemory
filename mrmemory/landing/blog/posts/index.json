@@ -1,5 +1,16 @@
 [
   {
+    "slug": "set-retention-policy-for-30-days",
+    "title": "Set retention policy for 30 days",
+    "description": "**Preventing Data Pollution in AI Agents**",
+    "date": "2026-07-05",
+    "readTime": "1 min read",
+    "tags": [
+      "AI",
+      "MrMemory"
+    ]
+  },
+  {
     "slug": "untitled",
     "title": "Untitled",
     "description": "Imagine an AI agent that's as forgetful as a college student. It can't recall past experiences, makes bad decisions, and accumulates \"operational debt\" \u2013 t",
