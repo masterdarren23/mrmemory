@@ -1,5 +1,16 @@
 [
   {
+    "slug": "initialize-mrmemory-client-with-api-key",
+    "title": "Initialize MrMemory client with API key",
+    "description": "**The Memory Problem: Why Keyword Search Fails**",
+    "date": "2026-07-06",
+    "readTime": "2 min read",
+    "tags": [
+      "AI",
+      "MrMemory"
+    ]
+  },
+  {
     "slug": "set-retention-policy-for-30-days",
     "title": "Set retention policy for 30 days",
     "description": "**Preventing Data Pollution in AI Agents**",
