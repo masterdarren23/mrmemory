@@ -1,5 +1,16 @@
 [
   {
+    "slug": "create-a-new-bank-for-the-team",
+    "title": "Create a new bank for the team",
+    "description": "Imagine a customer support team where each agent has its own version of the customer's history. One might think it's fixed by just sharing all information,",
+    "date": "2026-07-07",
+    "readTime": "2 min read",
+    "tags": [
+      "AI",
+      "MrMemory"
+    ]
+  },
+  {
     "slug": "initialize-mrmemory-client-with-api-key",
     "title": "Initialize MrMemory client with API key",
     "description": "**The Memory Problem: Why Keyword Search Fails**",
