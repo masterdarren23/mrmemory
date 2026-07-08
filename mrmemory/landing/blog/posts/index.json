@@ -1,5 +1,13 @@
 [
   {
+    "slug": "untitled",
+    "title": "Untitled",
+    "description": "When customer support agents can't recall a crucial procedure, it's not because they forgot a fact \u2013 it's because their memory management is broken. This l",
+    "date": "2026-07-08",
+    "readTime": "1 min read",
+    "tags": []
+  },
+  {
     "slug": "create-a-new-bank-for-the-team",
     "title": "Create a new bank for the team",
     "description": "Imagine a customer support team where each agent has its own version of the customer's history. One might think it's fixed by just sharing all information,",
@@ -31,14 +39,6 @@
       "AI",
       "MrMemory"
     ]
-  },
-  {
-    "slug": "untitled",
-    "title": "Untitled",
-    "description": "Imagine an AI agent that's as forgetful as a college student. It can't recall past experiences, makes bad decisions, and accumulates \"operational debt\" \u2013 t",
-    "date": "2026-07-04",
-    "readTime": "1 min read",
-    "tags": []
   },
   {
     "slug": "chatbot-amnesia-fixing-it-with-mrmemory",
