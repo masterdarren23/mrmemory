@@ -2,8 +2,8 @@
   {
     "slug": "untitled",
     "title": "Untitled",
-    "description": "When customer support agents can't recall a crucial procedure, it's not because they forgot a fact \u2013 it's because their memory management is broken. This l",
-    "date": "2026-07-08",
+    "description": "[OLLAMA ERROR] HTTPConnectionPool(host='localhost', port=11434): Max retries exceeded with url: /api/chat (Caused by NewConnectionError('<urllib3.connectio",
+    "date": "2026-07-09",
     "readTime": "1 min read",
     "tags": []
   },
