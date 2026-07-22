@@ -1,5 +1,16 @@
 [
   {
+    "slug": "initialize-mrmemory-client",
+    "title": "Initialize MrMemory client",
+    "description": "CrewAI agents are powerful tools for automating tasks and workflows. But when they don't retain any information between runs, it's like starting from scrat",
+    "date": "2026-07-21",
+    "readTime": "1 min read",
+    "tags": [
+      "AI",
+      "MrMemory"
+    ]
+  },
+  {
     "slug": "untitled",
     "title": "Untitled",
     "description": "**Integrating MrMemory with LangChain: A Solution to Persistent AI**",
@@ -63,17 +74,6 @@
       "agents sdk",
       "memory",
       "persistent memory"
-    ]
-  },
-  {
-    "slug": "initialize-mrmemory-client",
-    "title": "Initialize MrMemory client",
-    "description": "**Cutting AI Agent Memory Costs in Half**",
-    "date": "2026-06-28",
-    "readTime": "1 min read",
-    "tags": [
-      "AI",
-      "MrMemory"
     ]
   },
   {
