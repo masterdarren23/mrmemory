@@ -1,5 +1,16 @@
 [
   {
+    "slug": "create-two-ai-agents-alex-technical-architect-and-sam-full-stack-developer",
+    "title": "Create two AI agents: Alex (Technical Architect) and Sam (Full-Stack Developer)",
+    "description": "Traditional large language models (LLMs) lack state, making it difficult to maintain context and recall previous interactions. But what if your AI agents c",
+    "date": "2026-07-23",
+    "readTime": "2 min read",
+    "tags": [
+      "AI",
+      "MrMemory"
+    ]
+  },
+  {
     "slug": "initialize-mrmemory-client",
     "title": "Initialize MrMemory client",
     "description": "CrewAI agents are powerful tools for automating tasks and workflows. But when they don't retain any information between runs, it's like starting from scrat",
