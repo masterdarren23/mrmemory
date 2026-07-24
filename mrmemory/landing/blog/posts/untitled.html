@@ -12,9 +12,9 @@ gtag('config', 'G-TS0RXEVBH6');
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Untitled — MrMemory Blog</title>
-<meta name="description" content="**Integrating MrMemory with LangChain: A Solution to Persistent AI**">
+<meta name="description" content="**The Forgotten Conversation**">
 <meta property="og:title" content="Untitled">
-<meta property="og:description" content="**Integrating MrMemory with LangChain: A Solution to Persistent AI**">
+<meta property="og:description" content="**The Forgotten Conversation**">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://mrmemory.dev/blog/posts/untitled.html">
 <link rel="canonical" href="https://mrmemory.dev/blog/posts/untitled.html">
@@ -103,70 +103,76 @@ footer{border-top:1px solid var(--border);padding:32px 0;text-align:center;color
     <div class="article-header">
       <h1>Untitled</h1>
       <div class="article-meta">
-        <span>2026-07-16</span>
+        <span>2026-07-24</span>
         <span>1 min read</span>
       </div>
       <div class="article-tags"></div>
     </div>
 
     <div class="article-content">
-      <p><strong>Integrating MrMemory with LangChain: A Solution to Persistent AI</strong></p>
+      <p><strong>The Forgotten Conversation</strong></p>
+<p>=====================================</p>
 
-<p>Most large language models (LLMs) are stateless, starting each interaction without any context or memory. This limitation leads to wasted power and lost insight in conversational AI.</p>
+<p>You're building a conversational AI agent that's supposed to remember everything — but let's be real – it forgets. Every conversation starts from scratch, making it hard to retain context and provide personalized responses.</p>
 
-<p>MrMemory is a REST + WebSocket API that solves this problem. It provides seven powerful primitives: remember, recall, share, auto-remember, compress, self-edit, and governance. MrMemory integrates with LangChain, enabling agents to continuously improve, personalize responses, and maintain consistent behavior across sessions.</p>
+<h3>The Memory Problem</h3>
 
-<h3>Setting Up MrMemory</h3>
+<p>Conversational AIs are great at generating text on the fly, but they suck at remembering what happened before. This is a major pain point for developers like us who want to build sophisticated AI agents that can actually hold a conversation.</p>
 
-<p>To integrate MrMemory with LangChain, you'll need to install the MrMemory package using pip:</p>
+<p><strong>Enter MrMemory</strong></p>
+
+<p>MrMemory is a simple API that remembers, recalls, and shares memories across agents. It's got powerful primitives and a clean interface, making it easy to integrate memory into your OpenAI Agents SDK workflows.</p>
+
+<h3>Getting Started with MrMemory</h3>
+
+<p>First, install the SDK using pip:</p>
 <pre><code class="language-bash">
 pip install mrmemory
 </code></pre>
-<p>Next, import the MrMemory client in your Python script:</p>
+<p>Then, import the client and create an instance with your API key:</p>
 <pre><code class="language-python">
 from mrmemory import MrMemory
 client = MrMemory(api_key=&quot;your-key&quot;)
 </code></pre>
-<h3>Using MrMemory with LangChain</h3>
+<h3>Remembering is Easy</h3>
 
-<p>Once set up, you can use MrMemory's API to store and retrieve memories. For example, let's store a memory about the user's preferences:</p>
+<p>Use the <code>remember()</code> method to store memories with automatic embedding and indexing. This way, you can easily recall relevant information later on.</p>
 <pre><code class="language-python">
 client.remember(&quot;user prefers dark mode&quot;, tags=[&quot;preferences&quot;])
 </code></pre>
-<p>Later, when recalling memories related to the user's theme preference, LangChain will search for similar content using semantic recall:</p>
+<p>And when you need it, just use the <code>recall()</code> method for semantic search that returns relevant results:</p>
 <pre><code class="language-python">
 results = client.recall(&quot;what theme does the user like?&quot;)
 </code></pre>
-<h3>Integrating with Other Solutions</h3>
+<h3>Don't Get Fooled by Alternatives</h3>
 
-<p>MrMemory also provides native integration with LangGraph's Long-term Memory Store. This allows agents to maintain long-term memory and continuously improve.</p>
-
-<p>Other memory solutions, such as Mem0, Zep, and MemGPT, exist but lack some of MrMemory's features, like compression (40-60% token savings) and self-edit tools.</p>
-
-<p>Comparison Table:</p>
+<p>Mem0 is another integration with the OpenAI Agents SDK, but it's got fewer features and worse performance than MrMemory. Zep and MemGPT are self-hosted alternatives that require more infrastructure setup – not exactly what you want when building a conversational AI.</p>
 
 <table>
-<tr><th>Feature</th><th>MrMemory</th><th>Mem0</th><th>Zep</th><th>MemGPT</th></tr>
-<tr><th>Compression</th><th>40-60% token savings</th><th>No</th><th>No</th><th>No</th></tr>
-<tr><th>Self-Edit Tools</th><th>Yes</th><th>No</th><th>No</th><th>No</th></tr>
+<tr><th>Framework</th><th>Features</th><th>Performance</th></tr>
+<tr><th>MrMemory</th><th>Persistent memory, auto-remember, compression, governance</th><th>Sub-millisecond overhead</th></tr>
+<tr><th>Mem0</th><th>Memory integration with OpenAI Agents SDK</th><th>Good performance, but less features than MrMemory</th></tr>
 
-<h3>Conclusion</h3>
+<h3>Try It Out</h3>
 
-<p>Integrating MrMemory with LangChain is a straightforward process that enables agents to maintain long-term memory and continuously improve. With MrMemory's powerful primitives, you can enhance conversational capabilities and of your AI agents.</p>
+<p>Integrating MrMemory with the OpenAI Agents SDK is straightforward. Give it a shot and see how much better your AI agents will perform.</p>
 
-<p>Try MrMemory today and experience the benefits of memory integration!</p>
+<p><strong>Start 7-Day Free Trial</strong></p>
+<p>Read the Docs</p>
+<p>Free for 7 days · Then $5/mo · Cancel anytime</p>
+
+<p>Join our dev list for new features, tutorials, and no spam.</p>
 
 <p>---</p>
 
-<p><strong>Tags:</strong> mrmemory, langchain, ai-memory, natural-language-processing, conversational-ai</p>
-
-<p><strong>Internal Links:</strong></p>
+<p>Suggested internal links:</p>
 
 <ul>
-<li><a href="https://mrmemory.dev/docs">MrMemory Documentation</a></li>
-<li><a href="https://langchain.com/tutorials/2026/memory/">LangChain Memory Tutorial 2026</a></li>
-<li><a href="https://docs.langchain.com/integrations/in-memory-byte-store">InMemoryByteStore Integration with LangChain</a></li>
+<li><a href="https://mrmemory.dev/docs">MrMemory documentation</a></li>
+<li><a href="https://openai.com/api/docs/agents-sdk">OpenAI Agents SDK documentation</a></li>
 </ul>
+
+<p>Tags: ai, memory, openai-agents-sdk, mrmemory, persistent-memory</p>
     </div>
 
     <div class="article-cta">
