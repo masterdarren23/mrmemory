@@ -12,9 +12,9 @@ gtag('config', 'G-TS0RXEVBH6');
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Untitled — MrMemory Blog</title>
-<meta name="description" content="Stateless AI models are stuck in the past. They can&#x27;t retain context during conversations, leading to frustrating user experiences and reduced agent capabi">
+<meta name="description" content="**Tags:** mrmemory, streamlit, chatbot, memory-enabled, conversational ai, langchain, llama, mem0, zep, memgpt">
 <meta property="og:title" content="Untitled">
-<meta property="og:description" content="Stateless AI models are stuck in the past. They can&#x27;t retain context during conversations, leading to frustrating user experiences and reduced agent capabi">
+<meta property="og:description" content="**Tags:** mrmemory, streamlit, chatbot, memory-enabled, conversational ai, langchain, llama, mem0, zep, memgpt">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://mrmemory.dev/blog/posts/untitled.html">
 <link rel="canonical" href="https://mrmemory.dev/blog/posts/untitled.html">
@@ -103,90 +103,21 @@ footer{border-top:1px solid var(--border);padding:32px 0;text-align:center;color
     <div class="article-header">
       <h1>Untitled</h1>
       <div class="article-meta">
-        <span>2026-07-25</span>
-        <span>2 min read</span>
+        <span>2026-07-26</span>
+        <span>1 min read</span>
       </div>
       <div class="article-tags"></div>
     </div>
 
     <div class="article-content">
-      <h3>Introduction</h3>
+      <p><strong>Tags:</strong> mrmemory, streamlit, chatbot, memory-enabled, conversational ai, langchain, llama, mem0, zep, memgpt</p>
 
-<p>Stateless AI models are stuck in the past. They can't retain context during conversations, leading to frustrating user experiences and reduced agent capabilities. But what if you could create an AI that learns from its mistakes and adapts over time?</p>
-
-<p>Let's take a look at how to build a memory-powered API using MrMemory and FastAPI.</p>
-
-<h3>Building a Memory-Enabled Agent</h3>
-
-<p>To create an agent that can perceive, decide, act, and remember, you need to treat memory as a first-class citizen in your system architecture. A modular design allows you to evolve individual components independently, ensuring a scalable solution.</p>
-
-<p>MrMemory makes it easy to integrate memory into FastAPI:</p>
-<pre><code class="language-python">
-from mrmemory import MrMemory
-
-client = MrMemory(api_key=&quot;your-key&quot;)
-client.remember(&quot;user prefers dark mode&quot;, tags=[&quot;preferences&quot;])
-</code></pre>
-<p>This code snippet shows how to store a user preference in MrMemory using the <code>remember</code> method. The <code>tags</code> parameter allows for efficient recall of related memories.</p>
-
-<h3>Semantic Embeddings for Smarter Recall</h3>
-
-<p>Semantic embeddings are key to unlocking smarter recall capabilities. By representing memories as dense vectors, you can leverage vector-based search and retrieval algorithms.</p>
-
-<p>MrMemory's API provides a simple interface for working with semantic embeddings:</p>
-<pre><code class="language-python">
-results = client.recall(&quot;what theme does the user like?&quot;)
-</code></pre>
-<p>This example shows how to retrieve related memories using the <code>recall</code> method. The results will be returned as a list of tuples containing the memory and its associated tags.</p>
-
-<h3>FastAPI Integration</h3>
-
-<p>To integrate MrMemory into your FastAPI application, use this code:</p>
-<pre><code class="language-python">
-from fastapi import FastAPI
-from mrmemory import MrMemory
-
-app = FastAPI()
-client = MrMemory(api_key=&quot;your-key&quot;)
-
-@app.get(&quot;/remember&quot;)
-def remember():
-    client.remember(&quot;user prefers dark mode&quot;, tags=[&quot;preferences&quot;])
-    return {&quot;message&quot;: &quot;Memory stored successfully&quot;}
-
-@app.get(&quot;/recall&quot;)
-def recall():
-    results = client.recall(&quot;what theme does the user like?&quot;)
-    return {&quot;results&quot;: results}
-</code></pre>
-<p>This example demonstrates how to create API endpoints for storing and retrieving memories using MrMemory's API.</p>
-
-<h3>Comparison with Alternatives</h3>
-
-<p>Other memory management solutions, such as Mem0 and Zep, exist. But MrMemory stands out due to its ease of use, scalability, and cost-effectiveness:</p>
+<p><strong>Internal Links:</strong></p>
 
 <ul>
-<li><strong>Easy to integrate</strong>: MrMemory provides a simple API that makes it easy to get started.</li>
-<li><strong>Scalable architecture</strong>: MrMemory's design can handle large volumes of data and scale with your application.</li>
-<li><strong>Cost-effective</strong>: MrMemory offers a more affordable solution compared to other memory management solutions.</li>
+<li>"Getting Started with MrMemory"</li>
+<li>"MrMemory vs. Mem0: A Comparison of Memory-Enabled Chatbots"</li>
 </ul>
-
-<h3>Conclusion</h3>
-
-<p>Building a memory-powered API using MrMemory and FastAPI enables your AI agents to recall past experiences and improve their decision-making. With its ease of use, scalability, and cost-effectiveness, MrMemory is an attractive choice for developers looking to integrate memory into their applications.</p>
-
-<p>Try MrMemory today and start creating adaptive collaborators that learn from past experiences!</p>
-
-<p>---</p>
-
-<p><strong>Internal links:</strong></p>
-
-<ul>
-<li><a href="https://mrmemory.dev/docs">MrMemory Documentation</a></li>
-<li><a href="https://fastapi.tiangolo.com/">FastAPI Documentation</a></li>
-</ul>
-
-<p><strong>Tags:</strong> AI, memory management, FastAPI, MrMemory, semantic embeddings</p>
     </div>
 
     <div class="article-cta">
