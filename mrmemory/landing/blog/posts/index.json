@@ -1,5 +1,16 @@
 [
   {
+    "slug": "example-vector-embedding",
+    "title": "Example vector embedding",
+    "description": "Imagine you're building an AI agent that needs to recall user preferences. You store the preference \"dark mode\" as a string, but when the agent tries to re",
+    "date": "2026-07-27",
+    "readTime": "2 min read",
+    "tags": [
+      "AI",
+      "MrMemory"
+    ]
+  },
+  {
     "slug": "untitled",
     "title": "Untitled",
     "description": "**Tags:** mrmemory, streamlit, chatbot, memory-enabled, conversational ai, langchain, llama, mem0, zep, memgpt",
