@@ -1,5 +1,16 @@
 [
   {
+    "slug": "initialize-mrmemory-client-with-api-key",
+    "title": "Initialize MrMemory client with API key",
+    "description": "Imagine you're trying to optimize a self-driving car's navigation system. It needs to remember every pothole, traffic light, and pedestrians it encounters.",
+    "date": "2026-07-28",
+    "readTime": "1 min read",
+    "tags": [
+      "AI",
+      "MrMemory"
+    ]
+  },
+  {
     "slug": "example-vector-embedding",
     "title": "Example vector embedding",
     "description": "Imagine you're building an AI agent that needs to recall user preferences. You store the preference \"dark mode\" as a string, but when the agent tries to re",
@@ -57,17 +68,6 @@
     "title": "Create a new bank for the team",
     "description": "Imagine a customer support team where each agent has its own version of the customer's history. One might think it's fixed by just sharing all information,",
     "date": "2026-07-07",
-    "readTime": "2 min read",
-    "tags": [
-      "AI",
-      "MrMemory"
-    ]
-  },
-  {
-    "slug": "initialize-mrmemory-client-with-api-key",
-    "title": "Initialize MrMemory client with API key",
-    "description": "**The Memory Problem: Why Keyword Search Fails**",
-    "date": "2026-07-06",
     "readTime": "2 min read",
     "tags": [
       "AI",
