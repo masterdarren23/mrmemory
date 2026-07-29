@@ -1,5 +1,16 @@
 [
   {
+    "slug": "initialize-mrmemory-client",
+    "title": "Initialize MrMemory client",
+    "description": "**Context Pollution: The Silent Killer of AI Agents**",
+    "date": "2026-07-29",
+    "readTime": "2 min read",
+    "tags": [
+      "AI",
+      "MrMemory"
+    ]
+  },
+  {
     "slug": "initialize-mrmemory-client-with-api-key",
     "title": "Initialize MrMemory client with API key",
     "description": "Imagine you're trying to optimize a self-driving car's navigation system. It needs to remember every pothole, traffic light, and pedestrians it encounters.",
@@ -35,17 +46,6 @@
     "description": "Traditional large language models (LLMs) lack state, making it difficult to maintain context and recall previous interactions. But what if your AI agents c",
     "date": "2026-07-23",
     "readTime": "2 min read",
-    "tags": [
-      "AI",
-      "MrMemory"
-    ]
-  },
-  {
-    "slug": "initialize-mrmemory-client",
-    "title": "Initialize MrMemory client",
-    "description": "CrewAI agents are powerful tools for automating tasks and workflows. But when they don't retain any information between runs, it's like starting from scrat",
-    "date": "2026-07-21",
-    "readTime": "1 min read",
     "tags": [
       "AI",
       "MrMemory"

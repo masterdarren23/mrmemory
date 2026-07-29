@@ -12,9 +12,9 @@ gtag('config', 'G-TS0RXEVBH6');
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Initialize MrMemory client — MrMemory Blog</title>
-<meta name="description" content="CrewAI agents are powerful tools for automating tasks and workflows. But when they don&#x27;t retain any information between runs, it&#x27;s like starting from scrat">
+<meta name="description" content="**Context Pollution: The Silent Killer of AI Agents**">
 <meta property="og:title" content="Initialize MrMemory client">
-<meta property="og:description" content="CrewAI agents are powerful tools for automating tasks and workflows. But when they don&#x27;t retain any information between runs, it&#x27;s like starting from scrat">
+<meta property="og:description" content="**Context Pollution: The Silent Killer of AI Agents**">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://mrmemory.dev/blog/posts/initialize-mrmemory-client.html">
 <link rel="canonical" href="https://mrmemory.dev/blog/posts/initialize-mrmemory-client.html">
@@ -103,76 +103,88 @@ footer{border-top:1px solid var(--border);padding:32px 0;text-align:center;color
     <div class="article-header">
       <h1>Initialize MrMemory client</h1>
       <div class="article-meta">
-        <span>2026-07-21</span>
-        <span>1 min read</span>
+        <span>2026-07-29</span>
+        <span>2 min read</span>
       </div>
       <div class="article-tags"><span class="tag">AI</span><span class="tag">MrMemory</span></div>
     </div>
 
     <div class="article-content">
-      <h3>The Problem with In-Memory Agents</h3>
+      <p><strong>Context Pollution: The Silent Killer of AI Agents</strong></p>
+<p>=====================================================</p>
 
-<p>CrewAI agents are powerful tools for automating tasks and workflows. But when they don't retain any information between runs, it's like starting from scratch every time. That makes it tough to create personalized experiences based on user history. Take Sarah, a marketing manager who uses CrewAI to automate lead generation. Without persistent memory, the agent forgets her past interactions with each new run, leading to inconsistent results and a frustrating experience.</p>
+<p>Imagine building a support bot that recalls yesterday's ticket or an agent that remembers user preferences. Sounds simple, right? Wrong. Without proper memory management, these tasks become impossible or require extensive infrastructure setup.</p>
 
-<h3>Setting Up CrewAI with Persistent Memory</h3>
+<p>Let me tell you a story about a chatbot I built for a client. It was supposed to remember users' favorite topics and suggest relevant content. But without secure memory management, the bot kept forgetting everything. Users were frustrated, and I was stuck debugging token costs that exploded every time we tried to implement context persistence.</p>
 
-<p>To fix this problem, you'll need to install the necessary libraries using pip:</p>
+<h3>The Problem with Traditional LLMs</h3>
 
-<pre><code class="language-bash">
-pip install crewai mrmemory
-</code></pre>
+<p>Traditional large language models are stateless, making it challenging to implement memory management effectively. You can't just shove everything into context – token costs will blow through your budget in no time. But rolling out vector DB pipelines is a massive undertaking that's not exactly what you signed up for as a developer.</p>
 
-<p>Next, import the required modules and set up configurations:</p>
+<h3>Introducing MrMemory: A Managed Memory API</h3>
+
+<p>That's where MrMemory comes in; with its three-layer memory governance architecture, you can ensure secure and efficient memory management:</p>
+
+<h3>Private Scratchpad</h3>
+<p>A private scratchpad is a secure area where sensitive information is stored. Access is restricted to the owner only, ensuring that critical data remains confidential.</p>
 
 <pre><code class="language-python">
 from mrmemory import MrMemory
-from crewai import Agent, Task, Crew
 
 # Initialize MrMemory client
 client = MrMemory(api_key=&quot;your-key&quot;)
-</code></pre>
 
-<p>Now, let's create a shared memory instance for your entire crew using MrMemory's <code>remember</code> method:</p>
-
-<pre><code class="language-python">
-def store_user_preferences(user_id: str, conversation: list):
-&quot;&quot;&quot;Store user preferences from conversation history&quot;&quot;&quot;
+# Store sensitive information in the private scratchpad
 client.remember(&quot;user prefers dark mode&quot;, tags=[&quot;preferences&quot;])
 </code></pre>
 
-<h3>Integrating MrMemory with CrewAI</h3>
-
-<p>To integrate MrMemory with your CrewAI agent, you'll need to inject user context into the agent's backstory. Here's an example of how to do this:</p>
+<h3>Provisional with LLM Judge</h3>
+<p>The provisional layer acts as a buffer between the private scratchpad and the core verified memories. It uses a Large Language Model (LLM) judge to determine whether new memories should be added or rejected.</p>
 
 <pre><code class="language-python">
-def build_context(user_id: str, query: str) -&gt; str:
-&quot;&quot;&quot;Fetch user profile and relevant memories.&quot;&quot;&quot;
-result = client.recall(query)
-return f&quot;User Profile: {result[&#x27;profile&#x27;]}\nCurrent Context: {result[&#x27;context&#x27;]}\nRelevant History: {result[&#x27;history&#x27;]}&quot;
-
-def create_agent_with_memory(user_id: str, role: str, goal: str, query: str) -&gt; Agent:
-&quot;&quot;&quot;Create an agent with user context baked into backstory&quot;&quot;&quot;
-# Inject user context into agent&#x27;s backstory
-backstory = build_context(user_id, query)
-return Agent(role=role, goal=goal, backstory=backstory)
+# Recall information from the provisional layer using semantic search
+results = client.recall(&quot;what theme does the user like?&quot;)
 </code></pre>
 
-<h3>Comparison and Alternatives</h3>
+<h3>Core Verified Memories</h3>
+<p>The core verified memories layer stores all approved memories, ensuring that only trusted and relevant information is retained.</p>
 
-<p>While MrMemory is a powerful solution for persistent memory, there are other alternatives available. Mem0 stores user preferences and past interactions, but it lacks some advanced features of MrMemory. Zep is a self-hosted memory API that requires manual setup and maintenance. MemGPT is a commercial memory API with limited free tier options.</p>
+<p><strong>Three-Layer Memory Governance</strong></p>
+<p>--------------------------------</p>
 
-<h3>Conclusion</h3>
+<p>MrMemory's three-layer architecture provides a secure and efficient memory management system. By separating sensitive information into private scratchpads, using provisional layers with LLM judges, and storing verified memories in the core layer, you can ensure that your AI agents operate securely and efficiently.</p>
 
-<p>Persistent memory is essential for any CrewAI agent looking to provide personalized experiences. By integrating MrMemory into your project, you can easily store and retrieve user preferences and past interactions. Try MrMemory today and take the first step towards creating more efficient and effective AI agents.</p>
+<h3>Alternatives</h3>
+<p>----------------</p>
 
-<p><strong>Internal Links:</strong></p>
+<p>While MrMemory offers a comprehensive solution for three-layer memory governance, other alternatives exist:</p>
 
 <ul>
-<li><a href="https://mrmemory.dev/docs">MrMemory Documentation</a></li>
-<li><a href="https://crewai.com/docs">CrewAI Documentation</a></li>
+<li>Mem0: A managed memory service that lacks compression and self-edit tools.</li>
+<li>Zep: A self-hosted memory management system that requires significant infrastructure setup.</li>
+<li>MemGPT: A language model-based memory management system that uses three tiers but lacks a comprehensive governance framework.</li>
 </ul>
 
-<p><strong>Tags:</strong> persistent memory, crewai, mrmemory, ai agents, automation</p>
+<p><strong>Conclusion</strong></p>
+<p>--------------</p>
+
+<p>Implementing secure memory governance in your AI agents is crucial for efficient and effective operation. MrMemory's three-layer architecture provides a solution, ensuring that sensitive information remains confidential while relevant memories are retained. Try MrMemory today and experience the benefits of secure memory management!</p>
+
+<h3>Related Articles</h3>
+
+<ul>
+<li><a href="https://mrmemory.dev/docs/share-memory-across-team/">How to Share AI Agent Memory Across a Team Without Exposing Private Data</a></li>
+<li><a href="https://mrmemory.dev/docs/three-layer-governance/">Implementing Three-Layer Memory Governance in Your AI Agents</a></li>
+</ul>
+
+<h3>Tags</h3>
+
+<ul>
+<li>three-layer memory governance</li>
+<li>secure memory management</li>
+<li>AI agents</li>
+<li>MrMemory</li>
+</ul>
     </div>
 
     <div class="article-cta">
