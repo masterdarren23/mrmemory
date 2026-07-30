@@ -1,5 +1,13 @@
 [
   {
+    "slug": "untitled",
+    "title": "Untitled",
+    "description": "**The Goldfish Problem: Why AI Agents Forget Everything Between Conversations**",
+    "date": "2026-07-30",
+    "readTime": "1 min read",
+    "tags": []
+  },
+  {
     "slug": "initialize-mrmemory-client",
     "title": "Initialize MrMemory client",
     "description": "**Context Pollution: The Silent Killer of AI Agents**",
@@ -31,14 +39,6 @@
       "AI",
       "MrMemory"
     ]
-  },
-  {
-    "slug": "untitled",
-    "title": "Untitled",
-    "description": "**Tags:** mrmemory, streamlit, chatbot, memory-enabled, conversational ai, langchain, llama, mem0, zep, memgpt",
-    "date": "2026-07-26",
-    "readTime": "1 min read",
-    "tags": []
   },
   {
     "slug": "create-two-ai-agents-alex-technical-architect-and-sam-full-stack-developer",

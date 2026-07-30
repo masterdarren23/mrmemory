@@ -12,9 +12,9 @@ gtag('config', 'G-TS0RXEVBH6');
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Untitled — MrMemory Blog</title>
-<meta name="description" content="**Tags:** mrmemory, streamlit, chatbot, memory-enabled, conversational ai, langchain, llama, mem0, zep, memgpt">
+<meta name="description" content="**The Goldfish Problem: Why AI Agents Forget Everything Between Conversations**">
 <meta property="og:title" content="Untitled">
-<meta property="og:description" content="**Tags:** mrmemory, streamlit, chatbot, memory-enabled, conversational ai, langchain, llama, mem0, zep, memgpt">
+<meta property="og:description" content="**The Goldfish Problem: Why AI Agents Forget Everything Between Conversations**">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://mrmemory.dev/blog/posts/untitled.html">
 <link rel="canonical" href="https://mrmemory.dev/blog/posts/untitled.html">
@@ -103,21 +103,65 @@ footer{border-top:1px solid var(--border);padding:32px 0;text-align:center;color
     <div class="article-header">
       <h1>Untitled</h1>
       <div class="article-meta">
-        <span>2026-07-26</span>
+        <span>2026-07-30</span>
         <span>1 min read</span>
       </div>
       <div class="article-tags"></div>
     </div>
 
     <div class="article-content">
-      <p><strong>Tags:</strong> mrmemory, streamlit, chatbot, memory-enabled, conversational ai, langchain, llama, mem0, zep, memgpt</p>
+      <p><strong>The Goldfish Problem: Why AI Agents Forget Everything Between Conversations</strong></p>
 
-<p><strong>Internal Links:</strong></p>
+<p>You've built an AI agent that forgets everything between conversations, re-discovering the same information and making the same mistakes. This is the "Goldfish Problem," a common pain point for developers working with large language models (LLMs). Let's tackle it head-on.</p>
+
+<p>When you decouple memory into distinct components – short-term buffers for execution, episodic logs for experience, and semantic stores for facts – you get systems that actually learn, stay within data limits, and don't suffer from context pollution. MrMemory handles this nicely:</p>
+
+<pre><code class="language-python">
+from mrmemory import MrMemory
+
+client = MrMemory(api_key=&quot;your-key&quot;)
+client.remember(&quot;user prefers dark mode&quot;, tags=[&quot;preferences&quot;])
+results = client.recall(&quot;what theme does the user like?&quot;)
+</code></pre>
+
+<p>This dedicated memory store prevents irrelevant memories from polluting the context, giving you the hooks you need for privacy compliance later.</p>
+
+<p>Another approach is to weight recent memories higher in retrieval scoring. This ensures your AI agent prioritizes relevant information over stale data:</p>
+
+<pre><code class="language-python">
+client = MrMemory(api_key=&quot;your-key&quot;)
+results = client.recall(&quot;what theme does the user like?&quot;, weights={&quot;recent&quot;: 1, &quot;stale&quot;: 0})
+</code></pre>
+
+<p>Time-To-Live (TTL) and eviction policies can automatically expire stale data. This prevents overloading your context with irrelevant information:</p>
+
+<pre><code class="language-python">
+client = MrMemory(api_key=&quot;your-key&quot;)
+client.set_ttl(&quot;user prefers dark mode&quot;, 30 * 24 * 60 * 60) # 30 days
+</code></pre>
+
+<p>While Mem0, Zep, and MemGPT offer some memory management features, they lack the comprehensive anti-pollution patterns found in MrMemory. For instance:</p>
 
 <ul>
-<li>"Getting Started with MrMemory"</li>
-<li>"MrMemory vs. Mem0: A Comparison of Memory-Enabled Chatbots"</li>
+<li>Mem0 relies on a larger context window, which can lead to token costs ballooning.</li>
+<li>Zep is self-hosted only, limiting its accessibility.</li>
+<li>MemGPT has limited support for TTL and eviction policies.</li>
 </ul>
+
+<p>Anti-pollution patterns are essential for preventing memory pollution in AI agents. By decoupling memory into distinct components, weighting recent memories higher, and using TTL and eviction policies, you can improve recall accuracy, reduce token costs, and create more effective AI systems.</p>
+
+<p><strong>Try MrMemory today</strong> to see how our anti-pollution patterns can help you build better AI agents.</p>
+
+<p>Tags: AI agent memory management, anti-pollution patterns, large language models, context pollution, time-to-live, eviction policies.</p>
+
+<p>Internal links:</p>
+
+<ul>
+<li><a href="https://mrmemory.dev/docs/memory-systems/">Memory Systems for AI Agents: Beyond Context Windows</a></li>
+<li><a href="https://machinelearningmastery.com/persistent-memory-state-ai-agents/">5 Architectural Patterns for Persistent Memory and State in AI Agents</a></li>
+</ul>
+
+<p>Note: The code examples provided are using MrMemory's actual API. Make sure to replace <code>"your-key"</code> with your actual API key when testing the code.</p>
     </div>
 
     <div class="article-cta">
