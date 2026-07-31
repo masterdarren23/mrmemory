@@ -1,5 +1,17 @@
 [
   {
+    "slug": "designing-memory-schemas-for-multi-agent-systems",
+    "title": "Designing Memory Schemas for Multi-Agent Systems",
+    "description": "Learn how to design effective memory schemas for multi-agent systems, a crucial aspect of building scalable and efficient AI agents.",
+    "date": "2026-07-31",
+    "readTime": "1 min read",
+    "tags": [
+      "multi-agent systems",
+      "memory engineering",
+      "AI agents"
+    ]
+  },
+  {
     "slug": "untitled",
     "title": "Untitled",
     "description": "**The Goldfish Problem: Why AI Agents Forget Everything Between Conversations**",
