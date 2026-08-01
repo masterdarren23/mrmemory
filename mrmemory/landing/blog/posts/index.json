@@ -1,5 +1,13 @@
 [
   {
+    "slug": "untitled",
+    "title": "Untitled",
+    "description": "The Memory Problem Plagues AI Agents",
+    "date": "2026-08-01",
+    "readTime": "2 min read",
+    "tags": []
+  },
+  {
     "slug": "designing-memory-schemas-for-multi-agent-systems",
     "title": "Designing Memory Schemas for Multi-Agent Systems",
     "description": "Learn how to design effective memory schemas for multi-agent systems, a crucial aspect of building scalable and efficient AI agents.",
@@ -10,14 +18,6 @@
       "memory engineering",
       "AI agents"
     ]
-  },
-  {
-    "slug": "untitled",
-    "title": "Untitled",
-    "description": "**The Goldfish Problem: Why AI Agents Forget Everything Between Conversations**",
-    "date": "2026-07-30",
-    "readTime": "1 min read",
-    "tags": []
   },
   {
     "slug": "initialize-mrmemory-client",

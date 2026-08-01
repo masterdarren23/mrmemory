@@ -12,9 +12,9 @@ gtag('config', 'G-TS0RXEVBH6');
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Untitled — MrMemory Blog</title>
-<meta name="description" content="**The Goldfish Problem: Why AI Agents Forget Everything Between Conversations**">
+<meta name="description" content="The Memory Problem Plagues AI Agents">
 <meta property="og:title" content="Untitled">
-<meta property="og:description" content="**The Goldfish Problem: Why AI Agents Forget Everything Between Conversations**">
+<meta property="og:description" content="The Memory Problem Plagues AI Agents">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://mrmemory.dev/blog/posts/untitled.html">
 <link rel="canonical" href="https://mrmemory.dev/blog/posts/untitled.html">
@@ -103,19 +103,30 @@ footer{border-top:1px solid var(--border);padding:32px 0;text-align:center;color
     <div class="article-header">
       <h1>Untitled</h1>
       <div class="article-meta">
-        <span>2026-07-30</span>
-        <span>1 min read</span>
+        <span>2026-08-01</span>
+        <span>2 min read</span>
       </div>
       <div class="article-tags"></div>
     </div>
 
     <div class="article-content">
-      <p><strong>The Goldfish Problem: Why AI Agents Forget Everything Between Conversations</strong></p>
+      <p>The Memory Problem Plagues AI Agents</p>
 
-<p>You've built an AI agent that forgets everything between conversations, re-discovering the same information and making the same mistakes. This is the "Goldfish Problem," a common pain point for developers working with large language models (LLMs). Let's tackle it head-on.</p>
+<p>Meta description: Discover the top memory frameworks for AI agents and find out which one suits your needs best. Learn about Mem0, Letta, Zep, and Cognee's strengths and weaknesses.</p>
 
-<p>When you decouple memory into distinct components – short-term buffers for execution, episodic logs for experience, and semantic stores for facts – you get systems that actually learn, stay within data limits, and don't suffer from context pollution. MrMemory handles this nicely:</p>
+<h3>The Forgotten Conversation</h3>
 
+<p>You're building an AI-powered chatbot, but it keeps forgetting crucial details from user interactions. This isn't just a minor annoyance – it's a major issue that can break even the most sophisticated models. We've all been there: you train your model on a massive dataset, only to have it forget everything by the next day.</p>
+
+<p>To solve this problem, several memory frameworks have emerged in recent years. In this article, we'll compare Mem0 and Letta – two of the most popular options.</p>
+
+<h3>Memory Frameworks 101</h3>
+
+<p>Memory frameworks are designed to store and retrieve relevant information about user interactions, sessions, and conversations. They can be categorized based on their architecture, persistence model, latency, and compliance requirements.</p>
+
+<h3>Mem0: A Hybrid Store with Automatic Extraction</h3>
+
+<p>Mem0 is a hybrid vector+graph+key-value store that offers automatic extraction and a free tier. It's ideal for personalization and has been shown to achieve high accuracy in temporal retrieval tasks. For example:</p>
 <pre><code class="language-python">
 from mrmemory import MrMemory
 
@@ -123,45 +134,38 @@ client = MrMemory(api_key=&quot;your-key&quot;)
 client.remember(&quot;user prefers dark mode&quot;, tags=[&quot;preferences&quot;])
 results = client.recall(&quot;what theme does the user like?&quot;)
 </code></pre>
+<p>However, Mem0 lacks SOC 2 and HIPAA certifications, making it less suitable for production environments.</p>
 
-<p>This dedicated memory store prevents irrelevant memories from polluting the context, giving you the hooks you need for privacy compliance later.</p>
+<h3>Letta: An OS-Style Runtime with Agent-Managed Memory</h3>
 
-<p>Another approach is to weight recent memories higher in retrieval scoring. This ensures your AI agent prioritizes relevant information over stale data:</p>
+<p>Letta carries the MemGPT lineage and offers an OS-style runtime where the main context is RAM and archival memory is disk. The agent self-manages allocation through memory tools and a REST API, making it suitable for production environments.</p>
 
-<pre><code class="language-python">
-client = MrMemory(api_key=&quot;your-key&quot;)
-results = client.recall(&quot;what theme does the user like?&quot;, weights={&quot;recent&quot;: 1, &quot;stale&quot;: 0})
-</code></pre>
+<h3>Comparison of Alternatives</h3>
 
-<p>Time-To-Live (TTL) and eviction policies can automatically expire stale data. This prevents overloading your context with irrelevant information:</p>
+<table>
+<tr><th>Framework</th><th>Persistence Model</th><th>Temporal Accuracy</th><th>Latency</th><th>Compliance</th></tr>
+<tr><th>Mem0</th><th>Hybrid vector+graph+key-value store</th><th>High</th><th>Low</th><th>No SOC 2/HIPAA certifications</th></tr>
+<tr><th>Letta</th><th>OS-style runtime (RAM+disk)</th><th>Medium-High</th><th>Medium</th><th>SOC 2 and HIPAA compliant</th></tr>
+<table>
+<tr><th>Zep</th><th>Graphiti (temporal knowledge graph)</th><th>High</th><th>High</th><th>SOC 2 compliant</th></tr>
+<tr><th>Cognee</th><th>Extract-Cognify-Load pipeline (typed knowledge graph)</th><th>Low-Medium</th><th>Low-Medium</th><th>No SOC 2/HIPAA certifications</th></tr>
 
-<pre><code class="language-python">
-client = MrMemory(api_key=&quot;your-key&quot;)
-client.set_ttl(&quot;user prefers dark mode&quot;, 30 * 24 * 60 * 60) # 30 days
-</code></pre>
+<h3>Choosing the Right Framework</h3>
 
-<p>While Mem0, Zep, and MemGPT offer some memory management features, they lack the comprehensive anti-pollution patterns found in MrMemory. For instance:</p>
+<p>When choosing a memory framework for your AI agent project, consider factors like persistence model, temporal accuracy, latency, and compliance requirements. While Mem0 offers high accuracy in temporal retrieval tasks, it lacks SOC 2 and HIPAA certifications. Letta provides a robust OS-style runtime but may require more manual memory management.</p>
 
-<ul>
-<li>Mem0 relies on a larger context window, which can lead to token costs ballooning.</li>
-<li>Zep is self-hosted only, limiting its accessibility.</li>
-<li>MemGPT has limited support for TTL and eviction policies.</li>
-</ul>
+<p>Try MrMemory today to see how its managed memory API can simplify your AI agent development process!</p>
 
-<p>Anti-pollution patterns are essential for preventing memory pollution in AI agents. By decoupling memory into distinct components, weighting recent memories higher, and using TTL and eviction policies, you can improve recall accuracy, reduce token costs, and create more effective AI systems.</p>
+<p>---</p>
 
-<p><strong>Try MrMemory today</strong> to see how our anti-pollution patterns can help you build better AI agents.</p>
-
-<p>Tags: AI agent memory management, anti-pollution patterns, large language models, context pollution, time-to-live, eviction policies.</p>
-
-<p>Internal links:</p>
+<p><strong>Internal links:</strong></p>
 
 <ul>
-<li><a href="https://mrmemory.dev/docs/memory-systems/">Memory Systems for AI Agents: Beyond Context Windows</a></li>
-<li><a href="https://machinelearningmastery.com/persistent-memory-state-ai-agents/">5 Architectural Patterns for Persistent Memory and State in AI Agents</a></li>
+<li><a href="https://mrmemory.dev/docs/ai-agent-memory-fundamentals">AI Agent Memory Fundamentals</a></li>
+<li><a href="https://mrmemory.dev/docs">MrMemory Documentation</a></li>
 </ul>
 
-<p>Note: The code examples provided are using MrMemory's actual API. Make sure to replace <code>"your-key"</code> with your actual API key when testing the code.</p>
+<p><strong>Tags:</strong> ai-agent-memory, mem0, letta, zep, cognee, temporal-accuracy, latency, compliance</p>
     </div>
 
     <div class="article-cta">
