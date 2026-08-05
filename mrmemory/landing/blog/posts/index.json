@@ -1,5 +1,13 @@
 [
   {
+    "slug": "untitled",
+    "title": "Untitled",
+    "description": "Imagine building a chatbot that can't recall your favorite coffee order. Or a customer-support agent that forgets the last conversation's context. That's w",
+    "date": "2026-08-05",
+    "readTime": "2 min read",
+    "tags": []
+  },
+  {
     "slug": "the-forgetful-chatbot-problem",
     "title": "The Forgetful Chatbot Problem",
     "description": "title: Fixing the Forgetful Chatbot",
@@ -9,14 +17,6 @@
       "AI",
       "MrMemory"
     ]
-  },
-  {
-    "slug": "untitled",
-    "title": "Untitled",
-    "description": "Here's the rewritten article:",
-    "date": "2026-08-03",
-    "readTime": "2 min read",
-    "tags": []
   },
   {
     "slug": "designing-memory-schemas-for-multi-agent-systems",
