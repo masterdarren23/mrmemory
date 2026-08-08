@@ -12,9 +12,9 @@ gtag('config', 'G-TS0RXEVBH6');
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Untitled — MrMemory Blog</title>
-<meta name="description" content="**The Amnesia Problem: How to Give Your AI Agent a Memory**">
+<meta name="description" content="Internal links:">
 <meta property="og:title" content="Untitled">
-<meta property="og:description" content="**The Amnesia Problem: How to Give Your AI Agent a Memory**">
+<meta property="og:description" content="Internal links:">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://mrmemory.dev/blog/posts/untitled.html">
 <link rel="canonical" href="https://mrmemory.dev/blog/posts/untitled.html">
@@ -103,81 +103,29 @@ footer{border-top:1px solid var(--border);padding:32px 0;text-align:center;color
     <div class="article-header">
       <h1>Untitled</h1>
       <div class="article-meta">
-        <span>2026-08-07</span>
+        <span>2026-08-08</span>
         <span>1 min read</span>
       </div>
       <div class="article-tags"></div>
     </div>
 
     <div class="article-content">
-      <p><strong>The Amnesia Problem: How to Give Your AI Agent a Memory</strong></p>
-
-<p>Your AI agent is conversing with users, but its conversations are isolated. It can't store or retrieve information across interactions, sessions, and tasks. This limitation is called "amnesia," and it's a showstopper for any real-world workflow.</p>
-
-<h3>Memory Class: Personalization vs Institutional Knowledge</h3>
-
-<p>When choosing an AI agent memory framework, the first decision you need to make is what type of memory class your framework uses. There are two main types:</p>
+      <p>Internal links:</p>
 
 <ul>
-<li>Personalization: stores user preferences and behavior.</li>
-<li>Institutional: handles storage and retrieval of institutional knowledge.</li>
+<li><a href="/blog/ai-agent-memory-guide">AI Agent Memory: A Complete Guide</a></li>
+<li><a href="https://mrmemory.dev/docs">MrMemory Documentation</a></li>
 </ul>
 
-<p>Some frameworks offer both personalization and institutional memory, while others specialize in one or the other. For example, MrMemory offers a hybrid approach that combines flat key-value storage with vector embeddings.</p>
-
-<pre><code class="language-python">
-from mrmemory import MrMemory
-
-client = MrMemory(api_key=&quot;your-key&quot;)
-client.remember(&quot;user prefers dark mode&quot;, tags=[&quot;preferences&quot;])
-results = client.recall(&quot;what theme does the user like?&quot;)
-</code></pre>
-
-<h3>Architecture Matters: Vector, Graph, or Flat Storage?</h3>
-
-<p>The architecture of your framework is also crucial. You'll need to consider:</p>
+<p>Tags:</p>
 
 <ul>
-<li>Vector-based memory for efficient retrieval.</li>
-<li>Graph-based memory for storing complex relationships.</li>
-<li>Flat key-value storage for simplicity.</li>
+<li>ai-agent-memory</li>
+<li>mrmemory</li>
+<li>mem0</li>
+<li>zep</li>
+<li>letta</li>
 </ul>
-
-<p>MrMemory's hybrid approach uses flat key-value storage with vector embeddings.</p>
-
-<h3>Don't Get Locked In: Open Source and Proprietary Frameworks</h3>
-
-<p>Another essential consideration is whether your framework is open source or proprietary. MrMemory is open source under the Apache 2.0 license, which means you're free to modify and distribute it as you see fit.</p>
-
-<h3>Self-Hosting Options: Flexibility Matters</h3>
-
-<p>Finally, consider whether you need to host the memory framework yourself or rely on a managed cloud service. MrMemory offers both options, making it flexible for different use cases.</p>
-
-<h3>Comparison Time: Alternatives to MrMemory</h3>
-
-<p>When choosing an AI agent memory framework, you'll also want to consider alternatives like Mem0, Zep, and MemGPT. While these frameworks have their strengths, they lack some features of MrMemory, such as:</p>
-
-<ul>
-<li>Memory compression (40-60% token savings)</li>
-<li>LangChain integration</li>
-<li>Self-edit tools</li>
-<li>Three-layer governance</li>
-</ul>
-
-<h3>Conclusion</h3>
-
-<p>Choosing the right AI agent memory framework requires careful consideration of memory class, architecture, open source and lock-in, and self-hosting options. MrMemory offers a flexible, open-source solution that's worth checking out.</p>
-
-<p>Try MrMemory today and give your AI agents the power of persistent memory!</p>
-
-<p><strong>Internal Links:</strong></p>
-
-<ul>
-<li><a href="mrmemory.dev/docs">MrMemory Documentation</a></li>
-<li><a href="mrmemory.dev/docs/technical-overview">How MrMemory Works</a></li>
-</ul>
-
-<p><strong>Tags:</strong> AI agent memory, MrMemory, AI development, machine learning, natural language processing.</p>
     </div>
 
     <div class="article-cta">
