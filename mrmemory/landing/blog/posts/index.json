@@ -1,5 +1,16 @@
 [
   {
+    "slug": "the-amnesia-problem-in-ai-agents",
+    "title": "The Amnesia Problem in AI Agents",
+    "description": "Your AI agent has no memory. Every session starts from scratch, forgetting conversation history, user preferences, and learned facts. If this is your probl",
+    "date": "2026-08-10",
+    "readTime": "1 min read",
+    "tags": [
+      "AI",
+      "MrMemory"
+    ]
+  },
+  {
     "slug": "untitled",
     "title": "Untitled",
     "description": "[OLLAMA ERROR] HTTPConnectionPool(host='localhost', port=11434): Max retries exceeded with url: /api/chat (Caused by NewConnectionError('<urllib3.connectio",
