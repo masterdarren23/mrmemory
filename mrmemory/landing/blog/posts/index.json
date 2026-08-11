@@ -1,5 +1,13 @@
 [
   {
+    "slug": "untitled",
+    "title": "Untitled",
+    "description": "Have you ever built an AI agent that forgets crucial context mid-conversation? Or worse, starts acting erratically due to unbounded history? You're not alo",
+    "date": "2026-08-11",
+    "readTime": "1 min read",
+    "tags": []
+  },
+  {
     "slug": "the-amnesia-problem-in-ai-agents",
     "title": "The Amnesia Problem in AI Agents",
     "description": "Your AI agent has no memory. Every session starts from scratch, forgetting conversation history, user preferences, and learned facts. If this is your probl",
@@ -9,14 +17,6 @@
       "AI",
       "MrMemory"
     ]
-  },
-  {
-    "slug": "untitled",
-    "title": "Untitled",
-    "description": "[OLLAMA ERROR] HTTPConnectionPool(host='localhost', port=11434): Max retries exceeded with url: /api/chat (Caused by NewConnectionError('<urllib3.connectio",
-    "date": "2026-08-09",
-    "readTime": "1 min read",
-    "tags": []
   },
   {
     "slug": "the-forgetful-chatbot-problem",

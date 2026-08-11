@@ -12,9 +12,9 @@ gtag('config', 'G-TS0RXEVBH6');
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Untitled — MrMemory Blog</title>
-<meta name="description" content="[OLLAMA ERROR] HTTPConnectionPool(host=&#x27;localhost&#x27;, port=11434): Max retries exceeded with url: /api/chat (Caused by NewConnectionError(&#x27;&lt;urllib3.connectio">
+<meta name="description" content="Have you ever built an AI agent that forgets crucial context mid-conversation? Or worse, starts acting erratically due to unbounded history? You&#x27;re not alo">
 <meta property="og:title" content="Untitled">
-<meta property="og:description" content="[OLLAMA ERROR] HTTPConnectionPool(host=&#x27;localhost&#x27;, port=11434): Max retries exceeded with url: /api/chat (Caused by NewConnectionError(&#x27;&lt;urllib3.connectio">
+<meta property="og:description" content="Have you ever built an AI agent that forgets crucial context mid-conversation? Or worse, starts acting erratically due to unbounded history? You&#x27;re not alo">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://mrmemory.dev/blog/posts/untitled.html">
 <link rel="canonical" href="https://mrmemory.dev/blog/posts/untitled.html">
@@ -103,14 +103,77 @@ footer{border-top:1px solid var(--border);padding:32px 0;text-align:center;color
     <div class="article-header">
       <h1>Untitled</h1>
       <div class="article-meta">
-        <span>2026-08-09</span>
+        <span>2026-08-11</span>
         <span>1 min read</span>
       </div>
       <div class="article-tags"></div>
     </div>
 
     <div class="article-content">
-      <p>[OLLAMA ERROR] HTTPConnectionPool(host='localhost', port=11434): Max retries exceeded with url: /api/chat (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000002820A3FCF50>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))</p>
+      <h3>The Amnesia Problem</h3>
+
+<p>Have you ever built an AI agent that forgets crucial context mid-conversation? Or worse, starts acting erratically due to unbounded history? You're not alone. Most AI agents have no persistent memory – every session begins from scratch.</p>
+
+<p>This can lead to frustrating experiences for both humans and machines. Let's explore the 8 best agent memory systems available in 2026, with architecture breakdowns, code examples, and a decision guide to help you pick the right one.</p>
+
+<h3>MrMemory: A Scalable Memory API</h3>
+
+<pre><code class="language-python">
+from mrmemory import MrMemory
+client = MrMemory(api_key=&quot;your-key&quot;)
+client.remember(&quot;user prefers dark mode&quot;, tags=[&quot;preferences&quot;])
+</code></pre>
+
+<p>MrMemory provides a simple yet powerful solution for storing and retrieving information. Its managed memory API simplifies the process of handling complex tasks while maintaining persistent context.</p>
+
+<h3>Comparing Memory Frameworks</h3>
+
+<p>When choosing an AI agent memory framework, consider the following factors:</p>
+
+<ol>
+<li><strong>Memory Class</strong>: Does it support personalization or institutional memory?</li>
+<li><strong>Architecture</strong>: Is it based on vectors, graphs, or hybrid approaches?</li>
+<li><strong>Open Source</strong>: Can you customize and modify the code to fit your needs?</li>
+</ol>
+
+<h3>The Top 5 Memory Frameworks</h3>
+
+<p>Here's a brief comparison of some popular memory frameworks:</p>
+
+<table>
+<tr><th>Framework</th><th>Memory Class</th><th>Architecture</th><th>Open Source</th></tr>
+<tr><th>Mem0</th><th>Personalization + institutional</th><th>Vector + Graph</th><th>Apache 2.0</th></tr>
+<tr><th>Zep / Graphiti</th><th>Both (strongest on temporal)</th><th>Temporal KG</th><th>Graphiti: open</th></tr>
+<table>
+<tr><th>Cognee</th><th>Institutional</th><th>KG + Vector</th><th>Open core</th></tr>
+
+<h3>Alternatives to Mem0</h3>
+
+<p>While Mem0 is a popular choice, it may not be the best fit for every project. Consider MrMemory or Zep / Graphiti for their unique strengths:</p>
+
+<ul>
+<li><strong>MrMemory</strong>: A managed memory API that simplifies storing and retrieving information.</li>
+<pre><code class="language-python">
+results = client.recall(&quot;what theme does the user like?&quot;)
+</code></pre>
+<li><strong>Zep / Graphiti</strong>: A temporal knowledge graph-based framework exceling in handling temporal relationships.</li>
+</ul>
+
+<h3>Conclusion</h3>
+
+<p>Choosing the right AI agent memory framework can be a daunting task, but with this guide, you'll be well-equipped to make an informed decision. Don't get stuck with amnesia – choose a framework that fits your project's needs and try MrMemory today.</p>
+
+<p>---</p>
+
+<p><strong>Internal links:</strong></p>
+
+<ul>
+<li><a href="https://mrmemory.dev/docs">MrMemory documentation</a></li>
+<li><a href="/blog/best-ai-agent-memory-systems-comparison">AI agent memory systems comparison</a></li>
+</ul>
+
+<p><strong>Tags:</strong> AI agent memory, framework comparison, MrMemory, Mem0, Zep, Letta, Cognee.</p>
+<p>---</p>
     </div>
 
     <div class="article-cta">
