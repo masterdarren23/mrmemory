@@ -1,5 +1,18 @@
 [
   {
+    "slug": "beating-cross-session-amnesia-with-mem0-and-mrmemory",
+    "title": "Beating Cross-Session Amnesia with Mem0 and MrMemory",
+    "description": "No more forgotten settings or lost context. Learn how to implement persistent memory in your AI agents with Mem0 and MrMemory.",
+    "date": "2026-08-13",
+    "readTime": "1 min read",
+    "tags": [
+      "AI Agent Memory",
+      "Persistent Memory",
+      "Mem0",
+      "MrMemory"
+    ]
+  },
+  {
     "slug": "untitled",
     "title": "Untitled",
     "description": "**Agent Memory: The Secret to Avoiding AI Amnesia**",
