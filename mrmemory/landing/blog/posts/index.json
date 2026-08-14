@@ -1,5 +1,13 @@
 [
   {
+    "slug": "untitled",
+    "title": "Untitled",
+    "description": "**Long-Term Memory with Mem0: A Guide for AI Agent Developers**",
+    "date": "2026-08-14",
+    "readTime": "1 min read",
+    "tags": []
+  },
+  {
     "slug": "beating-cross-session-amnesia-with-mem0-and-mrmemory",
     "title": "Beating Cross-Session Amnesia with Mem0 and MrMemory",
     "description": "No more forgotten settings or lost context. Learn how to implement persistent memory in your AI agents with Mem0 and MrMemory.",
@@ -11,14 +19,6 @@
       "Mem0",
       "MrMemory"
     ]
-  },
-  {
-    "slug": "untitled",
-    "title": "Untitled",
-    "description": "**Agent Memory: The Secret to Avoiding AI Amnesia**",
-    "date": "2026-08-12",
-    "readTime": "1 min read",
-    "tags": []
   },
   {
     "slug": "the-amnesia-problem-in-ai-agents",
