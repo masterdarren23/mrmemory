@@ -12,9 +12,9 @@ gtag('config', 'G-TS0RXEVBH6');
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Untitled — MrMemory Blog</title>
-<meta name="description" content="**Long-Term Memory with Mem0: A Guide for AI Agent Developers**">
+<meta name="description" content="**The Amnesia Problem: Why Your AI Agent Needs a Memory Upgrade**">
 <meta property="og:title" content="Untitled">
-<meta property="og:description" content="**Long-Term Memory with Mem0: A Guide for AI Agent Developers**">
+<meta property="og:description" content="**The Amnesia Problem: Why Your AI Agent Needs a Memory Upgrade**">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://mrmemory.dev/blog/posts/untitled.html">
 <link rel="canonical" href="https://mrmemory.dev/blog/posts/untitled.html">
@@ -103,87 +103,85 @@ footer{border-top:1px solid var(--border);padding:32px 0;text-align:center;color
     <div class="article-header">
       <h1>Untitled</h1>
       <div class="article-meta">
-        <span>2026-08-14</span>
-        <span>1 min read</span>
+        <span>2026-08-15</span>
+        <span>2 min read</span>
       </div>
       <div class="article-tags"></div>
     </div>
 
     <div class="article-content">
-      <p><strong>Long-Term Memory with Mem0: A Guide for AI Agent Developers</strong></p>
+      <p><strong>The Amnesia Problem: Why Your AI Agent Needs a Memory Upgrade</strong></p>
 
-<p>In the past three years, we've seen a sea change in how AI agents approach memory. Gone are the days of starting from scratch every conversation; now we can measure and compare different architectures using standardized benchmarks.</p>
+<p>Imagine having to relearn everything every time you opened your favorite app. That's basically what happens with most AI agents – they have no memory, so every interaction starts from scratch. This means paying significant token costs re-injecting context, which can add up quickly.</p>
 
-<p>But implementing long-term memory with Mem0 still intimidates many developers. That's why I'm sharing my own journey to get started, along with some essential code snippets to kickstart your project.</p>
+<h2>The Problem: No Memory Means No Context</h2>
 
-<p><strong>Setting Up Mem0</strong></p>
+<p>Without a decent memory system, AI agents can't:</p>
 
-<p>First things first: install the framework and set up a persistence layer. Here's how:</p>
+<ul>
+<li>Learn from past interactions</li>
+<li>Keep track of user preferences or settings</li>
+<li>Build knowledge over time – they're essentially stateless tools</li>
+</ul>
+
+<p>Implementing effective memory systems is complex because you need to handle storage, retrieval, summarization, and context management. It's not just about storing data; it's about making sense of it.</p>
+
+<h2>The Top 8 AI Agent Memory Frameworks: A Comparison</h2>
+
+<p>Here are the top frameworks for alleviating these issues:</p>
+
+<table>
+<tr><th>Framework</th><th>Memory Class</th><th>Architecture</th><th>Open Source</th><th>Stars</th><th>Lock-in</th><th>Managed Cloud</th><th>Self-Host</th></tr>
+<tr><th>MrMemory</th><th>Personalization + some institutional</th><th>Vector + Graph</th><th>Apache 2.0</th><th>~48K</th><th>None</th><th>Yes</th><th>Yes</th></tr>
+<tr><th>Hindsight</th><th>Both (built for institutional)</th><th>Multi-strategy hybrid</th><th>MIT</th><th>~4K (growing fast)</th><th>None</th><th>Yes</th><th>Yes</th></tr>
+<table>
+<tr><th>Letta</th><th>Both</th><th>Tiered (OS-inspired)</th><th>Apache 2.0</th><th>~21K</th><th>None</th><th>Yes</th><th>Yes</th></tr>
+<tr><th>Zep / Graphiti</th><th>Both (strongest on temporal)</th><th>Temporal KG</th><th>Graphiti: open</th><th>~24K</th><th>None</th><th>Yes</th><th>Via Graphiti only</th></tr>
+<tr><th>Cognee</th><th>Institutional</th><th>KG + Vector</th><th>Open core</th><th>~12K</th><th>None</th><th>Yes</th><th>Yes</th></tr>
+<table>
+<tr><th>SuperMemory</th><th>Personalization + some institutional</th><th>Memory + RAG</th><th>No</th><th>—</th><th>None</th><th>Yes</th><th>Enterprise only</th></tr>
+<tr><th>LangMem</th><th>Personalization</th><th>Flat key-value + vector</th><th>MIT</th><th>~1.3K</th><th>LangGraph</th><th>Yes</th></tr>
+<tr><th>LlamaIndex Memory</th><th>Personalization</th><th>Composable buffers</th><th>MIT</th><th>Part of ~48K</th><th>LlamaIndex</th><th>Via LlamaCloud</th><th>Yes</th></tr>
+
+<h2>Using MrMemory: A Quick Example</h2>
+
 <pre><code class="language-python">
 pip install mrmemory
 from mrmemory import MrMemory
-
 client = MrMemory(api_key=&quot;your-key&quot;)
-</code></pre>
-<p>Now you can store memories using <code>remember</code> and recall them with <code>recall</code>. For example, save this user preference:</p>
-<pre><code class="language-python">
 client.remember(&quot;user prefers dark mode&quot;, tags=[&quot;preferences&quot;])
-</code></pre>
-<p>Later, when the user asks about their theme preferences, recall relevant memories like so:</p>
-<pre><code class="language-python">
 results = client.recall(&quot;what theme does the user like?&quot;)
 </code></pre>
-<p><strong>Storing and Retrieving Memories</strong></p>
 
-<p>Mem0's API is robust enough to handle various data types, including text, images, and audio files. When recalling memories, you can filter results using tags.</p>
+<h2>Alternatives and Comparison</h2>
 
-<p>Store these two examples:</p>
-<pre><code class="language-python">
-client.remember(&quot;user has completed task X&quot;, tags=[&quot;tasks&quot;])
-client.remember(&quot;user has watched video Y&quot;, tags=[&quot;videos&quot;])
-</code></pre>
-<p>Then recall the relevant memories like this:</p>
-<pre><code class="language-python">
-results = client.recall(tags=[&quot;tasks&quot;])
-</code></pre>
-<p><strong>Choosing the Right Solution</strong></p>
+<p>If you're considering alternatives, keep in mind that Mem0 offers great performance but limited customization options. Zep excels at temporal context, but requires Graphiti for self-hosting.</p>
 
-<p>While Mem0 is a popular choice, alternatives exist. Zep and MemGPT are two notable examples:</p>
+<table>
+<tr><th>Framework</th><th>Strengths</th><th>Weaknesses</th></tr>
+<tr><th>Mem0</th><th>Fastest overall</th><th>Limited customization</th></tr>
+<tr><th>Zep</th><th>Strongest on temporal context</th><th>Requires Graphiti</th></tr>
 
-<ul>
-<li>Zep: self-hosted with more technical overhead.</li>
-<li>MemGPT: built on GPT-3, but resource-intensive.</li>
-</ul>
+<h2>Conclusion</h2>
 
-<p>When deciding between these options, consider your project's specific needs.</p>
+<p>Choosing the right AI agent memory framework is crucial. With MrMemory, Hindsight, Letta, and other top frameworks available, you can transform your AI agents into intelligent assistants that learn and adapt.</p>
 
-<p><strong>Conclusion</strong></p>
+<p>Try MrMemory today and see how it can help your project succeed!</p>
 
-<p>Implementing long-term memory with Mem0 requires some effort, but the payoff is worth it. By following this guide and using the <code>remember</code> and <code>recall</code> methods effectively, you'll be well on your way to improving your agent's performance.</p>
-
-<p>Try MrMemory today and see the difference for yourself!</p>
-
-<p>---</p>
-
-<p><strong>Internal Links</strong></p>
+<h3>Suggested internal links:</h3>
 
 <ul>
-<li><a href="https://example.com/ai-agent-memory-2026-progress-benchmark-report-evaluations">AI Agent Memory 2026: Progress Benchmark Report Evaluations</a></li>
-<li><a href="https://example.com/how-to-build-a-universal-long-term-memory-layer-for-ai-agents-using-mem0-and-openai">How to Build a Universal Long-Term Memory Layer for AI Agents Using Mem0 and OpenAI</a></li>
+<li><a href="https://mrmemory.dev/docs">MrMemory documentation</a></li>
+<li><a href="https://mrmemory.dev/comparison">Comparison of AI agent memory frameworks</a></li>
 </ul>
 
-<p><strong>Tags</strong></p>
+<h3>Tags:</h3>
 
 <ul>
-<li>#AIAGENTMEMORY</li>
-<li>#MEM0</li>
-<li>#LONGTERM MEMORY</li>
-<li>#AIDEVELOPMENT</li>
+<li>#aigmemory</li>
+<li>#mrmemory</li>
+<li>#aiagentmemory</li>
 </ul>
-
-<p>---</p>
-
-<p>Date: 2026-08-14</p>
     </div>
 
     <div class="article-cta">
