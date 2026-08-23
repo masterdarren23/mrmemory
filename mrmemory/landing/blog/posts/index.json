@@ -2,8 +2,8 @@
   {
     "slug": "untitled",
     "title": "Untitled",
-    "description": "**Long-Term Memory for Your AI Agents: A No-Nonsense Guide**",
-    "date": "2026-08-16",
+    "description": "[OLLAMA ERROR] HTTPConnectionPool(host='localhost', port=11434): Max retries exceeded with url: /api/chat (Caused by NewConnectionError('<urllib3.connectio",
+    "date": "2026-08-22",
     "readTime": "1 min read",
     "tags": []
   },
