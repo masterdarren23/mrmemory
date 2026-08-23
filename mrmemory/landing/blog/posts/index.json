@@ -1,5 +1,16 @@
 [
   {
+    "slug": "initialize-the-client-with-your-api-key",
+    "title": "Initialize the client with your API key",
+    "description": "**The Amnesia Epidemic: Why Your AI Agent Needs a Memory Upgrade**",
+    "date": "2026-08-22",
+    "readTime": "2 min read",
+    "tags": [
+      "AI",
+      "MrMemory"
+    ]
+  },
+  {
     "slug": "the-amnesia-problem-in-ai-agents-how-to-choose-a-memory-framework-that-works",
     "title": "The Amnesia Problem in AI Agents: How to Choose a Memory Framework That Works",
     "description": "AI agents have no persistent memory. Learn how to choose the right memory framework and overcome inefficiencies.",
