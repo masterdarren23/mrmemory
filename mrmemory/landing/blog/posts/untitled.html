@@ -12,9 +12,9 @@ gtag('config', 'G-TS0RXEVBH6');
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Untitled — MrMemory Blog</title>
-<meta name="description" content="The Amnesia Problem: Why Your AI Agent Forgets Everything Between Sessions">
+<meta name="description" content="**The Statelessness Problem**">
 <meta property="og:title" content="Untitled">
-<meta property="og:description" content="The Amnesia Problem: Why Your AI Agent Forgets Everything Between Sessions">
+<meta property="og:description" content="**The Statelessness Problem**">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://mrmemory.dev/blog/posts/untitled.html">
 <link rel="canonical" href="https://mrmemory.dev/blog/posts/untitled.html">
@@ -104,54 +104,25 @@ footer{border-top:1px solid var(--border);padding:32px 0;text-align:center;color
       <h1>Untitled</h1>
       <div class="article-meta">
         <span>2026-08-22</span>
-        <span>3 min read</span>
+        <span>2 min read</span>
       </div>
       <div class="article-tags"></div>
     </div>
 
     <div class="article-content">
-      <p>The Amnesia Problem: Why Your AI Agent Forgets Everything Between Sessions</p>
-<p>=====================================================</p>
+      <p><strong>The Statelessness Problem</strong></p>
 
-<p>Your AI agent has no persistent memory. Every session starts from scratch, erasing conversation history, user preferences, and learned facts. This problem is more common than you think.</p>
+<p>AI agents are everywhere now, but they often forget what they just learned. A stateless LLM can answer a question, but it doesn't remember user preferences, past corrections, or changing business rules. This makes memory infrastructure one of the most important choices in an agent stack.</p>
 
-<p>Let's tackle the elephant in the room. Most AI agents rely on temporary storage, discarding all information when the session ends. This isn't just a minor issue; it affects your agent's ability to learn, adapt, and provide consistent experiences for users.</p>
+<p><strong>Mem0 vs Zep vs EverMind: A Tale of Three Frameworks</strong></p>
 
-<p>In 2026, several AI agent memory frameworks have emerged to address this problem. We'll compare eight top options: MrMemory, Mem0, Zep, Hindsight, Letta, Cognee, SuperMemory, LangMem, and LlamaIndex Memory.</p>
+<p>When building AI agents that need to remember stuff, you've got three popular options: Mem0, Zep, and EverMind. Let's dive into their core features, pricing structures, and ideal use cases.</p>
 
-<h3>A Quick Glance at the Competition</h3>
+<p><strong>Mem0: Persistent Personalization in a Drop-in Package</strong></p>
 
-<p>Here's a summary of the 8 frameworks:</p>
+<p>Mem0 is a favorite among devs looking for a simple way to add memory to their LLMs. It's designed as a drop-in persistent personalization framework that distills memory plus retrieval. With Mem0, you can easily improve decision-making and performance.</p>
 
-<table>
-<tr><th>Framework</th><th>Memory Class</th><th>Architecture</th><th>Open Source</th><th>Stars</th><th>Lock-in</th><th>Managed Cloud</th><th>Self-Host</th></tr>
-<tr><th>Mem0</th><th>Personalization + some institutional</th><th>Vector + Graph</th><th>Apache 2.0</th><th>~48K</th><th>None</th><th>Yes</th><th>Yes</th></tr>
-<tr><th>Hindsight</th><th>Both (built for institutional)</th><th>Multi-strategy hybrid</th><th>MIT</th><th>~4K</th><th>None</th><th>Yes</th><th>Yes</th></tr>
-<table>
-<tr><th>Letta</th><th>Both</th><th>Tiered (OS-inspired)</th><th>Apache 2.0</th><th>~21K</th><th>None</th><th>Yes</th><th>Yes</th></tr>
-<tr><th>Zep / Graphiti</th><th>Both (strongest on temporal)</th><th>Temporal KG</th><th>Graphiti: open</th><th>~24K</th><th>None</th><th>Yes</th><th>Via Graphiti only</th></tr>
-<tr><th>Cognee</th><th>Institutional</th><th>KG + Vector</th><th>Open core</th><th>~12K</th><th>None</th><th>Yes</th><th>Yes</th></tr>
-<table>
-<tr><th>SuperMemory</th><th>Personalization + some institutional</th><th>Memory + RAG</th><th>No</th><th>—</th><th>None</th><th>Yes</th><th>Enterprise only</th></tr>
-<tr><th>LangMem</th><th>Personalization</th><th>Flat key-value + vector</th><th>MIT</th><th>~1.3K</th><th>LangGraph</th><th>Yes</th></tr>
-<tr><th>LlamaIndex Memory</th><th>Personalization</th><th>Composable buffers</th><th>MIT</th><th>Part of ~48K</th><th>LlamaIndex</th><th>Via LlamaCloud</th><th>Yes</th></tr>
-
-<h3>Choosing the Right Framework</h3>
-
-<p>When selecting an AI agent memory framework, consider:</p>
-
-<ul>
-<li><strong>Memory architecture</strong>: How does it store and retrieve information? Vectors, graphs, or something else?</li>
-<li><strong>Persistence model</strong>: How does it persist data across sessions? Database, cache, or something else?</li>
-<li><strong>Multi-agent coordination</strong>: Can it handle multiple agents interacting with each other?</li>
-<li><strong>Self-hosting support</strong>: Can you host the framework yourself, or do you need to use a managed cloud service?</li>
-</ul>
-
-<h3>MrMemory: A Modern AI Agent Memory Framework</h3>
-
-<p>MrMemory offers a simple and scalable solution for storing and retrieving information. It's designed for remembering user preferences, conversation history, and learned facts across sessions.</p>
-
-<p>Here's an example of using MrMemory:</p>
+<p>Here's an example of how to use Mem0 in Python:</p>
 <pre><code class="language-python">
 pip install mrmemory
 from mrmemory import MrMemory
@@ -159,38 +130,48 @@ client = MrMemory(api_key=&quot;your-key&quot;)
 client.remember(&quot;user prefers dark mode&quot;, tags=[&quot;preferences&quot;])
 results = client.recall(&quot;what theme does the user like?&quot;)
 </code></pre>
-<h3>Comparison and Alternatives</h3>
+<p><strong>Zep: Temporal Context Graphs for Enterprise Applications</strong></p>
 
-<p>While MrMemory is a solid choice, you may also want to consider Mem0, Zep, or other frameworks. Here's a brief comparison:</p>
+<p>Zep is a temporal context graph framework built for enterprise applications. It stores and retrieves context as a graph, making it easy to manage complex relationships between entities.</p>
 
-<ul>
-<li><strong>Mem0</strong>: Built on top of vector and graph architectures.</li>
-<li><strong>Zep</strong>: Focuses on temporal reasoning with a temporal knowledge graph architecture.</li>
-</ul>
+<p>Here's an example of how to use Zep in Python:</p>
+<pre><code class="language-python">
+pip install zep
+from zep import TemporalContextGraph
+graph = TemporalContextGraph(&quot;your-graph-id&quot;)
+graph.add_entity(&quot;user&quot;, {&quot;name&quot;: &quot;John Doe&quot;})
+graph.add_relation(&quot;prefers&quot;, (&quot;user&quot;, &quot;dark mode&quot;))
+results = graph.recall(&quot;what theme does the user like?&quot;)
+</code></pre>
+<p><strong>EverMind: Self-Evolving Memory for Complex Multi-Agent Systems</strong></p>
 
-<h3>Conclusion</h3>
+<p>EverMind is a self-evolving, multimodal memory framework designed for complex multi-agent systems. It stores and retrieves context as a hierarchical structure.</p>
 
-<p>Choosing the right AI agent memory framework can be overwhelming. This guide provides a comprehensive comparison to help you make an informed decision. Consider factors like memory architecture, persistence model, multi-agent coordination, and self-hosting support when selecting a framework.</p>
+<p>Here's an example of how to use EverMind in Python:</p>
+<pre><code class="language-python">
+pip install evermind
+from evermind import MemoryOS
+os = MemoryOS(&quot;your-os-id&quot;)
+os.add_case(&quot;user&quot;, {&quot;name&quot;: &quot;John Doe&quot;})
+os.add_skill(&quot;prefers&quot;, (&quot;user&quot;, &quot;dark mode&quot;))
+results = os.recall(&quot;what theme does the user like?&quot;)
+</code></pre>
+<p><strong>A Comparison of Alternatives</strong></p>
 
-<p>Try MrMemory today and see how it can improve your AI agents' performance!</p>
+<p>While Mem0, Zep, and EverMind are all popular memory frameworks, they have different strengths and weaknesses. Here's a comparison of their core features:</p>
 
-<h3>Suggested Internal Links</h3>
+<table>
+<tr><th>Framework</th><th>Core Features</th></tr>
+<tr><th>Mem0</th><th>Drop-in persistent personalization, distilled memory plus retrieval</th></tr>
+<tr><th>Zep</th><th>Temporal context graph, enterprise applications</th></tr>
+<table>
+<tr><th>EverMind</th><th>Self-evolving, multimodal memory, complex multi-agent systems</th></tr>
 
-<ul>
-<li><a href="https://mrmemory.dev/docs">MrMemory Documentation</a></li>
-<li><a href="https://mem0.ai/docs">Mem0 Documentation</a></li>
-<li><a href="https://zep.ai/docs">Zep Documentation</a></li>
-</ul>
+<p><strong>Choosing the Right Memory Framework</strong></p>
 
-<h3>Tags</h3>
+<p>The right memory framework for you depends on your specific use case and requirements. If you need a drop-in persistent personalization solution, Mem0 is a good choice. If you're building an enterprise application with complex relationships between entities, Zep might be more suitable. And if you need a self-evolving, multimodal memory solution for complex multi-agent systems, EverMind is the way to go.</p>
 
-<ul>
-<li>AI agent memory</li>
-<li>framework comparison</li>
-<li>MrMemory</li>
-<li>Mem0</li>
-<li>Zep</li>
-</ul>
+<p>Try one out and see how it can improve your AI agent's performance!</p>
     </div>
 
     <div class="article-cta">
