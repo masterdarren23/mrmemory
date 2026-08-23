@@ -1,5 +1,18 @@
 [
   {
+    "slug": "the-amnesia-problem-in-ai-agents-how-to-choose-a-memory-framework-that-works",
+    "title": "The Amnesia Problem in AI Agents: How to Choose a Memory Framework That Works",
+    "description": "AI agents have no persistent memory. Learn how to choose the right memory framework and overcome inefficiencies.",
+    "date": "2026-08-23",
+    "readTime": "1 min read",
+    "tags": [
+      "AI Agent Memory",
+      "Framework Comparison",
+      "Performance",
+      "Scalability"
+    ]
+  },
+  {
     "slug": "untitled",
     "title": "Untitled",
     "description": "The Amnesia Problem: Why Your AI Agent Forgets Everything Between Sessions",
