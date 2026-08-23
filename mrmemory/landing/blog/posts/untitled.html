@@ -12,9 +12,9 @@ gtag('config', 'G-TS0RXEVBH6');
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Untitled — MrMemory Blog</title>
-<meta name="description" content="[OLLAMA ERROR] HTTPConnectionPool(host=&#x27;localhost&#x27;, port=11434): Max retries exceeded with url: /api/chat (Caused by NewConnectionError(&#x27;&lt;urllib3.connectio">
+<meta name="description" content="The Amnesia Problem: Why Your AI Agent Forgets Everything Between Sessions">
 <meta property="og:title" content="Untitled">
-<meta property="og:description" content="[OLLAMA ERROR] HTTPConnectionPool(host=&#x27;localhost&#x27;, port=11434): Max retries exceeded with url: /api/chat (Caused by NewConnectionError(&#x27;&lt;urllib3.connectio">
+<meta property="og:description" content="The Amnesia Problem: Why Your AI Agent Forgets Everything Between Sessions">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://mrmemory.dev/blog/posts/untitled.html">
 <link rel="canonical" href="https://mrmemory.dev/blog/posts/untitled.html">
@@ -104,13 +104,93 @@ footer{border-top:1px solid var(--border);padding:32px 0;text-align:center;color
       <h1>Untitled</h1>
       <div class="article-meta">
         <span>2026-08-22</span>
-        <span>1 min read</span>
+        <span>3 min read</span>
       </div>
       <div class="article-tags"></div>
     </div>
 
     <div class="article-content">
-      <p>[OLLAMA ERROR] HTTPConnectionPool(host='localhost', port=11434): Max retries exceeded with url: /api/chat (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x00000132B9567690>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))</p>
+      <p>The Amnesia Problem: Why Your AI Agent Forgets Everything Between Sessions</p>
+<p>=====================================================</p>
+
+<p>Your AI agent has no persistent memory. Every session starts from scratch, erasing conversation history, user preferences, and learned facts. This problem is more common than you think.</p>
+
+<p>Let's tackle the elephant in the room. Most AI agents rely on temporary storage, discarding all information when the session ends. This isn't just a minor issue; it affects your agent's ability to learn, adapt, and provide consistent experiences for users.</p>
+
+<p>In 2026, several AI agent memory frameworks have emerged to address this problem. We'll compare eight top options: MrMemory, Mem0, Zep, Hindsight, Letta, Cognee, SuperMemory, LangMem, and LlamaIndex Memory.</p>
+
+<h3>A Quick Glance at the Competition</h3>
+
+<p>Here's a summary of the 8 frameworks:</p>
+
+<table>
+<tr><th>Framework</th><th>Memory Class</th><th>Architecture</th><th>Open Source</th><th>Stars</th><th>Lock-in</th><th>Managed Cloud</th><th>Self-Host</th></tr>
+<tr><th>Mem0</th><th>Personalization + some institutional</th><th>Vector + Graph</th><th>Apache 2.0</th><th>~48K</th><th>None</th><th>Yes</th><th>Yes</th></tr>
+<tr><th>Hindsight</th><th>Both (built for institutional)</th><th>Multi-strategy hybrid</th><th>MIT</th><th>~4K</th><th>None</th><th>Yes</th><th>Yes</th></tr>
+<table>
+<tr><th>Letta</th><th>Both</th><th>Tiered (OS-inspired)</th><th>Apache 2.0</th><th>~21K</th><th>None</th><th>Yes</th><th>Yes</th></tr>
+<tr><th>Zep / Graphiti</th><th>Both (strongest on temporal)</th><th>Temporal KG</th><th>Graphiti: open</th><th>~24K</th><th>None</th><th>Yes</th><th>Via Graphiti only</th></tr>
+<tr><th>Cognee</th><th>Institutional</th><th>KG + Vector</th><th>Open core</th><th>~12K</th><th>None</th><th>Yes</th><th>Yes</th></tr>
+<table>
+<tr><th>SuperMemory</th><th>Personalization + some institutional</th><th>Memory + RAG</th><th>No</th><th>—</th><th>None</th><th>Yes</th><th>Enterprise only</th></tr>
+<tr><th>LangMem</th><th>Personalization</th><th>Flat key-value + vector</th><th>MIT</th><th>~1.3K</th><th>LangGraph</th><th>Yes</th></tr>
+<tr><th>LlamaIndex Memory</th><th>Personalization</th><th>Composable buffers</th><th>MIT</th><th>Part of ~48K</th><th>LlamaIndex</th><th>Via LlamaCloud</th><th>Yes</th></tr>
+
+<h3>Choosing the Right Framework</h3>
+
+<p>When selecting an AI agent memory framework, consider:</p>
+
+<ul>
+<li><strong>Memory architecture</strong>: How does it store and retrieve information? Vectors, graphs, or something else?</li>
+<li><strong>Persistence model</strong>: How does it persist data across sessions? Database, cache, or something else?</li>
+<li><strong>Multi-agent coordination</strong>: Can it handle multiple agents interacting with each other?</li>
+<li><strong>Self-hosting support</strong>: Can you host the framework yourself, or do you need to use a managed cloud service?</li>
+</ul>
+
+<h3>MrMemory: A Modern AI Agent Memory Framework</h3>
+
+<p>MrMemory offers a simple and scalable solution for storing and retrieving information. It's designed for remembering user preferences, conversation history, and learned facts across sessions.</p>
+
+<p>Here's an example of using MrMemory:</p>
+<pre><code class="language-python">
+pip install mrmemory
+from mrmemory import MrMemory
+client = MrMemory(api_key=&quot;your-key&quot;)
+client.remember(&quot;user prefers dark mode&quot;, tags=[&quot;preferences&quot;])
+results = client.recall(&quot;what theme does the user like?&quot;)
+</code></pre>
+<h3>Comparison and Alternatives</h3>
+
+<p>While MrMemory is a solid choice, you may also want to consider Mem0, Zep, or other frameworks. Here's a brief comparison:</p>
+
+<ul>
+<li><strong>Mem0</strong>: Built on top of vector and graph architectures.</li>
+<li><strong>Zep</strong>: Focuses on temporal reasoning with a temporal knowledge graph architecture.</li>
+</ul>
+
+<h3>Conclusion</h3>
+
+<p>Choosing the right AI agent memory framework can be overwhelming. This guide provides a comprehensive comparison to help you make an informed decision. Consider factors like memory architecture, persistence model, multi-agent coordination, and self-hosting support when selecting a framework.</p>
+
+<p>Try MrMemory today and see how it can improve your AI agents' performance!</p>
+
+<h3>Suggested Internal Links</h3>
+
+<ul>
+<li><a href="https://mrmemory.dev/docs">MrMemory Documentation</a></li>
+<li><a href="https://mem0.ai/docs">Mem0 Documentation</a></li>
+<li><a href="https://zep.ai/docs">Zep Documentation</a></li>
+</ul>
+
+<h3>Tags</h3>
+
+<ul>
+<li>AI agent memory</li>
+<li>framework comparison</li>
+<li>MrMemory</li>
+<li>Mem0</li>
+<li>Zep</li>
+</ul>
     </div>
 
     <div class="article-cta">

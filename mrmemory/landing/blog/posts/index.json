@@ -2,9 +2,9 @@
   {
     "slug": "untitled",
     "title": "Untitled",
-    "description": "[OLLAMA ERROR] HTTPConnectionPool(host='localhost', port=11434): Max retries exceeded with url: /api/chat (Caused by NewConnectionError('<urllib3.connectio",
+    "description": "The Amnesia Problem: Why Your AI Agent Forgets Everything Between Sessions",
     "date": "2026-08-22",
-    "readTime": "1 min read",
+    "readTime": "3 min read",
     "tags": []
   },
   {
