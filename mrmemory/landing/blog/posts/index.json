@@ -1,5 +1,17 @@
 [
   {
+    "slug": "avoid-amnesia-in-your-ai-agents",
+    "title": "Avoid Amnesia in Your AI Agents",
+    "description": "No more starting from scratch. Learn how to choose the right memory framework for your project and keep your agents' memories intact.",
+    "date": "2026-08-25",
+    "readTime": "1 min read",
+    "tags": [
+      "AI Agent Memory",
+      "Memory Frameworks",
+      "Comparative Guide"
+    ]
+  },
+  {
     "slug": "store-a-piece-of-information-in-the-users-memory",
     "title": "Store a piece of information in the user's memory",
     "description": "**Choosing the Right AI Agent Memory Framework for Your Project**",
