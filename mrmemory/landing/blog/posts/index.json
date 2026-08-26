@@ -1,5 +1,13 @@
 [
   {
+    "slug": "untitled",
+    "title": "Untitled",
+    "description": "**The Statelessness Problem**",
+    "date": "2026-08-26",
+    "readTime": "2 min read",
+    "tags": []
+  },
+  {
     "slug": "avoid-amnesia-in-your-ai-agents",
     "title": "Avoid Amnesia in Your AI Agents",
     "description": "No more starting from scratch. Learn how to choose the right memory framework for your project and keep your agents' memories intact.",
@@ -21,14 +29,6 @@
       "AI",
       "MrMemory"
     ]
-  },
-  {
-    "slug": "untitled",
-    "title": "Untitled",
-    "description": "**Improve AI Agent Memory with Mem0: A Step-by-Step Guide**",
-    "date": "2026-08-23",
-    "readTime": "2 min read",
-    "tags": []
   },
   {
     "slug": "the-state-of-ai-agent-memory-when-stateless-llms-just-wont-cut-it",
