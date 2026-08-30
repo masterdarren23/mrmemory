@@ -1,5 +1,16 @@
 [
   {
+    "slug": "store-user-preference",
+    "title": "Store user preference",
+    "description": "**The Forgetting Problem: How to Choose the Right AI Agent Memory Framework**",
+    "date": "2026-08-30",
+    "readTime": "2 min read",
+    "tags": [
+      "AI",
+      "MrMemory"
+    ]
+  },
+  {
     "slug": "untitled",
     "title": "Untitled",
     "description": "You've built an AI agent to help with tasks, but it's like trying to teach a cat new tricks - every time you interact with it, it forgets what it learned y",
@@ -262,17 +273,6 @@
       "context management",
       "memory architecture",
       "persistent storage"
-    ]
-  },
-  {
-    "slug": "store-user-preference",
-    "title": "Store user preference",
-    "description": "**The Memory Problem in 2026 Applications**",
-    "date": "2026-06-09",
-    "readTime": "1 min read",
-    "tags": [
-      "AI",
-      "MrMemory"
     ]
   },
   {

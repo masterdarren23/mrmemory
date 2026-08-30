@@ -12,9 +12,9 @@ gtag('config', 'G-TS0RXEVBH6');
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Store user preference — MrMemory Blog</title>
-<meta name="description" content="**The Memory Problem in 2026 Applications**">
+<meta name="description" content="**The Forgetting Problem: How to Choose the Right AI Agent Memory Framework**">
 <meta property="og:title" content="Store user preference">
-<meta property="og:description" content="**The Memory Problem in 2026 Applications**">
+<meta property="og:description" content="**The Forgetting Problem: How to Choose the Right AI Agent Memory Framework**">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://mrmemory.dev/blog/posts/store-user-preference.html">
 <link rel="canonical" href="https://mrmemory.dev/blog/posts/store-user-preference.html">
@@ -103,77 +103,86 @@ footer{border-top:1px solid var(--border);padding:32px 0;text-align:center;color
     <div class="article-header">
       <h1>Store user preference</h1>
       <div class="article-meta">
-        <span>2026-06-09</span>
-        <span>1 min read</span>
+        <span>2026-08-30</span>
+        <span>2 min read</span>
       </div>
       <div class="article-tags"><span class="tag">AI</span><span class="tag">MrMemory</span></div>
     </div>
 
     <div class="article-content">
-      <p><strong>The Memory Problem in 2026 Applications</strong></p>
+      <p><strong>The Forgetting Problem: How to Choose the Right AI Agent Memory Framework</strong></p>
 
-<p>You've got a conversational AI that's lost its train of thought. Again. This time it's not just a minor glitch – it's a major problem. Without effective memory, your agents can't learn from past interactions, maintain context across sessions, or build knowledge over time.</p>
+<p>In 2026, we've seen a surge in Large Language Models (LLMs) evolving into long-term autonomous agents. But despite their impressive capabilities, many AI agents still suffer from a fundamental flaw: they forget.</p>
 
-<p>Let's dive into the top-ranked AI agent memory frameworks and explore how they tackle this issue.</p>
+<p>Take, for instance, chatbots that can't recall user preferences or past corrections. Or coding agents that struggle to remember context over time. It's not just a minor annoyance – it's a critical weakness that can make or break an LLM's effectiveness.</p>
 
-<h3>8 Top-Ranked AI Agent Memory Frameworks</h3>
+<p>To create persistent assistants that truly understand history and provenance, you need a robust memory system. And that's where AI agent memory frameworks come in. In this article, we'll explore the top frameworks available, including Mem0, Zep, Letta, and more.</p>
 
-<p>We'll break down each framework's strengths and weaknesses. Keep in mind that no one-size-fits-all solution exists; you'll need to choose the best fit for your application.</p>
+<h3>Core Memory Models</h3>
 
-<p>#### Mem0</p>
-
-<p>Mem0 excels at personalization and temporal reasoning, but its architecture is complex and difficult to manage.</p>
-
-<p>#### Zep</p>
-
-<p>Zep's temporal knowledge graph architecture shines, but it falls short on self-edit tools and governance.</p>
-
-<p>#### LangChain Memory (LangMem)</p>
-
-<p>LangMem is designed for long-term factual knowledge management. It's a good choice if you need to persist context across sessions.</p>
-
-<p>#### Letta</p>
-
-<p>Letta is suitable for long-running workflows and context-aware applications. Its architecture is scalable, but its feature set is limited compared to other frameworks.</p>
-
-<p>#### MrMemory</p>
-
-<p>MrMemory is a managed memory API that persists context across sessions using a combination of PostgreSQL and Qdrant vector DB. It offers memory compression (40-60% token savings), LangChain integration, and self-edit tools.</p>
-
-<h3>Hands-On Example with MrMemory</h3>
-
-<p>Here's how you can use MrMemory to store and retrieve conversation history:</p>
-<pre><code class="language-python">
-from mrmemory import MrMemory
-client = MrMemory(api_key=&quot;your-key&quot;)
-# Store user preference
-client.remember(&quot;user prefers dark mode&quot;, tags=[&quot;preferences&quot;])
-# Retrieve user preference
-results = client.recall(&quot;what theme does the user like?&quot;)
-print(results) # Output: &quot;dark mode&quot;
-</code></pre>
-<h3>Comparison and Alternatives</h3>
-
-<p>While Mem0, Zep, and LangMem are popular choices, they lack some of the features offered by MrMemory. For example:</p>
+<p>The following are some of the most popular AI agent memory frameworks:</p>
 
 <ul>
-<li>Temporal Knowledge Graph Architecture: Zep excels in this area but lacks self-edit tools.</li>
-<li>Personalization: Mem0 is a good choice for personalization but doesn't offer memory compression.</li>
+<li><strong>Zep</strong>: A temporal memory framework with a graph-based context model.</li>
+<li><strong>Evermind EverOS</strong>: A self-evolving, multimodal, multi-agent memory system with a memory OS and cases, skills, mRAG, and Memory Bank.</li>
+<li><strong>Mem0</strong>: A drop-in persistent personalization solution with distilled memory plus retrieval.</li>
+<li><strong>Letta</strong>: A long-lived agent framework focused on coding assistants with a memory-first approach.</li>
 </ul>
+
+<h3>Choosing the Right Framework</h3>
+
+<p>While Mem0 has gained popularity among developers, it's not the only solution available. In fact, some alternatives offer more advanced features or better performance for specific use cases:</p>
+
+<ul>
+<li><strong>Evermind.ai</strong>: Offers self-evolving, multimodal, multi-agent memory with a memory OS and cases, skills, mRAG, and Memory Bank.</li>
+<li><strong>Zep</strong>: Provides enterprise temporal memory with a graph-based context model.</li>
+</ul>
+
+<h3>Using MrMemory</h3>
+
+<p>MrMemory is an open-source AI agent memory framework that stands out from the crowd. With its range of features, including persistent personalization and distilled memory plus retrieval, it's an attractive choice for developers:</p>
+
+<pre><code class="language-python">
+pip install mrmemory
+
+from mrmemory import MrMemory
+
+client = MrMemory(api_key=&quot;your-key&quot;)
+
+# Store user preference
+client.remember(&quot;user prefers dark mode&quot;, tags=[&quot;preferences&quot;])
+
+# Retrieve user preference
+results = client.recall(&quot;what theme does the user like?&quot;)
+</code></pre>
 
 <h3>Conclusion</h3>
 
-<p>Choosing the right AI agent memory framework depends on your specific use case. If you need a scalable, feature-rich solution with LangChain integration and self-edit tools, MrMemory might be the way to go.</p>
+<p>Choosing the right AI agent memory framework is crucial for creating persistent assistants that truly understand history and provenance. While Mem0 has its strengths, other alternatives offer more advanced features or better performance for specific use cases.</p>
 
-<p>Try MrMemory today to persist context across sessions and improve agent performance!</p>
-
-<p><strong>Try MrMemory now:</strong> <a href="https://github.com/masterdarren23/mrmemory">https://github.com/masterdarren23/mrmemory</a></p>
-
-<p><strong>Explore more:</strong></p>
+<p>We recommend trying MrMemory to see how it can meet your needs:</p>
 
 <ul>
-<li>Learn about the architecture of MrMemory in our documentation: <a href="mrmemory.dev/docs">mrmemory.dev/docs</a></li>
-<li>Discover how to integrate MrMemory with LangChain: <a href="mrmemory.dev/integrations">mrmemory.dev/integrations</a></li>
+<li><strong>Try MrMemory</strong>: <a href="https://mrmemory.dev/docs">mrmemory.dev/docs</a></li>
+<li><strong>Learn more about AI agent memory frameworks</strong>: <a href="https://evermind.ai/blogs">evermind.ai/blogs</a></li>
+</ul>
+
+<h3>Suggested Internal Links and Tags</h3>
+
+<p>Internal links:</p>
+
+<ul>
+<li><a href="https://example.com/ai-agent-memory-frameworks-comparison">AI Agent Memory Frameworks: A Comprehensive Comparison</a></li>
+<li><a href="https://mrmemory.dev/docs">MrMemory: An Open-Source AI Agent Memory Framework</a></li>
+</ul>
+
+<p>Tags:</p>
+
+<ul>
+<li>#aia gentmemoryframeworks</li>
+<li>#mem0alternatives</li>
+<li>#zepalternatives</li>
+<li>#lettaalternatives</li>
 </ul>
     </div>
 
