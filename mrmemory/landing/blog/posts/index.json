@@ -1,5 +1,13 @@
 [
   {
+    "slug": "untitled",
+    "title": "Untitled",
+    "description": "AI agents in real-world workflows have a fundamental weakness: they forget. Without persistent memory, agents struggle to recall user preferences, past cor",
+    "date": "2026-08-31",
+    "readTime": "1 min read",
+    "tags": []
+  },
+  {
     "slug": "store-user-preference",
     "title": "Store user preference",
     "description": "**The Forgetting Problem: How to Choose the Right AI Agent Memory Framework**",
@@ -9,14 +17,6 @@
       "AI",
       "MrMemory"
     ]
-  },
-  {
-    "slug": "untitled",
-    "title": "Untitled",
-    "description": "You've built an AI agent to help with tasks, but it's like trying to teach a cat new tricks - every time you interact with it, it forgets what it learned y",
-    "date": "2026-08-29",
-    "readTime": "1 min read",
-    "tags": []
   },
   {
     "slug": "avoid-amnesia-in-your-ai-agents",
