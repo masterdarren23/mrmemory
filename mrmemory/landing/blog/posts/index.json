@@ -1,5 +1,17 @@
 [
   {
+    "slug": "surviving-the-goldfish-problem",
+    "title": "Surviving the Goldfish Problem",
+    "description": "When your AI agents forget everything after one session, it's time for a memory upgrade.",
+    "date": "2026-09-02",
+    "readTime": "1 min read",
+    "tags": [
+      "AI Agent Memory",
+      "Mem0",
+      "MrMemory"
+    ]
+  },
+  {
     "slug": "untitled",
     "title": "Untitled",
     "description": "**The Amnesia Epidemic in AI Agents: Why Persistent Memory Matters**",
