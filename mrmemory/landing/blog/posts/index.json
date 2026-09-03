@@ -1,5 +1,16 @@
 [
   {
+    "slug": "example-of-an-agent-without-memory",
+    "title": "Example of an agent without memory:",
+    "description": "**The Amnesiac's Dilemma**",
+    "date": "2026-09-03",
+    "readTime": "1 min read",
+    "tags": [
+      "AI",
+      "MrMemory"
+    ]
+  },
+  {
     "slug": "surviving-the-goldfish-problem",
     "title": "Surviving the Goldfish Problem",
     "description": "When your AI agents forget everything after one session, it's time for a memory upgrade.",
