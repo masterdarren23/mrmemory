@@ -1,5 +1,13 @@
 [
   {
+    "slug": "untitled",
+    "title": "Untitled",
+    "description": "**The Cold Start Problem: Why Your AI Agent Needs Mem0**",
+    "date": "2026-09-04",
+    "readTime": "1 min read",
+    "tags": []
+  },
+  {
     "slug": "example-of-an-agent-without-memory",
     "title": "Example of an agent without memory:",
     "description": "**The Amnesiac's Dilemma**",
@@ -21,14 +29,6 @@
       "Mem0",
       "MrMemory"
     ]
-  },
-  {
-    "slug": "untitled",
-    "title": "Untitled",
-    "description": "**The Amnesia Epidemic in AI Agents: Why Persistent Memory Matters**",
-    "date": "2026-09-01",
-    "readTime": "2 min read",
-    "tags": []
   },
   {
     "slug": "store-user-preference",
