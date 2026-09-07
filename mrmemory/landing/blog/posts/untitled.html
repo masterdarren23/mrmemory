@@ -12,9 +12,9 @@ gtag('config', 'G-TS0RXEVBH6');
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Untitled — MrMemory Blog</title>
-<meta name="description" content="**The Amnesia Epidemic: Why Your AI Agent Needs a Memory**">
+<meta name="description" content="**The Memory Problem with Amnesiac AI Agents**">
 <meta property="og:title" content="Untitled">
-<meta property="og:description" content="**The Amnesia Epidemic: Why Your AI Agent Needs a Memory**">
+<meta property="og:description" content="**The Memory Problem with Amnesiac AI Agents**">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://mrmemory.dev/blog/posts/untitled.html">
 <link rel="canonical" href="https://mrmemory.dev/blog/posts/untitled.html">
@@ -103,74 +103,57 @@ footer{border-top:1px solid var(--border);padding:32px 0;text-align:center;color
     <div class="article-header">
       <h1>Untitled</h1>
       <div class="article-meta">
-        <span>2026-09-06</span>
+        <span>2026-09-07</span>
         <span>1 min read</span>
       </div>
       <div class="article-tags"></div>
     </div>
 
     <div class="article-content">
-      <p><strong>The Amnesia Epidemic: Why Your AI Agent Needs a Memory</strong></p>
+      <p><strong>The Memory Problem with Amnesiac AI Agents</strong></p>
 
-<p>Every developer knows the frustration of building an AI agent that's as forgetful as a goldfish. You train it, deploy it, and then... it forgets everything it learned. The stateless LLM can answer your requests, but it doesn't remember user preferences, past corrections, or changing business rules.</p>
+<p>Imagine a customer support bot that forgets yesterday's ticket conversations. Or an e-commerce platform that can't recall user preferences to offer personalized product recommendations. These are just two examples of the problems caused by amnesiac AI agents, which start from scratch every time they interact with a user or process a task.</p>
 
-<h3>Do You Need AI Agent Memory?</h3>
+<p><strong>Understanding AI Agent Memory Frameworks</strong></p>
 
-<p>If any of these scenarios sound familiar, an AI agent memory system is essential for your project:</p>
-
-<ul>
-<li>Your agent runs repeatedly on related tasks (same domain, same users, same workflows)</li>
-<li>Humans correct the agent and those corrections stick</li>
-<li>Domain rules evolve over time and the agent tracks changes</li>
-<li>The agent interacts with persistent entities – vendors, repos, customers, projects</li>
-<li>You're hemorrhaging token costs re-injecting context every call</li>
-</ul>
-
-<h3>Memory Class: A Crucial Decision</h3>
-
-<p>When choosing a framework, consider the type of memory class you need:</p>
+<p>To address this issue, you need to understand the different types of AI agent memory frameworks available. These frameworks store and retrieve context information across sessions, allowing agents to learn from previous interactions and adapt to changing situations. Popular options include:</p>
 
 <ul>
-<li><strong>Personalization</strong>: stores information about individual users or entities</li>
-<li><strong>Institutional</strong>: stores information about organizations or systems</li>
+<li>Mem0: A hybrid vector+graph framework that excels at personalization and institutional memory.</li>
+<li>Letta: A tiered architecture inspired by operating systems, which allows agents to control their own context.</li>
+<li>Zep / Graphiti: A temporal knowledge graph architecture strong on temporal reasoning.</li>
 </ul>
 
-<p>Some frameworks offer both personalization and institutional memory classes.</p>
+<p><strong>A Comparison of Top AI Agent Memory Frameworks</strong></p>
 
-<h3>Hybrid vs. Single-Strategy Approaches: What's Best for Your Project?</h3>
+<table>
+<tr><th>Framework</th><th>Architecture</th><th>Open Source</th><th>Stars</th><th>Lock-in</th></tr>
+<tr><th>Mem0</th><th>Hybrid vector+graph</th><th>Apache 2.0</th><th>~48K</th><th>None</th></tr>
+<tr><th>Letta</th><th>Tiered (OS-inspired)</th><th>Apache 2.0</th><th>~21K</th><th>None</th></tr>
+<table>
+<tr><th>Zep / Graphiti</th><th>Temporal KG</th><th>Graphiti: open</th><th>~24K</th><th>Via Graphiti only</th></tr>
+<tr><th>MrMemory</th><th>Managed memory API</th><th>MIT</th><th>Part of ~48K</th><th>Yes</th></tr>
 
-<p>Frameworks can have hybrid architectures (e.g., combining vector and graph data) or single-strategy approaches (e.g., relying solely on temporal KGs). Consider your project's requirements when evaluating these options.</p>
+<p><strong>Why Choose MrMemory?</strong></p>
 
-<h3>Code Example with MrMemory</h3>
+<p>MrMemory is a managed memory API that provides a simple and efficient way to implement persistent memory in your AI agents. Its intuitive API makes it easy to store and retrieve context information.</p>
 
-<p>Here's how you can use MrMemory to store and retrieve information:</p>
+<p>Here's an example code snippet:</p>
 <pre><code class="language-python">
+pip install mrmemory
+
 from mrmemory import MrMemory
 client = MrMemory(api_key=&quot;your-key&quot;)
 client.remember(&quot;user prefers dark mode&quot;, tags=[&quot;preferences&quot;])
 results = client.recall(&quot;what theme does the user like?&quot;)
-print(results) # Output: &quot;dark mode&quot;
 </code></pre>
-<h3>Comparison and Alternatives</h3>
+<p><strong>Alternatives to Mem0, Zep, and Letta</strong></p>
 
-<p>When choosing a framework, consider these options:</p>
+<p>While these frameworks are excellent choices, they may not be the best fit for every application. Consider Cognee (graph-based), LangMem (flat key-value + vector), or LlamaIndex Memory (composable buffers).</p>
 
-<ul>
-<li><strong>Mem0</strong>: offers personalization + institutional memory classes, vector + graph architecture, and is open-source</li>
-<li><strong>Zep / Graphiti</strong>: excels in temporal memory, with a strong focus on temporal context graphs</li>
-<li><strong>Cognee</strong>: provides institutional memory with KG + vector architecture</li>
-</ul>
+<p><strong>Conclusion</strong></p>
 
-<h3>Get Started with MrMemory Today!</h3>
-
-<p>Choosing the right AI agent memory framework can be overwhelming. And with this checklist, you've taken the first step towards selecting the perfect solution for your project. To get started with MrMemory, try our 7-day free trial and explore our documentation:</p>
-
-<ul>
-<li><a href="https://buy.stripe.com/00w4gB2REex4daHeP38g001">Try MrMemory</a></li>
-<li><a href="https://mrmemory.dev/docs">MrMemory Documentation</a></li>
-</ul>
-
-<p>Tags: AI agent memory, AI framework comparison, Zep vs Mem0, MrMemory</p>
+<p>Choosing the right AI agent memory framework is crucial for building production-ready applications. MrMemory offers a unique value proposition with its managed memory API and ease of integration.</p>
     </div>
 
     <div class="article-cta">
