@@ -1,5 +1,13 @@
 [
   {
+    "slug": "untitled",
+    "title": "Untitled",
+    "description": "Imagine building an AI assistant that can learn and adapt over time. Sounds great, right? But what happens when your agent starts to degrade due to context",
+    "date": "2026-09-09",
+    "readTime": "2 min read",
+    "tags": []
+  },
+  {
     "slug": "drowning-in-context-how-to-fix-your-ai-agents-memory",
     "title": "Drowning in Context: How to Fix Your AI Agent's Memory",
     "description": "Your agents are struggling to learn from past interactions. Here's how to fix it.",
@@ -9,14 +17,6 @@
       "AI Agent Memory",
       "Context Management"
     ]
-  },
-  {
-    "slug": "untitled",
-    "title": "Untitled",
-    "description": "**The Memory Problem with Amnesiac AI Agents**",
-    "date": "2026-09-07",
-    "readTime": "1 min read",
-    "tags": []
   },
   {
     "slug": "choosing-the-right-ai-agent-memory-framework-for-your-project",
