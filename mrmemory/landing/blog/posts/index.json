@@ -1,5 +1,16 @@
 [
   {
+    "slug": "clientrememberuser-prefers-dark-mode-tagspreferences",
+    "title": "client.remember(\"user prefers dark mode\", tags=[\"preferences\"])",
+    "description": "Imagine building an AI agent that forgets user preferences after a single session. Sounds like a recipe for disaster. We've all been there - struggling to ",
+    "date": "2026-09-10",
+    "readTime": "2 min read",
+    "tags": [
+      "AI",
+      "MrMemory"
+    ]
+  },
+  {
     "slug": "untitled",
     "title": "Untitled",
     "description": "Imagine building an AI assistant that can learn and adapt over time. Sounds great, right? But what happens when your agent starts to degrade due to context",
