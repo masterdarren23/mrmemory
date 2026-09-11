@@ -1,5 +1,13 @@
 [
   {
+    "slug": "untitled",
+    "title": "Untitled",
+    "description": "[OLLAMA ERROR] HTTPConnectionPool(host='localhost', port=11434): Max retries exceeded with url: /api/chat (Caused by NewConnectionError('<urllib3.connectio",
+    "date": "2026-09-11",
+    "readTime": "1 min read",
+    "tags": []
+  },
+  {
     "slug": "clientrememberuser-prefers-dark-mode-tagspreferences",
     "title": "client.remember(\"user prefers dark mode\", tags=[\"preferences\"])",
     "description": "Imagine building an AI agent that forgets user preferences after a single session. Sounds like a recipe for disaster. We've all been there - struggling to ",
@@ -9,14 +17,6 @@
       "AI",
       "MrMemory"
     ]
-  },
-  {
-    "slug": "untitled",
-    "title": "Untitled",
-    "description": "Imagine building an AI assistant that can learn and adapt over time. Sounds great, right? But what happens when your agent starts to degrade due to context",
-    "date": "2026-09-09",
-    "readTime": "2 min read",
-    "tags": []
   },
   {
     "slug": "drowning-in-context-how-to-fix-your-ai-agents-memory",

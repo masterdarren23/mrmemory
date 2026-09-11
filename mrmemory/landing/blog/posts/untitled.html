@@ -12,9 +12,9 @@ gtag('config', 'G-TS0RXEVBH6');
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Untitled — MrMemory Blog</title>
-<meta name="description" content="Imagine building an AI assistant that can learn and adapt over time. Sounds great, right? But what happens when your agent starts to degrade due to context">
+<meta name="description" content="[OLLAMA ERROR] HTTPConnectionPool(host=&#x27;localhost&#x27;, port=11434): Max retries exceeded with url: /api/chat (Caused by NewConnectionError(&#x27;&lt;urllib3.connectio">
 <meta property="og:title" content="Untitled">
-<meta property="og:description" content="Imagine building an AI assistant that can learn and adapt over time. Sounds great, right? But what happens when your agent starts to degrade due to context">
+<meta property="og:description" content="[OLLAMA ERROR] HTTPConnectionPool(host=&#x27;localhost&#x27;, port=11434): Max retries exceeded with url: /api/chat (Caused by NewConnectionError(&#x27;&lt;urllib3.connectio">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://mrmemory.dev/blog/posts/untitled.html">
 <link rel="canonical" href="https://mrmemory.dev/blog/posts/untitled.html">
@@ -103,88 +103,14 @@ footer{border-top:1px solid var(--border);padding:32px 0;text-align:center;color
     <div class="article-header">
       <h1>Untitled</h1>
       <div class="article-meta">
-        <span>2026-09-09</span>
-        <span>2 min read</span>
+        <span>2026-09-11</span>
+        <span>1 min read</span>
       </div>
       <div class="article-tags"></div>
     </div>
 
     <div class="article-content">
-      <h3>Context Pollution: The Silent Killer of Production Agents</h3>
-
-<p>Imagine building an AI assistant that can learn and adapt over time. Sounds great, right? But what happens when your agent starts to degrade due to context pollution? It's a common problem in production projects, where the context window is treated as storage. This leads to four failure modes:</p>
-
-<ul>
-<li>Context pollution: too much information overwhelms the model.</li>
-<li>Retrieval returning wrong memories: incorrect memories are retrieved, resulting in inaccurate responses.</li>
-<li>Stale facts degrading output quality: stale facts aren't actively pruned, degrading output quality over time.</li>
-<li>Loss of personalization: the agent loses personalization as it accumulates history.</li>
-</ul>
-
-<h3>Architectural Choices</h3>
-
-<p>Before writing any code, you need to make two architectural choices:</p>
-
-<ol>
-<li><strong>Memory Architecture</strong>: choose a memory architecture that suits your project's needs. Vector stores, graph databases, and relational databases are popular options.</li>
-<li><strong>Retrieval Quality vs Context Window Size</strong>: balance retrieval quality with context window size. Larger windows can improve retrieval quality but increase the risk of context pollution.</li>
-</ol>
-
-<h3>Retrieval Quality Matters More</h3>
-
-<p>Don't get caught up in optimizing context window sizes. A robust retrieval pipeline ensures that your agent retrieves relevant memories, even with large context windows.</p>
-
-<h3>Frameworks for Robust AI Agent Memory</h3>
-
-<p>Several frameworks ship with built-in memory management capabilities:</p>
-
-<ul>
-<li><strong>LangChain</strong>: provides a <code>ConversationBufferMemory</code> for storing and retrieving conversation history.</li>
-<li><strong>Mem0</strong>: offers a state-of-the-art memory system with explicit tiers, controlled write policies, and robust retrieval pipelines.</li>
-<li><strong>MrMemory</strong>: a managed memory API that provides semantic recall, auto-remember, memory compression (40-60% token savings), LangChain integration, self-edit tools, three-layer governance, and anti-pollution.</li>
-</ul>
-
-<h3>Code Example: Using MrMemory</h3>
-
-<p>Here's an example of using MrMemory to implement robust AI agent memory:</p>
-
-<pre><code class="language-python">
-from mrmemory import MrMemory
-
-client = MrMemory(api_key=&quot;your-key&quot;)
-client.remember(&quot;user prefers dark mode&quot;, tags=[&quot;preferences&quot;])
-results = client.recall(&quot;what theme does the user like?&quot;)
-</code></pre>
-
-<h3>Comparison and Alternatives</h3>
-
-<p>While Mem0 offers a robust memory system, it lacks compression capabilities. Zep and MemGPT are self-hosted solutions that require significant infrastructure investments.</p>
-
-<table>
-<tr><th>Framework</th><th>Memory Architecture</th><th>Retrieval Quality</th><th>Context Window Size</th></tr>
-<tr><th>MrMemory</th><th>Vector Store</th><th>Robust</th><th>Large</th></tr>
-<tr><th>Mem0</th><th>Graph Database</th><th>Robust</th><th>Medium</th></tr>
-<table>
-<tr><th>Zep</th><th>Relational Database</th><th>Basic</th><th>Small</th></tr>
-<tr><th>MemGPT</th><th>Self-Hosted</th><th>Basic</th><th>Small</th></tr>
-
-<h3>Conclusion</h3>
-
-<p>Implementing robust AI agent memory is crucial for building intelligent assistants that learn and adapt over time. By following these 8 simple ways, you can build a robust AI agent memory system that improves context management and recall.</p>
-
-<p><strong>Try MrMemory Today</strong></p>
-
-<p>Get started with MrMemory's managed memory API to implement semantic recall, auto-remember, memory compression (40-60% token savings), LangChain integration, self-edit tools, three-layer governance, and anti-pollution in your production project. Visit our <a href="https://mrmemory.dev/docs">docs</a> for more information.</p>
-
-<p><strong>Internal Links:</strong></p>
-
-<ul>
-<li><a href="https://fountaincity.com/memory-and-context-management-in-ai-agents/">How to Build AI Agent Memory in 2026</a></li>
-<li><a href="https://machinelearningmastery.com/6-best-ai-agent-memory-frameworks-you-should-try-in-2026/">The 6 Best AI Agent Memory Frameworks You Should Try in 2026</a></li>
-<li><a href="https://medium.com/memory-engineering-for-ai-agents/how-to-build-real-long-term-memory-and-avoid-production-failures-d8f9c0e1a4d3">Memory Engineering for AI Agents: How to Build Real Long-Term Memory (and Avoid Production Failures)</a></li>
-</ul>
-
-<p><strong>Tags:</strong> ai agent memory, robust ai agent memory, production projects, mrmemory, frameworks, code examples</p>
+      <p>[OLLAMA ERROR] HTTPConnectionPool(host='localhost', port=11434): Max retries exceeded with url: /api/chat (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000002179691F310>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))</p>
     </div>
 
     <div class="article-cta">
