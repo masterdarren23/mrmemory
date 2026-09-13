@@ -12,9 +12,9 @@ gtag('config', 'G-TS0RXEVBH6');
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Untitled — MrMemory Blog</title>
-<meta name="description" content="You&#x27;ve got an AI agent that&#x27;s burning through memory like a hot knife through butter. It&#x27;s time to optimize its memory with Mem0 and Letta frameworks. But ">
+<meta name="description" content="Your AI agent has no persistent memory, which can lead to a range of issues. For instance, if you&#x27;re paying token costs to re-inject context every call, yo">
 <meta property="og:title" content="Untitled">
-<meta property="og:description" content="You&#x27;ve got an AI agent that&#x27;s burning through memory like a hot knife through butter. It&#x27;s time to optimize its memory with Mem0 and Letta frameworks. But ">
+<meta property="og:description" content="Your AI agent has no persistent memory, which can lead to a range of issues. For instance, if you&#x27;re paying token costs to re-inject context every call, yo">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://mrmemory.dev/blog/posts/untitled.html">
 <link rel="canonical" href="https://mrmemory.dev/blog/posts/untitled.html">
@@ -103,86 +103,61 @@ footer{border-top:1px solid var(--border);padding:32px 0;text-align:center;color
     <div class="article-header">
       <h1>Untitled</h1>
       <div class="article-meta">
-        <span>2026-09-12</span>
+        <span>2026-09-13</span>
         <span>2 min read</span>
       </div>
       <div class="article-tags"></div>
     </div>
 
     <div class="article-content">
-      <h2>Fixing AI Agent Memory: A Tale of Two Frameworks</h2>
+      <h3>The Amnesia Problem in AI Agents</h3>
 
-<h3>Description</h3>
+<p>Your AI agent has no persistent memory, which can lead to a range of issues. For instance, if you're paying token costs to re-inject context every call, you're wasting money. Without memory, your agent may struggle to recall past experiences, learn from mistakes, and adapt to changing conditions.</p>
 
-<p>You've got an AI agent that's burning through memory like a hot knife through butter. It's time to optimize its memory with Mem0 and Letta frameworks. But what's the pain point here, and how do these frameworks help?</p>
+<h3>When Do You Need AI Agent Memory?</h3>
 
-<h3>Tags</h3>
+<p>If your agent runs repeatedly on related tasks, humans correct it, and those corrections should stick. If domain rules evolve over time and the agent needs to track changes, or if it interacts with persistent entities, you likely need an AI agent memory system.</p>
 
-<ul>
-<li>AI Agent Memory</li>
-<li>Mem0</li>
-<li>Letta</li>
-<li>Production AI Agents</li>
-<li>Memory Optimization</li>
-</ul>
+<h3>8 Popular Frameworks Compared</h3>
 
-<p>---</p>
-
-<h3>The Memory Meltdown</h3>
-
-<p>I've seen it happen to the best of us: an AI agent that's supposed to be smart, but forgets everything in the next conversation. It's a problem that's plaguing the entire industry, and it's not just a matter of tweaking some hyperparameters. Traditional memory systems are just not cutting it.</p>
-
-<h3>The Problem with LLMs</h3>
-
-<p>Large language models (LLMs) are stateless systems, which means they can't "remember" anything. They're like a conversation partner who keeps forgetting what we discussed last time. This limitation causes a host of problems, including:</p>
-
-<ul>
-<li>Forgetting conversations because of context window limitations</li>
-<li>Lack of personalization</li>
-<li>Degraded long-context performance</li>
-</ul>
+<p>Here's a comparison of 8 frameworks:</p>
+<table>
+<tr><th>Framework</th><th>Memory Class</th><th>Architecture</th><th>Open Source</th><th>Stars</th><th>Lock-in</th><th>Managed Cloud</th><th>Self-Host</th></tr>
+<tr><th>Mem0</th><th>Personalization + institutional</th><th>Vector + Graph</th><th>Apache 2.0</th><th>~48K</th><th>None</th><th>Yes</th><th>Yes</th></tr>
+<tr><th>Hindsight</th><th>Both (built for institutional)</th><th>Multi-strategy hybrid</th><th>MIT</th><th>~4K (growing fast)</th><th>None</th><th>Yes</th><th>Yes</th></tr>
+<table>
+<tr><th>Letta</th><th>Both</th><th>Tiered (OS-inspired)</th><th>Apache 2.0</th><th>~21K</th><th>None</th><th>Yes</th><th>Yes</th></tr>
+<tr><th>Zep / Graphiti</th><th>Both (strongest on temporal)</th><th>Temporal KG</th><th>Graphiti: open</th><th>~24K</th><th>None</th><th>Via Graphiti only</th><th>No</th></tr>
+<tr><th>Cognee</th><th>Institutional</th><th>KG + Vector</th><th>Open core</th><th>~12K</th><th>None</th><th>Yes</th><th>Yes</th></tr>
+<table>
+<tr><th>SuperMemory</th><th>Personalization + some institutional</th><th>Memory + RAG</th><th>No</th><th>—</th><th>None</th><th>Enterprise only</th><th>No</th></tr>
+<tr><th>LangMem</th><th>Personalization</th><th>Flat key-value + vector</th><th>MIT</th><th>~1.3K</th><th>LangGraph</th><th>No</th><th>Yes</th></tr>
+<tr><th>LlamaIndex Memory</th><th>Personalization</th><th>Composable buffers</th><th>MIT</th><th>Part of ~48K</th><th>LlamaIndex</th><th>Via LlamaCloud</th><th>Yes</th></tr>
 
 <h3>Choosing the Right Framework</h3>
 
-<p>Mem0 and Letta are two memory frameworks that approach the problem from different angles. Mem0 is a memory layer that lets your app manage memory externally, while Letta is a stateful-agent runtime that keeps context blocks persistent.</p>
+<p>Consider these factors:</p>
 
-<p>#### Mem0: Predictable Memory Operations</p>
+<ul>
+<li>Memory class: Do you need personalization, institutional, or both?</li>
+<li>Architecture: Vector + graph, temporal KG, or something else?</li>
+<li>Open source: Do you want to customize the code or rely on a managed cloud?</li>
+<li>Stars: How large is the community and how stable is the framework?</li>
+</ul>
 
-<p>If you need predictable memory operations, Mem0 is the way to go. It's a memory layer that integrates easily with your app, making memory management a breeze.</p>
+<h3>Using MrMemory</h3>
 
-<p>#### Letta: Stateful-Agent Runtime</p>
-
-<p>If you're building an agent runtime that needs persistent context blocks, Letta is your best bet. It's a stateful-agent runtime that lets you build production-grade AI agents.</p>
-
-<h3>Code Example: MrMemory to the Rescue</h3>
-
-<p>MrMemory is a managed memory API that makes memory management a snap. Here's an example of how to use it to remember and recall user preferences:</p>
-
+<p>Here's an example of using MrMemory to store and retrieve information:</p>
 <pre><code class="language-python">
-pip install mrmemory
 from mrmemory import MrMemory
 client = MrMemory(api_key=&quot;your-key&quot;)
 client.remember(&quot;user prefers dark mode&quot;, tags=[&quot;preferences&quot;])
 results = client.recall(&quot;what theme does the user like?&quot;)
+print(results)
 </code></pre>
-
-<h3>The Competition</h3>
-
-<p>Other memory frameworks, like Zep and MemGPT, offer different approaches to memory management; zep is great for temporal reasoning, while MemGPT is perfect for self-improving agents. Mem0 and Letta, on the other hand, provide a more general-purpose solution.</p>
-
 <h3>Conclusion</h3>
 
-<p>Optimizing AI agent memory is crucial for building production-grade AI agents. Mem0 and Letta offer a solution to the memory dilemma of LLMs, providing predictable memory operations and stateful-agent runtimes. And try MrMemory today to see how it can help you manage memory efficiently.</p>
-
-<p>---</p>
-
-<h3>Related Reading</h3>
-
-<ul>
-<li><a href="link">Understanding AI Agent Memory</a></li>
-<li><a href="link">Memory Optimization for Production AI Agents</a></li>
-<li><a href="link">MrMemory: A Managed Memory API for AI Agents</a></li>
-</ul>
+<p>Choosing the right AI agent memory framework can be overwhelming. By considering your use case, memory class, and architecture, you can make an informed decision.</p>
     </div>
 
     <div class="article-cta">

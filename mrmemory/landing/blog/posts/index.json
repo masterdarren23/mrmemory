@@ -2,8 +2,8 @@
   {
     "slug": "untitled",
     "title": "Untitled",
-    "description": "You've got an AI agent that's burning through memory like a hot knife through butter. It's time to optimize its memory with Mem0 and Letta frameworks. But ",
-    "date": "2026-09-12",
+    "description": "Your AI agent has no persistent memory, which can lead to a range of issues. For instance, if you're paying token costs to re-inject context every call, yo",
+    "date": "2026-09-13",
     "readTime": "2 min read",
     "tags": []
   },
