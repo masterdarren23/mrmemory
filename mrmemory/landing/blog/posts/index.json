@@ -1,5 +1,18 @@
 [
   {
+    "slug": "the-persistent-memory-problem-why-ai-agents-keep-forgetting",
+    "title": "The Persistent Memory Problem: Why AI Agents Keep Forgetting",
+    "description": "How to fix the frustrating memory problem that's holding back your AI agents. We'll show you how MrMemory can help.",
+    "date": "2026-09-15",
+    "readTime": "2 min read",
+    "tags": [
+      "AI Agent Memory",
+      "Integration Considerations",
+      "Persistent Memory Problem",
+      "MrMemory"
+    ]
+  },
+  {
     "slug": "untitled",
     "title": "Untitled",
     "description": "**Mastering AI Agent Memory: Choosing the Right Framework for Your Project**",
