@@ -1,5 +1,13 @@
 [
   {
+    "slug": "untitled",
+    "title": "Untitled",
+    "description": "title: \"Optimizing AI Agent Memory for Production-Ready Models\"",
+    "date": "2026-09-18",
+    "readTime": "2 min read",
+    "tags": []
+  },
+  {
     "slug": "your-ai-agents-memory-problem",
     "title": "Your AI Agent's Memory Problem",
     "description": "Building intelligent assistants with persistent memory requires the right memory framework. Here's how to choose.",
@@ -12,14 +20,6 @@
       "artificial intelligence",
       "machine learning"
     ]
-  },
-  {
-    "slug": "untitled",
-    "title": "Untitled",
-    "description": "Imagine building an AI assistant that can't remember your favorite coffee order. Or a chatbot that keeps asking you to repeat the same question because it ",
-    "date": "2026-09-16",
-    "readTime": "2 min read",
-    "tags": []
   },
   {
     "slug": "the-persistent-memory-problem-why-ai-agents-keep-forgetting",
