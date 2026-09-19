@@ -2,9 +2,9 @@
   {
     "slug": "untitled",
     "title": "Untitled",
-    "description": "title: \"Optimizing AI Agent Memory for Production-Ready Models\"",
-    "date": "2026-09-18",
-    "readTime": "2 min read",
+    "description": "[OLLAMA ERROR] HTTPConnectionPool(host='localhost', port=11434): Max retries exceeded with url: /api/chat (Caused by NewConnectionError('<urllib3.connectio",
+    "date": "2026-09-19",
+    "readTime": "1 min read",
     "tags": []
   },
   {
