@@ -2,9 +2,9 @@
   {
     "slug": "untitled",
     "title": "Untitled",
-    "description": "[OLLAMA ERROR] HTTPConnectionPool(host='localhost', port=11434): Max retries exceeded with url: /api/chat (Caused by NewConnectionError('<urllib3.connectio",
-    "date": "2026-09-19",
-    "readTime": "1 min read",
+    "description": "**Overcoming LLM Limitations with Letta's Virtual Context Mechanism**",
+    "date": "2026-09-20",
+    "readTime": "2 min read",
     "tags": []
   },
   {
