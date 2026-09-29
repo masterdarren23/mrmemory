@@ -1,5 +1,13 @@
 [
   {
+    "slug": "untitled",
+    "title": "Untitled",
+    "description": "**Scaling AI Agent Memory: 5 Design Patterns for the Road Ahead**",
+    "date": "2026-09-29",
+    "readTime": "2 min read",
+    "tags": []
+  },
+  {
     "slug": "the-forgetting-problem-in-ai-agents",
     "title": "The Forgetting Problem in AI Agents",
     "description": "title: \"5 Practical Strategies for Persistent Memory in AI Agents\"",
@@ -9,14 +17,6 @@
       "AI",
       "MrMemory"
     ]
-  },
-  {
-    "slug": "untitled",
-    "title": "Untitled",
-    "description": "**5 Practical Solutions to the Persistent Memory Problem in AI Agents: A Guide for Developers in 2026**",
-    "date": "2026-09-27",
-    "readTime": "2 min read",
-    "tags": []
   },
   {
     "slug": "your-ai-agents-memory-problem",
