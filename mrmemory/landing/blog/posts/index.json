@@ -1,5 +1,13 @@
 [
   {
+    "slug": "untitled",
+    "title": "Untitled",
+    "description": "**Fixing Forgetful AI Agents: 10 Ways to Give Them a Brain**",
+    "date": "2026-10-05",
+    "readTime": "3 min read",
+    "tags": []
+  },
+  {
     "slug": "breaking-the-memory-cycle-how-to-build-ai-agents-that-actually-remember",
     "title": "Breaking the Memory Cycle: How to Build AI Agents That Actually Remember",
     "description": "Tired of explaining yourself to a forgetful AI? Learn how to integrate persistent memory into your agent architecture using MrMemory's API and expert insights.",
@@ -11,14 +19,6 @@
       "Memory Architecture",
       "MrMemory"
     ]
-  },
-  {
-    "slug": "untitled",
-    "title": "Untitled",
-    "description": "**The Persistent Memory Problem in AI Agent Development: 5 Easy Fixes**",
-    "date": "2026-10-03",
-    "readTime": "3 min read",
-    "tags": []
   },
   {
     "slug": "the-forgetting-problem-in-ai-agents",
