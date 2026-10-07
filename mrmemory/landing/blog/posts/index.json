@@ -1,5 +1,19 @@
 [
   {
+    "slug": "the-silent-killer-of-ai-agents-fixing-memory-related-issues",
+    "title": "The Silent Killer of AI Agents: Fixing Memory-Related Issues",
+    "description": "How memory-related issues are crippling AI agents, and what you can do to fix them",
+    "date": "2026-10-07",
+    "readTime": "2 min read",
+    "tags": [
+      "AI agent memory",
+      "agent memory",
+      "LLM memory",
+      "AI memory",
+      "agent memory architecture"
+    ]
+  },
+  {
     "slug": "untitled",
     "title": "Untitled",
     "description": "title: \"Tired of Losing User Data? Add Persistent Memory to LangChain Agents\"",
