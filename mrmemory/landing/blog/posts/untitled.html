@@ -12,9 +12,9 @@ gtag('config', 'G-TS0RXEVBH6');
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Untitled — MrMemory Blog</title>
-<meta name="description" content="title: &quot;Tired of Losing User Data? Add Persistent Memory to LangChain Agents&quot;">
+<meta name="description" content="**The Memory Problem: When AI Agents Forget**">
 <meta property="og:title" content="Untitled">
-<meta property="og:description" content="title: &quot;Tired of Losing User Data? Add Persistent Memory to LangChain Agents&quot;">
+<meta property="og:description" content="**The Memory Problem: When AI Agents Forget**">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://mrmemory.dev/blog/posts/untitled.html">
 <link rel="canonical" href="https://mrmemory.dev/blog/posts/untitled.html">
@@ -103,82 +103,75 @@ footer{border-top:1px solid var(--border);padding:32px 0;text-align:center;color
     <div class="article-header">
       <h1>Untitled</h1>
       <div class="article-meta">
-        <span>2026-10-06</span>
-        <span>1 min read</span>
+        <span>2026-10-08</span>
+        <span>2 min read</span>
       </div>
       <div class="article-tags"></div>
     </div>
 
     <div class="article-content">
-      <p>title: "Tired of Losing User Data? Add Persistent Memory to LangChain Agents"</p>
-<p>description: "LangChain's built-in memory is limited, and without persistent memory, your agents will struggle to remember user preferences, conversations, and tasks across sessions."</p>
-<p>tags: ["langchain", "persistent memory", "ai agents", "memory management"]</p>
-<p>date: 2026-10-06</p>
+      <p><strong>The Memory Problem: When AI Agents Forget</strong></p>
 
-<h3>The Persistent Memory Problem</h3>
+<p>You're building an AI agent, and it's struggling to recall basic information or learn from past interactions. This is a common problem, but it's not a new one. We've all been there – trying to troubleshoot a support bot that can't remember the user's settings. But what if I told you that there's a better way?</p>
 
-<p>Your LangChain agent just forgot user preferences for the third time this week. Again. You're about to lose your mind. It's time to add some real memory to your agent.</p>
+<p><strong>Meet Mem0 and MrMemory: Two AI Memory APIs</strong></p>
 
-<p>LangChain's built-in memory is either raw chat history or LLM-summarized history. Both approaches treat all information equally, without considering the nuances of user preferences, conversations, or tasks. This leads to:</p>
+<p>Two popular solutions have emerged to tackle this issue: Mem0 and MrMemory. These AI memory APIs aim to provide a robust memory system for your agents, but which one should you choose?</p>
+
+<p><strong>The Statelessness Problem</strong></p>
+
+<p>Traditional large language models (LLMs) are stateless, meaning they start each interaction without any context or memory. This leads to inefficiencies and inaccuracies in AI responses. For example, a support bot that recalls yesterday's ticket can provide more accurate assistance than one that starts from scratch each time.</p>
+
+<p><strong>MrMemory: A Managed Memory API</strong></p>
+
+<p>MrMemory is a managed memory API specifically designed for AI agents. It allows you to store, retrieve, and manage context across sessions, tools, and runs. With MrMemory, you can:</p>
 
 <ul>
-<li>User preferences not persisted across sessions.</li>
-<li>Conversations not stored for future reference.</li>
-<li>Tasks and instructions not retained for subsequent interactions.</li>
+<li>Store context using a simple <code>remember()</code> function</li>
+<li>Retrieve context using a <code>recall()</code> function</li>
+<li>Use tags to categorize and filter context</li>
 </ul>
 
-<h3>Solutions: Composite Backend and StoreBackend</h3>
-
-<p>According to LangChain's documentation, use a composite backend that routes the <code>/memories/</code> path to a <code>StoreBackend</code>. This allows you to store and retrieve memories separately from the chat history.</p>
-
-<p>Alternatively, use the <code>RemLabsMemory</code> class, which implements LangChain's memory interface. This class is a drop-in replacement for <code>ConversationBufferMemory</code>.</p>
-
-<h3>Using MrMemory for Persistent Memory</h3>
-
-<p>MrMemory is a managed memory API for AI agents. It provides a simple and efficient way to add persistent memory to your LangChain agents. Here's an example of how to use MrMemory to remember user preferences and recall them later:</p>
-
+<p>Here's an example of how to use MrMemory's API:</p>
 <pre><code class="language-python">
 from mrmemory import MrMemory
-
 client = MrMemory(api_key=&quot;your-key&quot;)
 client.remember(&quot;user prefers dark mode&quot;, tags=[&quot;preferences&quot;])
 results = client.recall(&quot;what theme does the user like?&quot;)
 </code></pre>
+<p><strong>Mem0: An Open-Source SDK</strong></p>
 
-<h3>Comparison with Alternatives: Mem0, Zep, and MemGPT</h3>
+<p>Mem0 is an open-source SDK that exposes memory operations such as add, search, update, and delete across user, agent, and session memory. It's self-hosted, making it a viable option for those who prefer to manage their own infrastructure.</p>
 
-<p>Mem0 lacks compression and self-edit tools, while Zep and MemGPT require significant infrastructure and maintenance. MrMemory offers a managed solution with compression, self-edit tools, and anti-pollution features.</p>
+<p><strong>Benchmarking Results</strong></p>
 
-<h3>Conclusion: No More Lost Data</h3>
+<p>Mem0's token-efficient memory algorithm has shown promising results in benchmarking tests. If you're looking for an open-source solution and don't mind the added complexity, Mem0 might be the better choice.</p>
 
-<p>Adding persistent memory to your LangChain agents is crucial for creating sophisticated AI agents that remember user preferences, conversations, and tasks across sessions. With MrMemory, you can easily integrate persistent memory into your existing code and take advantage of its features.</p>
+<p><strong>Alternatives</strong></p>
 
-<p>Try MrMemory today and give your LangChain agents some real brains.</p>
+<p>Other alternatives to Mem0 and MrMemory include:</p>
 
-<p>---</p>
+<ul>
+<li>Zep: A self-hosted memory platform that focuses on facts that change over time</li>
+<li>Letta: A memory platform that allows agents to edit their own memory</li>
+<li>Cognee: A knowledge-graph ingestion pipeline for AI agents</li>
+</ul>
+
+<p><strong>Conclusion</strong></p>
+
+<p>When choosing an AI memory API, consider the specific needs of your project. If you prefer a managed experience and don't mind the added cost, MrMemory might be the better choice. However, if you're looking for an open-source SDK and prefer to self-host, Mem0 is a viable option.</p>
+
+<p><strong>Try MrMemory Today</strong></p>
+
+<p>Try MrMemory today and see how it can improve your AI agent's memory capabilities!</p>
+
+<p><strong>Tags:</strong> AI memory, Mem0, MrMemory, AI agents, memory API, open-source SDK, managed API, self-hosting</p>
 
 <p><strong>Internal links:</strong></p>
 
 <ul>
-<li><a href="https://mrmemory.dev/docs">MrMemory documentation</a></li>
-<li><a href="https://langchain.dev/docs">LangChain documentation</a></li>
-<li><a href="https://mrmemory.dev/docs/persistent-memory">Persistent memory for AI agents</a></li>
-</ul>
-
-<p><strong>Tags:</strong></p>
-
-<ul>
-<li>langchain</li>
-<li>persistent memory</li>
-<li>ai agents</li>
-<li>memory management</li>
-</ul>
-
-<p><strong>Related articles:</strong></p>
-
-<ul>
-<li><a href="https://mrmemory.dev/blog/persistent-memory-importance">The importance of persistent memory in AI agents</a></li>
-<li><a href="https://mrmemory.dev/blog/memory-optimization-langchain">How to optimize memory usage in LangChain agents</a></li>
+<li><a href="https://mrmemory.dev/docs/">What is MrMemory?</a></li>
+<li><a href="https://mrmemory.dev/docs/quickstart/">How to use MrMemory</a></li>
 </ul>
     </div>
 

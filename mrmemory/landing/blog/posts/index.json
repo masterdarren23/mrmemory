@@ -1,5 +1,13 @@
 [
   {
+    "slug": "untitled",
+    "title": "Untitled",
+    "description": "**The Memory Problem: When AI Agents Forget**",
+    "date": "2026-10-08",
+    "readTime": "2 min read",
+    "tags": []
+  },
+  {
     "slug": "the-silent-killer-of-ai-agents-fixing-memory-related-issues",
     "title": "The Silent Killer of AI Agents: Fixing Memory-Related Issues",
     "description": "How memory-related issues are crippling AI agents, and what you can do to fix them",
@@ -12,14 +20,6 @@
       "AI memory",
       "agent memory architecture"
     ]
-  },
-  {
-    "slug": "untitled",
-    "title": "Untitled",
-    "description": "title: \"Tired of Losing User Data? Add Persistent Memory to LangChain Agents\"",
-    "date": "2026-10-06",
-    "readTime": "1 min read",
-    "tags": []
   },
   {
     "slug": "breaking-the-memory-cycle-how-to-build-ai-agents-that-actually-remember",
