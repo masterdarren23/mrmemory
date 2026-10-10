@@ -1,5 +1,16 @@
 [
   {
+    "slug": "initialize-the-mrmemory-client",
+    "title": "Initialize the MrMemory client",
+    "description": "**Building AI Agents That Never Forget**",
+    "date": "2026-10-10",
+    "readTime": "2 min read",
+    "tags": [
+      "AI",
+      "MrMemory"
+    ]
+  },
+  {
     "slug": "untitled",
     "title": "Untitled",
     "description": "\"Learn how to give your AI agent memory that persists across conversations. Understand the three levels of AI agent memory and how to implement them using ",
