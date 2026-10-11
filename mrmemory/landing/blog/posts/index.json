@@ -1,5 +1,16 @@
 [
   {
+    "slug": "the-memory-problem-plagues-ai-agents",
+    "title": "The Memory Problem Plagues AI Agents",
+    "description": "title: \"LangChain Memory Solutions Compared: MrMemory, Mem0, Zep, MemGPT\"",
+    "date": "2026-10-11",
+    "readTime": "2 min read",
+    "tags": [
+      "AI",
+      "MrMemory"
+    ]
+  },
+  {
     "slug": "initialize-the-mrmemory-client",
     "title": "Initialize the MrMemory client",
     "description": "**Building AI Agents That Never Forget**",
