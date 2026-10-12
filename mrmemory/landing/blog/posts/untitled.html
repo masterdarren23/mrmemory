@@ -12,9 +12,9 @@ gtag('config', 'G-TS0RXEVBH6');
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Untitled — MrMemory Blog</title>
-<meta name="description" content="&quot;Learn how to give your AI agent memory that persists across conversations. Understand the three levels of AI agent memory and how to implement them using ">
+<meta name="description" content="**Reducing AI Token Costs with Memory Compression**">
 <meta property="og:title" content="Untitled">
-<meta property="og:description" content="&quot;Learn how to give your AI agent memory that persists across conversations. Understand the three levels of AI agent memory and how to implement them using ">
+<meta property="og:description" content="**Reducing AI Token Costs with Memory Compression**">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://mrmemory.dev/blog/posts/untitled.html">
 <link rel="canonical" href="https://mrmemory.dev/blog/posts/untitled.html">
@@ -103,98 +103,64 @@ footer{border-top:1px solid var(--border);padding:32px 0;text-align:center;color
     <div class="article-header">
       <h1>Untitled</h1>
       <div class="article-meta">
-        <span>2026-10-09</span>
+        <span>2026-10-12</span>
         <span>2 min read</span>
       </div>
       <div class="article-tags"></div>
     </div>
 
     <div class="article-content">
-      <h3>Making Your AI Agent Remember Conversations: A Practical Guide</h3>
+      <p><strong>Reducing AI Token Costs with Memory Compression</strong></p>
 
-<p>#### Meta Description:</p>
-<p>"Learn how to give your AI agent memory that persists across conversations. Understand the three levels of AI agent memory and how to implement them using MrMemory's managed memory API."</p>
+<p>As AI agents become increasingly ubiquitous, the costs associated with their maintenance and operation are skyrocketing. One of the biggest expenses? AI token costs. We'll explore the issue of token costs and present several methods for reducing them using memory compression.</p>
 
-<p>---</p>
+<p><strong>The Naive Agent Memory Problem</strong></p>
 
-<h3>The Forgetful AI Agent Problem</h3>
+<p>Most agent frameworks use a naive file-memory injection approach, which scales linearly with usage. This means that as your memory store grows, so does the number of prompt tokens required for each inference call. We'll illustrate this issue with an example. Suppose you have a 24-entry memory store, and you want to retrieve a specific piece of information from it. Naive file-memory injection would require injecting all 24 entries into the prompt, resulting in a whopping 594 tokens. But what if you used a retrieval-based memory architecture? You could reduce that number to just 166 tokens, saving 72% (based on the same query and model).</p>
 
-<p>Your AI agent behaves like it's meeting you for the first time in every conversation, forgetting what you said last week, losing track of previous task results, or ignoring your stated preferences. It's not the model's fault - it's your memory architecture. And in mid-2026, AI agent development moved past "make the model answer questions" and into "make the model collaborate over time." But there's a catch: memory persistence and retrieval efficiency are the biggest obstacles.</p>
+<p><strong>Compression Techniques</strong></p>
 
-<h3>The Three Levels of AI Agent Memory</h3>
+<p>Several compression techniques can help reduce token costs:</p>
 
-<p>#### Level 1: Conversation Context (Short-Term Memory)</p>
+<ul>
+<li>Hierarchical summarization: Create summaries of your memory store at multiple levels to enable more efficient information retrieval.</li>
+<li>Ebbinghaus eviction: Remove the least-recently-used entries from your memory store to reduce the number of tokens required for each inference call.</li>
+<li>Embedding quantization: Reduce the precision of your embeddings to enable more efficient storage and retrieval of information.</li>
+<li>Jaccard self-curation: Use the Jaccard similarity metric to identify and remove duplicate memories from your store, reducing the number of tokens required for each inference call.</li>
+<li>Hot/cold caching: Store frequently-accessed information in a separate cache to reduce the number of tokens required for each inference call.</li>
+</ul>
 
-<p>When you pass recent conversation history as context to an LLM, context windows have limits. Conversations longer than three days ago get truncated, causing your agent to "forget" discussions.</p>
+<p><strong>Implementation with MrMemory</strong></p>
 
+<p>MrMemory is a managed memory API that makes it easy to implement compression techniques. Using MrMemory, you can implement hierarchical summarization, Ebbinghaus eviction, and other compression techniques to reduce the number of tokens required for each inference call.</p>
+
+<p>Here's an example of how to use MrMemory to implement hierarchical summarization:</p>
 <pre><code class="language-python">
 from mrmemory import MrMemory
+
 client = MrMemory(api_key=&quot;your-key&quot;)
-messages = [
-{
-&quot;role&quot;: &quot;system&quot;,
-&quot;content&quot;: &quot;You are a helpful assistant&quot;
-},
-{
-&quot;role&quot;: &quot;user&quot;,
-&quot;content&quot;: &quot;About that project I mentioned yesterday...&quot;
-}
-]
-</code></pre>
-
-<p>#### Level 2: Working Memory (Mid-Term Memory)</p>
-
-<p>Working memory isn't a full conversation log, but key information extracted from conversations. A simple JSON structure works:</p>
-
-<pre><code class="language-python">
-working_memory = {
-&quot;current_project&quot;: &quot;Automated reporting system&quot;,
-&quot;pending_tasks&quot;: [&quot;Report generation&quot;, &quot;Data analysis&quot;],
-&quot;user_preferences&quot;: {
-&quot;language&quot;: &quot;English&quot;,
-&quot;theme&quot;: &quot;Dark mode&quot;
-}
-}
-</code></pre>
-
-<p>#### Level 3: Long-Term Memory</p>
-
-<p>Long-term memory survives past the session, storing extracted facts, user preferences, and summaries the agent can recall in a future conversation.</p>
-
-<pre><code class="language-python">
 client.remember(&quot;user prefers dark mode&quot;, tags=[&quot;preferences&quot;])
 results = client.recall(&quot;what theme does the user like?&quot;)
 </code></pre>
+<p><strong>Comparison with Alternatives</strong></p>
 
-<h3>Using MrMemory's Managed Memory API</h3>
+<p>While MrMemory provides a powerful and efficient way to implement compression techniques, there are other alternatives available. Mem0 provides a similar set of compression techniques, but with a focus on model-agnostic optimization. Zep, on the other hand, provides a self-hosted solution for managing memory stores.</p>
 
-<p>MrMemory simplifies memory management for AI agents with its managed memory API. Implement the three levels of AI agent memory and make your agent remember conversations.</p>
+<p><strong>Conclusion</strong></p>
 
-<h3>Comparison with Alternatives</h3>
+<p>Memory compression is a game-changer for reducing AI token costs. By using compression techniques like hierarchical summarization, Ebbinghaus eviction, and embedding quantization, you can significantly reduce the number of tokens required for each inference call. MrMemory makes it easy to implement these techniques, and we encourage you to give it a try.</p>
 
-<p>Other solutions like Mem0, Zep, and MemGPT aim to provide AI agents with memory. However, MrMemory's managed memory API offers a more efficient and scalable solution for large-scale applications.</p>
+<p><strong>Try MrMemory Today</strong></p>
 
-<h3>Conclusion</h3>
+<p>To get started with MrMemory, simply install the library using pip: <code>pip install mrmemory</code>. And then, create an instance of the MrMemory client using your API key: <code>client = MrMemory(api_key="your-key")</code>. From there, you can use the various compression techniques provided by MrMemory to reduce the number of tokens required for each inference call.</p>
 
-<p>Implementing the three levels of AI agent memory and using MrMemory's managed memory API makes your AI agent remember conversations and collaborate over time. Try MrMemory today and see the difference it can make in your AI agent development.</p>
+<p><strong>Tags:</strong> AI token costs, memory compression, MrMemory, hierarchical summarization, Ebbinghaus eviction, embedding quantization, Jaccard self-curation, hot/cold caching.</p>
 
-<p>#### Suggested Internal Links and Tags</p>
-
-<ul>
-<li><a href="https://mrmemory.dev/docs">MrMemory Documentation</a></li>
-<li><a href="https://synapsewire.com/ai-agent-memory-management/">AI Agent Memory Management</a></li>
-<li><a href="https://annielytics.com/ai-agent-memory-persistence/">How to Give an AI Agent Memory That Persists Across Conversations</a></li>
-<li><a href="https://reddit.com/r/LangChain/comments/1234567/building_ai_agents_that_actually_remember_things/">Building AI Agents that Actually Remember Things</a></li>
-</ul>
-
-<p>#### Tags</p>
+<p><strong>Internal Links:</strong></p>
 
 <ul>
-<li>ai-agent-memory</li>
-<li>mrmemory</li>
-<li>ai-development</li>
-<li>natural-language-processing</li>
-<li>machine-learning</li>
+<li><a href="https://thenewstack.io/memory-for-ai-agents-a-new-paradigm-of-context-engineering/">The 2026 Token Optimization Playbook: Cut AI Agent Memory Costs 3–4X</a></li>
+<li><a href="https://mem0.ai/">How to Reduce LLM Token Costs for AI Agent Memory | Mem0</a></li>
 </ul>
     </div>
 
