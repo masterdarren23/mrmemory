@@ -12,9 +12,9 @@ gtag('config', 'G-TS0RXEVBH6');
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Untitled — MrMemory Blog</title>
-<meta name="description" content="**Reducing AI Token Costs with Memory Compression**">
+<meta name="description" content="**Adding Long-Term Memory to CrewAI Agents: Step-by-Step**">
 <meta property="og:title" content="Untitled">
-<meta property="og:description" content="**Reducing AI Token Costs with Memory Compression**">
+<meta property="og:description" content="**Adding Long-Term Memory to CrewAI Agents: Step-by-Step**">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://mrmemory.dev/blog/posts/untitled.html">
 <link rel="canonical" href="https://mrmemory.dev/blog/posts/untitled.html">
@@ -103,38 +103,37 @@ footer{border-top:1px solid var(--border);padding:32px 0;text-align:center;color
     <div class="article-header">
       <h1>Untitled</h1>
       <div class="article-meta">
-        <span>2026-10-12</span>
-        <span>2 min read</span>
+        <span>2026-10-13</span>
+        <span>1 min read</span>
       </div>
       <div class="article-tags"></div>
     </div>
 
     <div class="article-content">
-      <p><strong>Reducing AI Token Costs with Memory Compression</strong></p>
+      <p><strong>Adding Long-Term Memory to CrewAI Agents: Step-by-Step</strong></p>
 
-<p>As AI agents become increasingly ubiquitous, the costs associated with their maintenance and operation are skyrocketing. One of the biggest expenses? AI token costs. We'll explore the issue of token costs and present several methods for reducing them using memory compression.</p>
+<p><strong>Meta Description:</strong> Learn how to integrate long-term memory into your CrewAI agents for persistent, shared memory. Step-by-step guide with code examples and alternatives.</p>
 
-<p><strong>The Naive Agent Memory Problem</strong></p>
+<p>---</p>
 
-<p>Most agent frameworks use a naive file-memory injection approach, which scales linearly with usage. This means that as your memory store grows, so does the number of prompt tokens required for each inference call. We'll illustrate this issue with an example. Suppose you have a 24-entry memory store, and you want to retrieve a specific piece of information from it. Naive file-memory injection would require injecting all 24 entries into the prompt, resulting in a whopping 594 tokens. But what if you used a retrieval-based memory architecture? You could reduce that number to just 166 tokens, saving 72% (based on the same query and model).</p>
+<p><strong>The Problem with Repeat Conversations</strong></p>
 
-<p><strong>Compression Techniques</strong></p>
+<p>Have you ever deployed a CrewAI agent only to have it forget previous conversations and repeat tasks? Or maybe it's making incorrect decisions because it can't recall relevant context? You're not alone. Long-term memory is a crucial aspect of building intelligent AI systems. Without it, your agents are little more than script-kiddies with a bad memory.</p>
 
-<p>Several compression techniques can help reduce token costs:</p>
+<h3>Step 1: Enabling Long-Term Memory in CrewAI</h3>
 
-<ul>
-<li>Hierarchical summarization: Create summaries of your memory store at multiple levels to enable more efficient information retrieval.</li>
-<li>Ebbinghaus eviction: Remove the least-recently-used entries from your memory store to reduce the number of tokens required for each inference call.</li>
-<li>Embedding quantization: Reduce the precision of your embeddings to enable more efficient storage and retrieval of information.</li>
-<li>Jaccard self-curation: Use the Jaccard similarity metric to identify and remove duplicate memories from your store, reducing the number of tokens required for each inference call.</li>
-<li>Hot/cold caching: Store frequently-accessed information in a separate cache to reduce the number of tokens required for each inference call.</li>
-</ul>
+<p>To enable long-term memory in CrewAI, initialize your agents with <code>long_term_memory</code> set to <code>True</code> in the <code>memory_config</code> dictionary. Here's an example:</p>
 
-<p><strong>Implementation with MrMemory</strong></p>
+<pre><code class="language-python">
+from crewai import Crew
 
-<p>MrMemory is a managed memory API that makes it easy to implement compression techniques. Using MrMemory, you can implement hierarchical summarization, Ebbinghaus eviction, and other compression techniques to reduce the number of tokens required for each inference call.</p>
+crew = Crew(memory_config={&#x27;long_term_memory&#x27;: True})
+</code></pre>
 
-<p>Here's an example of how to use MrMemory to implement hierarchical summarization:</p>
+<h3>Step 2: Using MrMemory for Persistent Storage</h3>
+
+<p>MrMemory is a managed memory API that stores and retrieves memories efficiently. You can use it to persist memories across sessions and retrieve them when needed; here's an example:</p>
+
 <pre><code class="language-python">
 from mrmemory import MrMemory
 
@@ -142,26 +141,42 @@ client = MrMemory(api_key=&quot;your-key&quot;)
 client.remember(&quot;user prefers dark mode&quot;, tags=[&quot;preferences&quot;])
 results = client.recall(&quot;what theme does the user like?&quot;)
 </code></pre>
-<p><strong>Comparison with Alternatives</strong></p>
 
-<p>While MrMemory provides a powerful and efficient way to implement compression techniques, there are other alternatives available. Mem0 provides a similar set of compression techniques, but with a focus on model-agnostic optimization. Zep, on the other hand, provides a self-hosted solution for managing memory stores.</p>
+<h3>Step 3: Differentiating between Short-Term and Long-Term Memory</h3>
 
-<p><strong>Conclusion</strong></p>
+<p>In CrewAI, you can reset specific memories individually or delete all memories using the <code>reset_memories</code> function. For example:</p>
 
-<p>Memory compression is a game-changer for reducing AI token costs. By using compression techniques like hierarchical summarization, Ebbinghaus eviction, and embedding quantization, you can significantly reduce the number of tokens required for each inference call. MrMemory makes it easy to implement these techniques, and we encourage you to give it a try.</p>
+<pre><code class="language-python">
+from crewai import Memory
 
-<p><strong>Try MrMemory Today</strong></p>
+memory = Memory()
+memory.reset_memories([&#x27;short_term_memory&#x27;])
+</code></pre>
 
-<p>To get started with MrMemory, simply install the library using pip: <code>pip install mrmemory</code>. And then, create an instance of the MrMemory client using your API key: <code>client = MrMemory(api_key="your-key")</code>. From there, you can use the various compression techniques provided by MrMemory to reduce the number of tokens required for each inference call.</p>
+<h3>Comparison and Alternatives</h3>
 
-<p><strong>Tags:</strong> AI token costs, memory compression, MrMemory, hierarchical summarization, Ebbinghaus eviction, embedding quantization, Jaccard self-curation, hot/cold caching.</p>
+<p>While MrMemory provides a simple and efficient way to implement long-term memory in CrewAI, consider other alternatives:</p>
+
+<ul>
+<li>Mem0: A more complex and customizable memory system.</li>
+<li>Zep: A self-hosted memory layer for AI agents that's flexible and scalable.</li>
+<li>MemGPT: A memory layer that's advanced and context-aware.</li>
+</ul>
+
+<h3>Conclusion</h3>
+
+<p>Adding long-term memory to your CrewAI agents is a game-changer. By following these steps, you can implement long-term memory using MrMemory — try it out and see the benefits of persistent, shared memory for yourself.</p>
+
+<p><strong>Try MrMemory:</strong> <a href="https://github.com/masterdarren23/mrmemory">Install MrMemory</a> and <a href="https://mrmemory.dev/docs">read the documentation</a>.</p>
 
 <p><strong>Internal Links:</strong></p>
 
 <ul>
-<li><a href="https://thenewstack.io/memory-for-ai-agents-a-new-paradigm-of-context-engineering/">The 2026 Token Optimization Playbook: Cut AI Agent Memory Costs 3–4X</a></li>
-<li><a href="https://mem0.ai/">How to Reduce LLM Token Costs for AI Agent Memory | Mem0</a></li>
+<li><a href="https://crewai.com/docs/memory-systems">CrewAI Memory Systems</a></li>
+<li><a href="https://mrmemory.dev/docs">MrMemory Documentation</a></li>
 </ul>
+
+<p><strong>Tags:</strong> crewai, long-term memory, persistent storage, shared memory, mrmemory, memory layer, ai agents, intelligent systems, context-aware systems.</p>
     </div>
 
     <div class="article-cta">
