@@ -12,9 +12,9 @@ gtag('config', 'G-TS0RXEVBH6');
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Untitled — MrMemory Blog</title>
-<meta name="description" content="**Adding Long-Term Memory to CrewAI Agents: Step-by-Step**">
+<meta name="description" content="**Tired of Frustrating Context Shifts?**">
 <meta property="og:title" content="Untitled">
-<meta property="og:description" content="**Adding Long-Term Memory to CrewAI Agents: Step-by-Step**">
+<meta property="og:description" content="**Tired of Frustrating Context Shifts?**">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://mrmemory.dev/blog/posts/untitled.html">
 <link rel="canonical" href="https://mrmemory.dev/blog/posts/untitled.html">
@@ -103,80 +103,81 @@ footer{border-top:1px solid var(--border);padding:32px 0;text-align:center;color
     <div class="article-header">
       <h1>Untitled</h1>
       <div class="article-meta">
-        <span>2026-10-13</span>
-        <span>1 min read</span>
+        <span>2026-10-14</span>
+        <span>2 min read</span>
       </div>
       <div class="article-tags"></div>
     </div>
 
     <div class="article-content">
-      <p><strong>Adding Long-Term Memory to CrewAI Agents: Step-by-Step</strong></p>
+      <p><strong>Tired of Frustrating Context Shifts?</strong></p>
 
-<p><strong>Meta Description:</strong> Learn how to integrate long-term memory into your CrewAI agents for persistent, shared memory. Step-by-step guide with code examples and alternatives.</p>
+<p>Have you ever found yourself repeating the same instructions to your conversational AI agents only to have them forget crucial context? I've been there too. It's infuriating. But, what if I told you there's a way to make your agents remember? Introducing persistent memory integration with AutoGen, Hindsight, and MrMemory.</p>
 
-<p>---</p>
+<p><strong>The Problem with Traditional Memory Approaches</strong></p>
 
-<p><strong>The Problem with Repeat Conversations</strong></p>
+<p>We've all been there - trying to maintain context over time with traditional memory solutions. But, they're often clunky, inefficient, or just plain don't work. And this is where persistent memory comes in - a game-changer for conversational AI agents.</p>
 
-<p>Have you ever deployed a CrewAI agent only to have it forget previous conversations and repeat tasks? Or maybe it's making incorrect decisions because it can't recall relevant context? You're not alone. Long-term memory is a crucial aspect of building intelligent AI systems. Without it, your agents are little more than script-kiddies with a bad memory.</p>
+<p><strong>What is Persistent Memory?</strong></p>
 
-<h3>Step 1: Enabling Long-Term Memory in CrewAI</h3>
+<p>In simple terms, persistent memory allows your agents to retain information over time. This is particularly useful in scenarios where context is crucial, such as customer support or workflows that span days or departments. With persistent memory, your agents can recall relevant facts before a turn and store new ones after.</p>
 
-<p>To enable long-term memory in CrewAI, initialize your agents with <code>long_term_memory</code> set to <code>True</code> in the <code>memory_config</code> dictionary. Here's an example:</p>
+<p><strong>The Step-by-Step Guide</strong></p>
 
-<pre><code class="language-python">
-from crewai import Crew
+<p>To integrate AutoGen with Hindsight and MrMemory, follow these steps:</p>
 
-crew = Crew(memory_config={&#x27;long_term_memory&#x27;: True})
+<ol>
+<li>Install the required packages using pip:</li>
+<pre><code class="language-bash">
+pip install autogen-agentchat hindsight-autogen mrmemory
 </code></pre>
-
-<h3>Step 2: Using MrMemory for Persistent Storage</h3>
-
-<p>MrMemory is a managed memory API that stores and retrieves memories efficiently. You can use it to persist memories across sessions and retrieve them when needed; here's an example:</p>
-
+<li>Initialize the Hindsight client and create a bank:</li>
 <pre><code class="language-python">
+from autogen_agentchat import AssistantAgent
+from hindsight_client import Hindsight
 from mrmemory import MrMemory
 
 client = MrMemory(api_key=&quot;your-key&quot;)
-client.remember(&quot;user prefers dark mode&quot;, tags=[&quot;preferences&quot;])
-results = client.recall(&quot;what theme does the user like?&quot;)
+bank_id = &quot;user-123&quot;
+await client.create_bank(bank_id)
 </code></pre>
-
-<h3>Step 3: Differentiating between Short-Term and Long-Term Memory</h3>
-
-<p>In CrewAI, you can reset specific memories individually or delete all memories using the <code>reset_memories</code> function. For example:</p>
-
+<li>Create the Hindsight tools and plug them into AutoGen's AssistantAgent:</li>
 <pre><code class="language-python">
-from crewai import Memory
-
-memory = Memory()
-memory.reset_memories([&#x27;short_term_memory&#x27;])
+tools = create_hindsight_tools(client, bank_id)
+agent = AssistantAgent(name=&quot;assistant&quot;, model_client=OpenAIChatCompletionClient(model=&quot;gpt-4o&quot;), tools=tools)
 </code></pre>
+<li>Store a memory using the MrMemory client:</li>
+<pre><code class="language-python">
+result = await agent.run(task=&quot;Remember that I prefer dark mode&quot;)
+print(result.message)
+</code></pre>
+<li>Recall the stored memory using the MrMemory client:</li>
+<pre><code class="language-python">
+results = client.recall(&quot;what theme does the user like?&quot;)
+print(results)
+</code></pre>
+</ol>
+<p><strong>Don't Get Caught Up in the Hype</strong></p>
 
-<h3>Comparison and Alternatives</h3>
-
-<p>While MrMemory provides a simple and efficient way to implement long-term memory in CrewAI, consider other alternatives:</p>
-
-<ul>
-<li>Mem0: A more complex and customizable memory system.</li>
-<li>Zep: A self-hosted memory layer for AI agents that's flexible and scalable.</li>
-<li>MemGPT: A memory layer that's advanced and context-aware.</li>
-</ul>
-
-<h3>Conclusion</h3>
-
-<p>Adding long-term memory to your CrewAI agents is a game-changer. By following these steps, you can implement long-term memory using MrMemory — try it out and see the benefits of persistent, shared memory for yourself.</p>
-
-<p><strong>Try MrMemory:</strong> <a href="https://github.com/masterdarren23/mrmemory">Install MrMemory</a> and <a href="https://mrmemory.dev/docs">read the documentation</a>.</p>
-
-<p><strong>Internal Links:</strong></p>
+<p>While Hindsight and MrMemory provide a solution for persistent memory, there are other alternatives worth considering:</p>
 
 <ul>
-<li><a href="https://crewai.com/docs/memory-systems">CrewAI Memory Systems</a></li>
-<li><a href="https://mrmemory.dev/docs">MrMemory Documentation</a></li>
+<li>Mem0: Lacks compression and self-edit tools.</li>
+<li>Zep: Self-hosted solution that requires more technical expertise to set up.</li>
+<li>MemGPT: May not provide the same level of scalability as Hindsight and MrMemory.</li>
 </ul>
 
-<p><strong>Tags:</strong> crewai, long-term memory, persistent storage, shared memory, mrmemory, memory layer, ai agents, intelligent systems, context-aware systems.</p>
+<p><strong>Conclusion</strong></p>
+
+<p>This tutorial showed you how to integrate AutoGen with persistent memory using Hindsight and MrMemory. With this solution, you can build conversational AI agents that retain information over time and provide consistent context for agent responses. Give MrMemory a try and see the benefits of persistent memory for yourself!</p>
+
+<p><strong>Learn More</strong></p>
+
+<ul>
+<li><a href="https://fastio.ai/autogen-memory-guide/">AutoGen Memory Guide: Managing State & Persistence</a></li>
+<li><a href="https://markaicode.com/autogen-qdrant-integration/">AutoGen + Qdrant Integration: Persistent Agent Memory</a></li>
+<li><a href="https://markaicode.com/autogen-milvus-integration/">AutoGen + Milvus: Wiring Persistent Agent Memory</a></li>
+</ul>
     </div>
 
     <div class="article-cta">
