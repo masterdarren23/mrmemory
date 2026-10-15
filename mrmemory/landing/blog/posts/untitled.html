@@ -12,9 +12,9 @@ gtag('config', 'G-TS0RXEVBH6');
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Untitled — MrMemory Blog</title>
-<meta name="description" content="**Tired of Frustrating Context Shifts?**">
+<meta name="description" content="**OpenAI Agents SDK Amnesia: How to Keep Your Chatbot&#x27;s Memory**">
 <meta property="og:title" content="Untitled">
-<meta property="og:description" content="**Tired of Frustrating Context Shifts?**">
+<meta property="og:description" content="**OpenAI Agents SDK Amnesia: How to Keep Your Chatbot&#x27;s Memory**">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://mrmemory.dev/blog/posts/untitled.html">
 <link rel="canonical" href="https://mrmemory.dev/blog/posts/untitled.html">
@@ -103,81 +103,65 @@ footer{border-top:1px solid var(--border);padding:32px 0;text-align:center;color
     <div class="article-header">
       <h1>Untitled</h1>
       <div class="article-meta">
-        <span>2026-10-14</span>
-        <span>2 min read</span>
+        <span>2026-10-15</span>
+        <span>1 min read</span>
       </div>
       <div class="article-tags"></div>
     </div>
 
     <div class="article-content">
-      <p><strong>Tired of Frustrating Context Shifts?</strong></p>
+      <p><strong>OpenAI Agents SDK Amnesia: How to Keep Your Chatbot's Memory</strong></p>
 
-<p>Have you ever found yourself repeating the same instructions to your conversational AI agents only to have them forget crucial context? I've been there too. It's infuriating. But, what if I told you there's a way to make your agents remember? Introducing persistent memory integration with AutoGen, Hindsight, and MrMemory.</p>
+<p>I've lost count of how many times I've built a chatbot, only to have it forget everything when I restart the process. You're not alone. OpenAI Agents SDK's lack of persistent memory can be frustrating, especially when you're dealing with token costs, context windows, and truncated history.</p>
 
-<p><strong>The Problem with Traditional Memory Approaches</strong></p>
+<p>Let's take a look at how to add memory to your OpenAI Agents SDK using MrMemory, a managed memory API that makes it easy to add recall to your chatbot.</p>
 
-<p>We've all been there - trying to maintain context over time with traditional memory solutions. But, they're often clunky, inefficient, or just plain don't work. And this is where persistent memory comes in - a game-changer for conversational AI agents.</p>
+<h3>Installing MrMemory</h3>
 
-<p><strong>What is Persistent Memory?</strong></p>
+<p>First, install MrMemory using pip:</p>
 
-<p>In simple terms, persistent memory allows your agents to retain information over time. This is particularly useful in scenarios where context is crucial, such as customer support or workflows that span days or departments. With persistent memory, your agents can recall relevant facts before a turn and store new ones after.</p>
-
-<p><strong>The Step-by-Step Guide</strong></p>
-
-<p>To integrate AutoGen with Hindsight and MrMemory, follow these steps:</p>
-
-<ol>
-<li>Install the required packages using pip:</li>
 <pre><code class="language-bash">
-pip install autogen-agentchat hindsight-autogen mrmemory
+pip install mrmemory
 </code></pre>
-<li>Initialize the Hindsight client and create a bank:</li>
-<pre><code class="language-python">
-from autogen_agentchat import AssistantAgent
-from hindsight_client import Hindsight
-from mrmemory import MrMemory
 
+<p>Next, import the MrMemory client and initialize it with your API key:</p>
+
+<pre><code class="language-python">
+from mrmemory import MrMemory
 client = MrMemory(api_key=&quot;your-key&quot;)
-bank_id = &quot;user-123&quot;
-await client.create_bank(bank_id)
 </code></pre>
-<li>Create the Hindsight tools and plug them into AutoGen's AssistantAgent:</li>
+
+<h3>Using MrMemory</h3>
+
+<p>Now you can use the <code>remember()</code> method to store memories:</p>
+
 <pre><code class="language-python">
-tools = create_hindsight_tools(client, bank_id)
-agent = AssistantAgent(name=&quot;assistant&quot;, model_client=OpenAIChatCompletionClient(model=&quot;gpt-4o&quot;), tools=tools)
+client.remember(&quot;user prefers dark mode&quot;, tags=[&quot;preferences&quot;])
 </code></pre>
-<li>Store a memory using the MrMemory client:</li>
-<pre><code class="language-python">
-result = await agent.run(task=&quot;Remember that I prefer dark mode&quot;)
-print(result.message)
-</code></pre>
-<li>Recall the stored memory using the MrMemory client:</li>
+
+<p>And the <code>recall()</code> method to retrieve relevant memories:</p>
+
 <pre><code class="language-python">
 results = client.recall(&quot;what theme does the user like?&quot;)
-print(results)
 </code></pre>
-</ol>
-<p><strong>Don't Get Caught Up in the Hype</strong></p>
 
-<p>While Hindsight and MrMemory provide a solution for persistent memory, there are other alternatives worth considering:</p>
+<p>MrMemory's compression feature can save up to 60% of token usage, making it easier to store more memories without incurring additional costs.</p>
 
-<ul>
-<li>Mem0: Lacks compression and self-edit tools.</li>
-<li>Zep: Self-hosted solution that requires more technical expertise to set up.</li>
-<li>MemGPT: May not provide the same level of scalability as Hindsight and MrMemory.</li>
-</ul>
+<h3>Comparing Alternatives</h3>
 
-<p><strong>Conclusion</strong></p>
+<p>You might be wondering about other options. Mem0 is a memory layer API, but lacks compression and self-edit tools. Zep and MemGPT are self-host only, which can be a pain to set up and manage.</p>
 
-<p>This tutorial showed you how to integrate AutoGen with persistent memory using Hindsight and MrMemory. With this solution, you can build conversational AI agents that retain information over time and provide consistent context for agent responses. Give MrMemory a try and see the benefits of persistent memory for yourself!</p>
+<h3>Conclusion</h3>
 
-<p><strong>Learn More</strong></p>
+<p>Adding memory to your OpenAI Agents SDK is easier than you think. With MrMemory, you can improve your AI's recall in just 5 minutes. Try MrMemory today and see the difference for yourself.</p>
 
-<ul>
-<li><a href="https://fastio.ai/autogen-memory-guide/">AutoGen Memory Guide: Managing State & Persistence</a></li>
-<li><a href="https://markaicode.com/autogen-qdrant-integration/">AutoGen + Qdrant Integration: Persistent Agent Memory</a></li>
-<li><a href="https://markaicode.com/autogen-milvus-integration/">AutoGen + Milvus: Wiring Persistent Agent Memory</a></li>
-</ul>
+<p><strong>Get started with MrMemory and improve your AI's recall</strong></p>
+
+<p><a href="https://pypi.org/project/mrmemory/">Install MrMemory using pip</a></p>
+
+<p><strong>Learn more about MrMemory's features and documentation</strong></p>
+
+<p><a href="https://mrmemory.dev/docs">Visit the MrMemory documentation</a></p>
     </div>
 
     <div class="article-cta">
