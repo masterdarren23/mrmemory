@@ -1,5 +1,13 @@
 [
   {
+    "slug": "untitled",
+    "title": "Untitled",
+    "description": "**Memory Governance for AI Agents: Preventing Data Pollution**",
+    "date": "2026-10-19",
+    "readTime": "2 min read",
+    "tags": []
+  },
+  {
     "slug": "introduce-some-inconsistencies",
     "title": "Introduce some inconsistencies",
     "description": "**The Memory Meltdown: Why AI Agents Need Self-Healing**",
@@ -9,14 +17,6 @@
       "AI",
       "MrMemory"
     ]
-  },
-  {
-    "slug": "untitled",
-    "title": "Untitled",
-    "description": "**AI Agent Memory API: Build vs Buy Analysis**",
-    "date": "2026-10-17",
-    "readTime": "2 min read",
-    "tags": []
   },
   {
     "slug": "the-memory-problem-plagues-ai-agents",
