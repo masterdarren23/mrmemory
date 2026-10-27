@@ -1,5 +1,18 @@
 [
   {
+    "slug": "multi-agent-memory-the-elephant-in-the-room",
+    "title": "Multi-Agent Memory: The Elephant in the Room",
+    "description": "We've all been there - trying to build a support bot that recalls yesterday's ticket conversations. But what happens when you add multiple agents, each with its own context and memory?",
+    "date": "2026-10-27",
+    "readTime": "2 min read",
+    "tags": [
+      "multi-agent systems",
+      "shared memory",
+      "AI agents",
+      "memory architecture"
+    ]
+  },
+  {
     "slug": "the-dark-side-of-keyword-search",
     "title": "The Dark Side of Keyword Search",
     "description": "title: \"Semantic Search vs Keyword Search for AI Agent Memory\"",
