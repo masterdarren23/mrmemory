@@ -1,5 +1,13 @@
 [
   {
+    "slug": "untitled",
+    "title": "Untitled",
+    "description": "As AI agents take center stage in enterprise applications, their ability to remember context across sessions and tasks is crucial. But current benchmarks o",
+    "date": "2026-10-26",
+    "readTime": "1 min read",
+    "tags": []
+  },
+  {
     "slug": "multi-agent-memory-the-elephant-in-the-room",
     "title": "Multi-Agent Memory: The Elephant in the Room",
     "description": "We've all been there - trying to build a support bot that recalls yesterday's ticket conversations. But what happens when you add multiple agents, each with its own context and memory?",
@@ -22,14 +30,6 @@
       "AI",
       "MrMemory"
     ]
-  },
-  {
-    "slug": "untitled",
-    "title": "Untitled",
-    "description": "**Memory Governance for AI Agents: Preventing Data Pollution**",
-    "date": "2026-10-19",
-    "readTime": "2 min read",
-    "tags": []
   },
   {
     "slug": "introduce-some-inconsistencies",
