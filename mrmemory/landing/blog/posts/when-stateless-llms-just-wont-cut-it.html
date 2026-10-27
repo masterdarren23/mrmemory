@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TS0RXEVBH6"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-TS0RXEVBH6');
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>When Stateless LLMs Just Won&#x27;t Cut It — MrMemory Blog</title>
+<meta name="description" content="Your LLM API might be holding you back. Learn how RAG and Agent Memory can help.">
+<meta property="og:title" content="When Stateless LLMs Just Won&#x27;t Cut It">
+<meta property="og:description" content="Your LLM API might be holding you back. Learn how RAG and Agent Memory can help.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://mrmemory.dev/blog/posts/when-stateless-llms-just-wont-cut-it.html">
+<link rel="canonical" href="https://mrmemory.dev/blog/posts/when-stateless-llms-just-wont-cut-it.html">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0a0b;--bg2:#111113;--bg3:#18181b;--border:#27272a;
+  --text:#fafafa;--text2:#a1a1aa;--text3:#71717a;
+  --accent:#6d5cff;--accent2:#8b7aff;--green:#22c55e;
+  --mono:'SF Mono','Cascadia Code','Fira Code','Consolas',monospace;
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI','Inter',Helvetica,Arial,sans-serif;
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:var(--accent2);text-decoration:none}
+a:hover{text-decoration:underline}
+.container{max-width:720px;margin:0 auto;padding:0 24px}
+
+/* Nav */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,10,11,.8);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+nav .nav-inner{max-width:1080px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:56px}
+.logo{font-family:var(--mono);font-weight:700;font-size:1.1rem;letter-spacing:-.02em;color:var(--text)}
+.logo span{color:var(--accent)}
+.nav-links{display:flex;gap:20px;align-items:center}
+.nav-links a{font-size:.875rem;color:var(--text2);transition:color .2s}
+.nav-links a:hover{color:var(--text);text-decoration:none}
+.nav-cta{padding:6px 16px;border:1px solid var(--border);border-radius:6px}
+
+/* Article */
+.article-header{padding-top:120px;padding-bottom:32px;border-bottom:1px solid var(--border)}
+.article-header h1{font-size:2.2rem;font-weight:700;letter-spacing:-.03em;line-height:1.2;margin-bottom:16px}
+.article-meta{font-size:.9rem;color:var(--text3);display:flex;gap:16px;margin-bottom:16px}
+.article-tags{display:flex;gap:8px;flex-wrap:wrap}
+.article-tags .tag{font-family:var(--mono);font-size:.75rem;color:var(--accent2);border:1px solid rgba(109,92,255,.3);border-radius:999px;padding:2px 10px}
+
+/* Content */
+.article-content{padding:48px 0}
+.article-content h2{font-size:1.5rem;font-weight:600;letter-spacing:-.02em;margin:48px 0 16px;padding-top:16px;border-top:1px solid var(--border)}
+.article-content h3{font-size:1.2rem;font-weight:600;margin:32px 0 12px}
+.article-content p{color:var(--text2);margin-bottom:16px}
+.article-content ul,.article-content ol{color:var(--text2);margin-bottom:16px;padding-left:24px}
+.article-content li{margin-bottom:8px}
+.article-content strong{color:var(--text)}
+.article-content code{font-family:var(--mono);font-size:.875em;background:var(--bg3);padding:2px 6px;border-radius:4px;color:var(--accent2)}
+.article-content pre{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:20px;overflow-x:auto;margin-bottom:24px}
+.article-content pre code{background:none;padding:0;font-size:.875rem;color:var(--text)}
+.article-content blockquote{border-left:3px solid var(--accent);padding:12px 20px;margin:24px 0;background:var(--bg2);border-radius:0 8px 8px 0;color:var(--text2)}
+.article-content table{width:100%;border-collapse:collapse;margin:24px 0}
+.article-content th,.article-content td{padding:10px 14px;border:1px solid var(--border);text-align:left;font-size:.9rem}
+.article-content th{background:var(--bg2);color:var(--text);font-weight:600}
+.article-content td{color:var(--text2)}
+
+/* CTA */
+.article-cta{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:32px;text-align:center;margin:48px 0}
+.article-cta h3{font-size:1.3rem;margin-bottom:8px}
+.article-cta p{color:var(--text2);margin-bottom:20px}
+.article-cta a.btn{display:inline-block;padding:12px 28px;background:var(--accent);color:white;border-radius:8px;font-weight:600;font-size:.95rem;transition:background .2s}
+.article-cta a.btn:hover{background:var(--accent2);text-decoration:none}
+
+/* Back link */
+.back-link{display:inline-block;margin-top:120px;margin-bottom:32px;font-size:.9rem;color:var(--text3)}
+.back-link:hover{color:var(--text2)}
+
+/* Footer */
+footer{border-top:1px solid var(--border);padding:32px 0;text-align:center;color:var(--text3);font-size:.85rem;margin-top:48px}
+</style>
+</head>
+<body>
+
+<nav>
+<div class="nav-inner">
+  <a href="/" class="logo">Mr<span>Memory</span></a>
+  <div class="nav-links">
+    <a href="/docs">Docs</a>
+    <a href="/blog">Blog</a>
+    <a href="https://github.com/masterdarren23/mrmemory">GitHub</a>
+    <a href="https://buy.stripe.com/00w4gB2REex4daHeP38g001" class="nav-cta">Start Free Trial</a>
+  </div>
+</div>
+</nav>
+
+<div class="container">
+  <a href="/blog" class="back-link">← Back to Blog</a>
+  
+  <article>
+    <div class="article-header">
+      <h1>When Stateless LLMs Just Won&#x27;t Cut It</h1>
+      <div class="article-meta">
+        <span>2026-10-27</span>
+        <span>1 min read</span>
+      </div>
+      <div class="article-tags"><span class="tag">RAG vs Agent Memory</span><span class="tag">AI Agents</span><span class="tag">Memory API</span></div>
+    </div>
+
+    <div class="article-content">
+      <h3>The Stateful Agent Problem</h3>
+
+<p>LLM APIs were designed to be stateless, but when you're building agents that need to remember user interactions, it's a non-starter. I've been there too - trying to shoe-horn SaaS-like behavior into a stateless API. It's a nightmare.</p>
+
+<h3>What is RAG, Anyway?</h3>
+
+<p>RAG (retrieval-augmented generation) is a technique that grounds LLMs in external knowledge. It's like a librarian who fetches relevant book chapters on demand. It doesn't store user state, unless you explicitly build that in.</p>
+
+<pre><code class="language-python">
+from mrmemory import MrMemory
+client = MrMemory(api_key=&quot;your-key&quot;)
+results = client.recall(&quot;what theme does the user like?&quot;)
+</code></pre>
+
+<h3>What's the Deal with Agent Memory?</h3>
+
+<p>Agent Memory is like a persistent notebook that stores and updates user-specific context over sessions. It's stateful and read-write, so you can update user preferences, for example.</p>
+
+<pre><code class="language-python">
+client = MrMemory(api_key=&quot;your-key&quot;)
+client.remember(&quot;user prefers dark mode&quot;, tags=[&quot;preferences&quot;])
+</code></pre>
+
+<h3>Choosing the Right Tool</h3>
+
+<p>In most cases, you'll want to use both RAG and Agent Memory. Here's a simple checklist to help you decide:</p>
+
+<ul>
+<li>Is the answer always the same for every user?</li>
+<li>Does it depend on what this user said or did before?</li>
+<li>Can it change?</li>
+<li>Is it live business state?</li>
+<li>Does it need to survive the session?</li>
+</ul>
+
+<h3>Comparing the Options</h3>
+
+<p>Other memory solutions exist, like Mem0, Zep, and MemGPT. They offer similar functionality, but MrMemory has some key advantages when it comes to personalization and contextual understanding.</p>
+
+<table>
+<tr><th>Solution</th><th>Key Features</th></tr>
+<tr><th>Mem0</th><th>Handles extraction, storage, and retrieval</th></tr>
+<tr><th>Zep</th><th>Self-hosted, provides temporal context graph</th></tr>
+<table>
+<tr><th>MemGPT</th><th>Self-hosted, uses GPT-3 for memory management</th></tr>
+<tr><th>MrMemory</th><th>Provides scoped memory, auto-remember, and memory compression</th></tr>
+
+<h3>Conclusion</h3>
+
+<p>RAG and Agent Memory are essential components for building effective AI agents. By understanding when to use each, you can create agents that provide personalized and contextual responses. Give MrMemory a try and see the difference for yourself.</p>
+
+<p><a href="https://mrmemory.dev/docs/installation">Install MrMemory</a> and start building your AI agents with confidence.</p>
+
+<p><a href="https://mrmemory.dev/docs/api">Learn more about MrMemory's API</a> and how it can help you build better AI agents.</p>
+
+<p><a href="https://mrmemory.dev/docs">Read the MrMemory documentation</a> for more information on how to use the API and its features.</p>
+    </div>
+
+    <div class="article-cta">
+      <h3>Ready to give your AI agents memory?</h3>
+      <p>Install in one line. Remember forever. Start with a 7-day free trial.</p>
+      <a href="https://buy.stripe.com/00w4gB2REex4daHeP38g001" class="btn">Start Free Trial →</a>
+    </div>
+  </article>
+</div>
+
+<footer>
+  <div class="container">
+    &copy; 2026 MrMemory &middot; <a href="/">Home</a> &middot; <a href="/docs">Docs</a> &middot; <a href="https://github.com/masterdarren23/mrmemory">GitHub</a>
+  </div>
+</footer>
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
