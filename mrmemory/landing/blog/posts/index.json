@@ -1,5 +1,13 @@
 [
   {
+    "slug": "untitled",
+    "title": "Untitled",
+    "description": "**Managed vs Self-Hosted Memory: MrMemory vs Zep for AI Agent Memory Needs**",
+    "date": "2026-11-06",
+    "readTime": "1 min read",
+    "tags": []
+  },
+  {
     "slug": "mrmemory-vs-mem0-a-head-to-head-comparison",
     "title": "MrMemory vs Mem0: A Head-to-Head Comparison",
     "description": "title: \"MrMemory vs Mem0: A Head-to-Head Comparison\"",
@@ -9,14 +17,6 @@
       "AI",
       "MrMemory"
     ]
-  },
-  {
-    "slug": "untitled",
-    "title": "Untitled",
-    "description": "**Fixing the Forgetful AI: Adding Long-Term Memory in 3 Lines**",
-    "date": "2026-10-27",
-    "readTime": "1 min read",
-    "tags": []
   },
   {
     "slug": "when-stateless-llms-just-wont-cut-it",
