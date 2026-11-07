@@ -12,9 +12,9 @@ gtag('config', 'G-TS0RXEVBH6');
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Untitled — MrMemory Blog</title>
-<meta name="description" content="**Managed vs Self-Hosted Memory: MrMemory vs Zep for AI Agent Memory Needs**">
+<meta name="description" content="**MrMemory vs MemGPT/Letta: Choosing the Right AI Memory Solution**">
 <meta property="og:title" content="Untitled">
-<meta property="og:description" content="**Managed vs Self-Hosted Memory: MrMemory vs Zep for AI Agent Memory Needs**">
+<meta property="og:description" content="**MrMemory vs MemGPT/Letta: Choosing the Right AI Memory Solution**">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://mrmemory.dev/blog/posts/untitled.html">
 <link rel="canonical" href="https://mrmemory.dev/blog/posts/untitled.html">
@@ -104,55 +104,70 @@ footer{border-top:1px solid var(--border);padding:32px 0;text-align:center;color
       <h1>Untitled</h1>
       <div class="article-meta">
         <span>2026-11-06</span>
-        <span>1 min read</span>
+        <span>2 min read</span>
       </div>
       <div class="article-tags"></div>
     </div>
 
     <div class="article-content">
-      <p><strong>Managed vs Self-Hosted Memory: MrMemory vs Zep for AI Agent Memory Needs</strong></p>
+      <p><strong>MrMemory vs MemGPT/Letta: Choosing the Right AI Memory Solution</strong></p>
 
-<p>Your AI agent's memory is a black box. You feed it data, but where does it all go? And how do you even know if it's working? I've been there. Let me tell you about the two memory platforms I've tried to tame: MrMemory and Zep.</p>
+<p>Meta description: "Compare MrMemory with MemGPT/Letta, two popular AI agent memory solutions. Understand their strengths, weaknesses, and use cases to make an informed decision for your project."</p>
 
-<p><strong>Managed Memory with MrMemory</strong></p>
+<p><strong>The Memory Problem</strong></p>
 
-<p>I recently switched to MrMemory for my agent's memory needs. It's a breeze to use. Here's an example of how I integrated it with Python:</p>
+<p>Imagine building a conversational AI that remembers user preferences across sessions. Sounds simple, right? But what happens when the agent forgets crucial context? Or when the memory system crashes, taking the entire session with it? We've all been there. Two popular memory solutions, MemGPT (now Letta) and MrMemory, have gained attention in the AI community. But which one is right for your project?</p>
+
+<p><strong>MrMemory: A Flexible Memory API</strong></p>
+
+<p>MrMemory is a managed memory API designed for AI agents. Its key features include semantic recall, auto-remember, memory compression (40-60% token savings), and LangChain integration. With MrMemory, you can easily integrate memory into your existing stack.</p>
 
 <pre><code class="language-python">
+pip install mrmemory
 from mrmemory import MrMemory
-
 client = MrMemory(api_key=&quot;your-key&quot;)
 client.remember(&quot;user prefers dark mode&quot;, tags=[&quot;preferences&quot;])
 results = client.recall(&quot;what theme does the user like?&quot;)
 </code></pre>
 
-<p>MrMemory takes care of memory allocation and deallocation, so I don't have to worry about memory leaks. It's a weight off my shoulders.</p>
+<p><strong>MemGPT/Letta: A Full Agent Runtime</strong></p>
 
-<p><strong>Self-Hosted Memory with Zep</strong></p>
+<p>MemGPT (now Letta) is an agent runtime that manages memory as part of a full operating-system-inspired platform. Its architecture is designed to support tiered memory blocks, agent self-edits, and agentic tool calls against memory tiers. If you want full control over memory-tier management, Letta might be the better choice.</p>
 
-<p>Zep, on the other hand, is a self-hosted solution; it requires more technical expertise, and I mean a lot more. Setting up and managing your own graph database is no joke. I had to spend hours debugging my implementation, and it still doesn't feel reliable.</p>
+<p><strong>Lightweight vs Comprehensive</strong></p>
 
-<p><strong>Comparison and Alternatives</strong></p>
+<p>While Mem0 is a memory layer that can be bolted onto any agent framework, MemGPT/Letta is a full agent runtime. Mem0 is a good fit for projects that require a lightweight, plug-and-play memory solution. However, for teams that want a more comprehensive memory management system, MemGPT/Letta might be the way to go.</p>
 
-<p>I've looked into other options, like Mem0. It offers a managed cloud tier with a free tier and open-source package. But it lacks the compression and self-edit tools that MrMemory provides.</p>
+<p>Other alternatives, such as Zep, also offer memory management solutions. But be aware that self-hosting requirements can add significant overhead.</p>
 
 <p><strong>Conclusion</strong></p>
 
-<p>MrMemory and Zep offer different approaches to AI memory management. Zep gives you control, but at a cost. MrMemory is easy to use and maintain, making it a better choice for developers who need a reliable memory solution.</p>
+<p>Choosing the right memory solution for your AI agent project depends on your specific needs and requirements. MrMemory offers a flexible memory API with a wide range of features, while MemGPT/Letta provides a full agent runtime with tiered memory management. Consider your project's complexity, scalability, and memory requirements before making a decision.</p>
 
-<p><strong>Try MrMemory Today</strong></p>
+<p>Try MrMemory today and see how its powerful memory management capabilities can benefit your project.</p>
 
-<p>If you're looking for a managed memory API that's easy to use, try MrMemory. Its simple API and efficient memory management make it perfect for building efficient AI agents.</p>
-
-<p>---</p>
-
-<p><strong>Internal Links and Tags</strong></p>
+<p><strong>Related Resources</strong></p>
 
 <ul>
-<li><a href="https://example.com/agent-memory-comparison">Agent Memory: 8 Knowledge Systems Compared for Production AI Agents (2026)</a></li>
-<li><a href="https://example.com/mem0-vs-zep-comparison">Mem0 vs Zep vs Letta vs Cognee vs Supermemory (September 2026)</a></li>
-<li><a href="https://example.com/ai-memory-guide">AI Memory: Building Efficient AI Agents</a></li>
-<li>Tags: #MrMemory #Zep #AI Memory #Agent Memory #Managed Memory #Self-Hosted Memory #AI Development #AI Agents #Memory Management</li>
+<li><a href="https://mrmemory.dev/docs">MrMemory Documentation</a></li>
+<li><a href="https://github.com/masterdarren23/mrmemory">MrMemory GitHub Repository</a></li>
+</ul>
+
+<p><strong>Tags:</strong></p>
+
+<ul>
+<li>AI agent memory</li>
+<li>MrMemory</li>
+<li>MemGPT</li>
+<li>Letta</li>
+<li>Mem0</li>
+<li>Zep</li>
+<li>Memory management</li>
+<li>AI development</li>
+<li>LangChain</li>
+<li>CrewAI</li>
+<li>AutoGen</li>
+<li>OpenAI Agents</li>
 </ul>
     </div>
 
