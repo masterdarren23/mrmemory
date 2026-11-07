@@ -12,9 +12,9 @@ gtag('config', 'G-TS0RXEVBH6');
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Untitled — MrMemory Blog</title>
-<meta name="description" content="**MrMemory vs MemGPT/Letta: Choosing the Right AI Memory Solution**">
+<meta name="description" content="**MrMemory + LangChain: Complete Integration Guide**">
 <meta property="og:title" content="Untitled">
-<meta property="og:description" content="**MrMemory vs MemGPT/Letta: Choosing the Right AI Memory Solution**">
+<meta property="og:description" content="**MrMemory + LangChain: Complete Integration Guide**">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://mrmemory.dev/blog/posts/untitled.html">
 <link rel="canonical" href="https://mrmemory.dev/blog/posts/untitled.html">
@@ -110,64 +110,74 @@ footer{border-top:1px solid var(--border);padding:32px 0;text-align:center;color
     </div>
 
     <div class="article-content">
-      <p><strong>MrMemory vs MemGPT/Letta: Choosing the Right AI Memory Solution</strong></p>
+      <p><strong>MrMemory + LangChain: Complete Integration Guide</strong></p>
 
-<p>Meta description: "Compare MrMemory with MemGPT/Letta, two popular AI agent memory solutions. Understand their strengths, weaknesses, and use cases to make an informed decision for your project."</p>
+<p>Meta description: "Learn how to integrate MrMemory with LangChain to create AI agents that remember context across conversations."</p>
 
-<p><strong>The Memory Problem</strong></p>
+<p><strong>The Context Problem</strong></p>
 
-<p>Imagine building a conversational AI that remembers user preferences across sessions. Sounds simple, right? But what happens when the agent forgets crucial context? Or when the memory system crashes, taking the entire session with it? We've all been there. Two popular memory solutions, MemGPT (now Letta) and MrMemory, have gained attention in the AI community. But which one is right for your project?</p>
+<p>You're building an AI agent that's supposed to get better with each conversation. But it's stuck in a never-ending loop of ignorance, starting from scratch every time. That's because most large language models are stateless, lacking the ability to retain context or memories from previous interactions. You're wasting your time and resources on an AI that's essentially a script with a fancy vocabulary.</p>
 
-<p><strong>MrMemory: A Flexible Memory API</strong></p>
+<p><strong>Getting Started</strong></p>
 
-<p>MrMemory is a managed memory API designed for AI agents. Its key features include semantic recall, auto-remember, memory compression (40-60% token savings), and LangChain integration. With MrMemory, you can easily integrate memory into your existing stack.</p>
-
+<p>To create an AI that actually remembers, you'll need to integrate MrMemory with LangChain — first, install the necessary packages with pip:</p>
+<pre><code class="language-bash">
+pip install mrmemory langchain
+</code></pre>
+<p>Once installed, import the modules and create an instance of the MrMemory client:</p>
 <pre><code class="language-python">
-pip install mrmemory
 from mrmemory import MrMemory
 client = MrMemory(api_key=&quot;your-key&quot;)
+</code></pre>
+<p><strong>Integrating MrMemory with LangChain</strong></p>
+
+<p>Now that you have MrMemory set up, you can use its <code>remember</code> and <code>recall</code> methods to store and retrieve memories. These methods are based on semantic tagging and querying, allowing you to retrieve relevant memories with ease.</p>
+<pre><code class="language-python">
 client.remember(&quot;user prefers dark mode&quot;, tags=[&quot;preferences&quot;])
 results = client.recall(&quot;what theme does the user like?&quot;)
 </code></pre>
+<p>You can also use the <code>profile</code> method to get user profiles and relevant memories:</p>
+<pre><code class="language-python">
+profile_result = client.profile(user_id)
+search_result = client.search(user_id, query=message)
+</code></pre>
+<p><strong>Advanced Integration</strong></p>
 
-<p><strong>MemGPT/Letta: A Full Agent Runtime</strong></p>
+<p>For more complex use cases, you can integrate LangChain's <code>MemoryVectorStore</code> to store and retrieve memories in an in-memory vector store. This allows for fast and efficient memory retrieval using cosine similarity or other metrics.</p>
+<pre><code class="language-python">
+import { MemoryVectorStore } from &#x27;@langchain/classic/vectorstores/memory&#x27;;
+const embeddings = new OpenAIEmbeddings({
+model: &#x27;text-embedding-3-small&#x27;,
+});
+const vectorStore = new MemoryVectorStore(embeddings);
+</code></pre>
+<p><strong>Comparison with Alternatives</strong></p>
 
-<p>MemGPT (now Letta) is an agent runtime that manages memory as part of a full operating-system-inspired platform. Its architecture is designed to support tiered memory blocks, agent self-edits, and agentic tool calls against memory tiers. If you want full control over memory-tier management, Letta might be the better choice.</p>
-
-<p><strong>Lightweight vs Comprehensive</strong></p>
-
-<p>While Mem0 is a memory layer that can be bolted onto any agent framework, MemGPT/Letta is a full agent runtime. Mem0 is a good fit for projects that require a lightweight, plug-and-play memory solution. However, for teams that want a more comprehensive memory management system, MemGPT/Letta might be the way to go.</p>
-
-<p>Other alternatives, such as Zep, also offer memory management solutions. But be aware that self-hosting requirements can add significant overhead.</p>
+<p>While MrMemory and LangChain are top-notch tools, there are other alternatives like Mem0, Zep, and MemGPT. Mem0 offers a similar memory API, but lacks the compression and self-edit tools provided by MrMemory. Zep and MemGPT are self-hosted solutions that require more setup and configuration.</p>
 
 <p><strong>Conclusion</strong></p>
 
-<p>Choosing the right memory solution for your AI agent project depends on your specific needs and requirements. MrMemory offers a flexible memory API with a wide range of features, while MemGPT/Letta provides a full agent runtime with tiered memory management. Consider your project's complexity, scalability, and memory requirements before making a decision.</p>
+<p>In this guide, we've shown you how to integrate MrMemory with LangChain to create AI agents that remember context across conversations. With MrMemory's compression and self-edit tools, and LangChain's memory storage and retrieval capabilities, you can build AI applications that are more efficient, effective, and personalized. And try MrMemory today and see the difference for yourself.</p>
 
-<p>Try MrMemory today and see how its powerful memory management capabilities can benefit your project.</p>
-
-<p><strong>Related Resources</strong></p>
+<p><strong>Internal links:</strong></p>
 
 <ul>
 <li><a href="https://mrmemory.dev/docs">MrMemory Documentation</a></li>
-<li><a href="https://github.com/masterdarren23/mrmemory">MrMemory GitHub Repository</a></li>
+<li><a href="https://langchain.dev/docs">LangChain Documentation</a></li>
+<li><a href="https://langchain.dev/docs/vectorstores/memory">MemoryVectorStore Integration</a></li>
 </ul>
 
 <p><strong>Tags:</strong></p>
 
 <ul>
-<li>AI agent memory</li>
-<li>MrMemory</li>
-<li>MemGPT</li>
-<li>Letta</li>
-<li>Mem0</li>
-<li>Zep</li>
-<li>Memory management</li>
-<li>AI development</li>
+<li>AI agents</li>
+<li>Memory-centric AI</li>
 <li>LangChain</li>
-<li>CrewAI</li>
-<li>AutoGen</li>
-<li>OpenAI Agents</li>
+<li>MrMemory</li>
+<li>Integration guide</li>
+<li>AI applications</li>
+<li>Context storage</li>
+<li>Retrieval</li>
 </ul>
     </div>
 
