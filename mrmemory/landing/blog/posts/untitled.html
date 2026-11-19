@@ -12,9 +12,9 @@ gtag('config', 'G-TS0RXEVBH6');
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Untitled — MrMemory Blog</title>
-<meta name="description" content="**MrMemory + LangChain: Complete Integration Guide**">
+<meta name="description" content="title: &quot;CrewAI&#x27;s Memory Problem: How MrMemory Can Help&quot;">
 <meta property="og:title" content="Untitled">
-<meta property="og:description" content="**MrMemory + LangChain: Complete Integration Guide**">
+<meta property="og:description" content="title: &quot;CrewAI&#x27;s Memory Problem: How MrMemory Can Help&quot;">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://mrmemory.dev/blog/posts/untitled.html">
 <link rel="canonical" href="https://mrmemory.dev/blog/posts/untitled.html">
@@ -103,81 +103,69 @@ footer{border-top:1px solid var(--border);padding:32px 0;text-align:center;color
     <div class="article-header">
       <h1>Untitled</h1>
       <div class="article-meta">
-        <span>2026-11-06</span>
-        <span>2 min read</span>
+        <span>2026-11-18</span>
+        <span>1 min read</span>
       </div>
       <div class="article-tags"></div>
     </div>
 
     <div class="article-content">
-      <p><strong>MrMemory + LangChain: Complete Integration Guide</strong></p>
+      <p>title: "CrewAI's Memory Problem: How MrMemory Can Help"</p>
+<p>description: "Give your Crew persistent memory with MrMemory's managed memory API, enabling your agents to recall past interactions and learn from task history."</p>
+<p>tags: ["CrewAI", "Persistent Memory", "MrMemory", "AI Memory", "Long-Term Recall"]</p>
+<p>date: 2026-11-19</p>
 
-<p>Meta description: "Learn how to integrate MrMemory with LangChain to create AI agents that remember context across conversations."</p>
+<h3>The Frustrating Reality of CrewAI Agents</h3>
 
-<p><strong>The Context Problem</strong></p>
+<p>You've spent hours crafting a script, only to have your CrewAI agents forget crucial context and interactions every time the script finishes. It's a common pain point, but one that's easy to fix with the right tools.</p>
 
-<p>You're building an AI agent that's supposed to get better with each conversation. But it's stuck in a never-ending loop of ignorance, starting from scratch every time. That's because most large language models are stateless, lacking the ability to retain context or memories from previous interactions. You're wasting your time and resources on an AI that's essentially a script with a fancy vocabulary.</p>
+<h3>Introducing MrMemory</h3>
 
-<p><strong>Getting Started</strong></p>
+<p>MrMemory's API provides a simple and efficient way to add persistent memory to your CrewAI crew. With a single line of code, you can store and retrieve information from a shared memory instance, allowing your agents to recall past interactions and learn from task history.</p>
 
-<p>To create an AI that actually remembers, you'll need to integrate MrMemory with LangChain — first, install the necessary packages with pip:</p>
-<pre><code class="language-bash">
-pip install mrmemory langchain
-</code></pre>
-<p>Once installed, import the modules and create an instance of the MrMemory client:</p>
 <pre><code class="language-python">
 from mrmemory import MrMemory
-client = MrMemory(api_key=&quot;your-key&quot;)
-</code></pre>
-<p><strong>Integrating MrMemory with LangChain</strong></p>
 
-<p>Now that you have MrMemory set up, you can use its <code>remember</code> and <code>recall</code> methods to store and retrieve memories. These methods are based on semantic tagging and querying, allowing you to retrieve relevant memories with ease.</p>
-<pre><code class="language-python">
+client = MrMemory(api_key=&quot;your-key&quot;)
 client.remember(&quot;user prefers dark mode&quot;, tags=[&quot;preferences&quot;])
 results = client.recall(&quot;what theme does the user like?&quot;)
 </code></pre>
-<p>You can also use the <code>profile</code> method to get user profiles and relevant memories:</p>
-<pre><code class="language-python">
-profile_result = client.profile(user_id)
-search_result = client.search(user_id, query=message)
-</code></pre>
-<p><strong>Advanced Integration</strong></p>
 
-<p>For more complex use cases, you can integrate LangChain's <code>MemoryVectorStore</code> to store and retrieve memories in an in-memory vector store. This allows for fast and efficient memory retrieval using cosine similarity or other metrics.</p>
-<pre><code class="language-python">
-import { MemoryVectorStore } from &#x27;@langchain/classic/vectorstores/memory&#x27;;
-const embeddings = new OpenAIEmbeddings({
-model: &#x27;text-embedding-3-small&#x27;,
-});
-const vectorStore = new MemoryVectorStore(embeddings);
-</code></pre>
-<p><strong>Comparison with Alternatives</strong></p>
+<h3>What Makes MrMemory Different?</h3>
 
-<p>While MrMemory and LangChain are top-notch tools, there are other alternatives like Mem0, Zep, and MemGPT. Mem0 offers a similar memory API, but lacks the compression and self-edit tools provided by MrMemory. Zep and MemGPT are self-hosted solutions that require more setup and configuration.</p>
+<p>Other solutions like Mem0, Zep, and MemGPT offer some similar functionality, but they lack features like compression, self-edit, and governance. MrMemory's API is specifically designed to meet the needs of developers like you, with a unique combination of features that make it an attractive choice.</p>
 
-<p><strong>Conclusion</strong></p>
+<h3>Adding Persistent Memory to CrewAI in 5 Easy Steps</h3>
 
-<p>In this guide, we've shown you how to integrate MrMemory with LangChain to create AI agents that remember context across conversations. With MrMemory's compression and self-edit tools, and LangChain's memory storage and retrieval capabilities, you can build AI applications that are more efficient, effective, and personalized. And try MrMemory today and see the difference for yourself.</p>
+<ol>
+<li>Install MrMemory using pip: <code>pip install mrmemory</code></li>
+<li>Import the MrMemory library and create a client instance: <code>from mrmemory import MrMemory; client = MrMemory(api_key="your-key")</code></li>
+<li>Create a shared memory instance for your entire crew: <code>client.create_memory_instance("crew_memory")</code></li>
+<li>Use the <code>remember</code> method to store information in the shared memory instance: <code>client.remember("user prefers dark mode", tags=["preferences"])</code></li>
+<li>Use the <code>recall</code> method to retrieve information from the shared memory instance: <code>results = client.recall("what theme does the user like?")</code></li>
+</ol>
 
-<p><strong>Internal links:</strong></p>
+<h3>Conclusion</h3>
+
+<p>Adding persistent memory to your CrewAI crew is no longer a headache. With MrMemory's managed memory API, you can give your agents the long-term recall they need to succeed. Try it out today and see the difference for yourself.</p>
+
+<p>---</p>
+
+<p>Suggested internal links:</p>
 
 <ul>
-<li><a href="https://mrmemory.dev/docs">MrMemory Documentation</a></li>
-<li><a href="https://langchain.dev/docs">LangChain Documentation</a></li>
-<li><a href="https://langchain.dev/docs/vectorstores/memory">MemoryVectorStore Integration</a></li>
+<li><a href="https://crewaicourse.com/memory-on-the-crew">Enabling memory on the Crew | Crewai Intermediate Course | The Neural Base</a></li>
+<li><a href="https://dev.to/memorysync_rafay/persistent-memory-for-crewai-1x-keep-crew-memory-across-runs-and-redeploys-e7i">Persistent memory for CrewAI 1.x: keep crew memory across runs and redeploys - DEV Community</a></li>
 </ul>
 
-<p><strong>Tags:</strong></p>
+<p>Suggested tags:</p>
 
 <ul>
-<li>AI agents</li>
-<li>Memory-centric AI</li>
-<li>LangChain</li>
-<li>MrMemory</li>
-<li>Integration guide</li>
-<li>AI applications</li>
-<li>Context storage</li>
-<li>Retrieval</li>
+<li><a href="https://mrmemory.dev/docs/crewaicourse">CrewAI</a></li>
+<li><a href="https://mrmemory.dev/docs/persistent-memory">Persistent Memory</a></li>
+<li><a href="https://mrmemory.dev/docs/mrmemory-api">MrMemory</a></li>
+<li><a href="https://mrmemory.dev/docs/ai-memory">AI Memory</a></li>
+<li><a href="https://mrmemory.dev/docs/long-term-recall">Long-Term Recall</a></li>
 </ul>
     </div>
 
